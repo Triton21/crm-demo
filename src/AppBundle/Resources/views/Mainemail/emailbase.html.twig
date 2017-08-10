@@ -1,0 +1,214 @@
+{% extends "::base.html.twig" %}
+{% block title %}Email manager{% endblock %}
+{% block welcome %}Welcome {{name}}{% endblock %}
+
+
+{%block stylesheets %}
+    <style>
+
+
+
+
+
+
+    </style>
+
+
+{%endblock%}
+
+{% block search %}
+    {{ render(controller('AppBundle:Template:searchform')) }}
+{% endblock %}
+
+
+
+{% block frame1 %}
+    <div class="col-lg-12">
+        <div class="row">
+
+            <!--side navigation panel -->  
+            <nav class="navbar navbar-inverse affix sidebar" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{path('mainemail_index')}}"> EMAIL <span class="pull-right glyphicon glyphicon-home"></span></a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                        <ul class="nav navbar-nav" style="width:100%;">
+
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{path('mainemail_settings')}}">Settings<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a></li>
+                                    {% endif %}
+                            <li><a href="{{path('mainemail_signature')}}">Signature<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-pencil"></span></a></li>
+                            <li>
+                                <a href="{{ path('mainemail_advancedsearch')}}" id="">Advanced search<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-search"></span></a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <div style="min-height:30px;"></div>
+
+
+                    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+
+
+                        {% block sidenav %}
+                            {{ render(controller('AppBundle:Mainemail:accountnavigation')) }}
+                        {% endblock %}
+                        {% block renderaccount %}
+                        {% endblock %}
+
+
+                    </div>
+                </div>
+            </nav>
+
+            <div class="main">
+
+
+                <div class="col-lg-12">
+
+                    <div style="min-height: 15px;"></div>
+                    <div class="row">
+                        <!-- TOP THREE PANEL -->
+                        <div class="col-md-3 col-xs-6">
+                            <div class="panel panel-lblue">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <span class="glyphicon glyphicon-user gi-2x"></span>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">&nbsp;</div>
+                                            <div>Lead manager</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{{path('lead_manager')}}">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Start</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>  
+
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="panel panel-lblue">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <span class="glyphicon glyphicon-list gi-2x"></span>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">&nbsp;</div>
+                                            <div>Telephone Log and Task</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{{path('log_main')}}">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Start</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <span class="glyphicon glyphicon-list gi-2x"></span>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">&nbsp;</div>
+                                            <div>Email manager</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="email_manager">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Start</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="panel panel-lblue">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <span class="glyphicon glyphicon-envelope gi-2x"></span>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">&nbsp;</div>
+                                            <div>Confirmation manager</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{{path('confirm_main')}}">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Start</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>  
+
+                    </div>
+                </div>
+
+
+                <!-- MIDDLE CONTENT -->  
+                <div class="col-lg-12">
+                    <div class="row">
+                        <!-- TOP CREATE NEW LEAD FORM -->
+
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="row">
+                    {% endblock %}  
+
+                    {% block content %}
+
+                    {% endblock %} 
+
+                    {%block frame2 %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%endblock%} 
+
+
+    {% block javascripts %}
+    {% endblock %}       
+
+
+
+
+
+

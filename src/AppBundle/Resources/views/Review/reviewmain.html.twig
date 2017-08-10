@@ -1,0 +1,346 @@
+{% extends "AppBundle:Review:reviewbase.html.twig" %}
+{% block title %}Review manager{% endblock %}
+
+
+
+{%block content %} 
+
+    <div class="col-lg-12">
+        <div id="successcheck" data-action="{{success}}"></div>
+        <div id="dialog-login" title="Success"></div>
+
+
+        <div class="col-lg-1"></div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Create feedback email </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <form id="createConf">
+                            From
+                            <select name="settingsid" id="settingsid" form="settingsid" class="input-sm form-control">
+                                <option value="" selected></option>
+                                {% for key, all in settingsarray %}
+                                    <option value="{{ key }}">{{all}}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+                            Name
+                            <input type="text" value="{{cname}}" id="cname" name="cname" class="input-sm form-control">
+                            <br>
+                            Email
+                            <input type="text" value="{{email}}" id="email" name="cemail" class="input-sm form-control">
+                            <br>
+                            Dentist
+                            <select name="doctorlist" id="doctorlist" form="doctorlist" class="input-sm form-control">
+                                <option value="" selected></option>
+                                {% for all in dlistarray %}
+                                    <option value="{{ all }}">{{all}}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+                            Template
+                            <br>
+                            <select name="template" id="template" form="tempform" class="input-sm form-control">
+                                <option value="" selected></option>
+                                {% for key, all in temparray %}
+                                    <option value="{{ key }}">{{all}}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+
+                            <div class="col-sm-6">
+                                <input class="btn btn-xs btn-success" type="submit" value="Submit"/>
+                            </div>
+                            <div class="col-sm-6" id="loadhere">
+                            </div>
+                        </form>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Feedback </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x form-group" id="emailform">
+                        <form action="{{ path('review_main', { 'id': id})}}" method="POST">
+                            <input type="hidden" value="" name="settid" id="settid">
+                            <input type="hidden" value="" name="tempid" id="tempid">
+                            <input type="hidden" value="" name="doctorsend" id="doctorsend">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        To
+                                        <input type="text" value="" name="mailname" id="mailname" class="input-sm form-control" readonly>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        Email
+                                        <input type="text" value="" name="mailemail" id="mailemail" class="input-sm form-control" readonly>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        From
+                                        <input type="text" value="" name="fromemail" id="fromemail" class="input-sm form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <br>
+                                        Subject
+                                        <input type="text" value="" name="subject" id="subject" class="input-sm form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <br>
+                                    Message
+                                    <textarea class="form-control" cols="6" rows="20" name="editor1" id="editor1">&lt;p&gt;Empty&lt;/p&gt;</textarea>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div id="attach" class="container">
+
+                            </div>
+                            <div class="container">
+                                <div class="col-sm-6">
+                                    <br>
+                                    <input class="btn btn-sm btn-success" type="submit" value=" Send "/>
+                                </div>
+                                <div class="col-sm-6">
+                                    <br>
+                                    <a href="{{ path('review_main', { 'id': id})}}"><button type="button" class="btn btn-danger btn-sm">Cancel</button></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('editor1', {
+                height: ['350px']
+            });
+            $(function () {
+                $.ajax({
+                    url: "{{ path('lead_autocomplete')}}",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        $("#cname").autocomplete({
+                            minLength: 1,
+                            source: response,
+                            select: function (event, ui) {
+                                $("#cname").val(ui.item.customerName);
+                                $("#email").val(ui.item.customerEmail);
+                            },
+                            minLength:2
+                        });
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            });
+
+
+
+
+
+
+
+            var emailsubject = document.getElementById("subject");
+            var mailname = document.getElementById("mailname");
+            var mailemail = document.getElementById("mailemail");
+            var mailsett = document.getElementById("settid");
+            var mailtemp = document.getElementById("tempid");
+            var fromemail = document.getElementById("fromemail");
+            var settSelect = document.getElementById("settingsid");
+            var loader = document.getElementById("loadhere");
+            var attachmentnode = document.getElementById("attach");
+            //var applengthsend = document.getElementById("applengthsend");
+            var doctorsend = document.getElementById("doctorsend");
+            var username = '{{name}}';
+            var ajaxsubjecturl = '{{ path('review_ajaxtemplatesubject', { 'id': 'temp_id'})}}';
+            var ajaxattachment = '{{ path('review_ajaxattach', { 'id': 'temp_id'})}}';
+            var ajaxurlbody = '{{ path('review_ajaxtemplatebody', { 'id': 'temp_id_body'})}}';
+            var loading = '<div class="ispinner gray large animating myload">\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                </div>   ';
+            $('#createConf').on('submit', function (e) {
+                e.preventDefault();
+                loadAnimation();
+                var cname = $('#cname').val();
+                var email = $('#email').val();
+                var tempid = $('#template').val();
+                var settid = $('#settingsid').val();
+                var fromsend = settSelect.options[settSelect.selectedIndex].text;
+                //var date = $('#datepicker').val();
+                //var time = $('#timepicker').val();
+                //var applength = $('#applength').val();
+                var doctor = $('#doctorlist').val();
+                mailname.value = cname;
+                fromemail.value = fromsend;
+                mailemail.value = email;
+                mailsett.value = settid;
+                mailtemp.value = tempid;
+                //applengthsend.value = applength;
+                doctorsend.value = doctor;
+                ajaxGetTemplate(tempid);
+                ajaxGetBodyName(tempid, cname, email, doctor);
+                ajaxGetAttachment(tempid);
+            });
+
+            function loadAnimation() {
+                //var myNewDiv = document.createElement('div');
+                //loader.appendChild(myNewDiv);
+                loader.innerHTML = loading;
+                return;
+            }
+
+            function ajaxGetBodyName(tempid, cname, email, doctor) {
+                //console.log(tempid);
+                $.ajax({
+                    url: url = ajaxurlbody.replace('temp_id_body', tempid),
+                    dataType: "json",
+                    success: function (response) {
+                        response = response.replace('%name%', cname);
+                        response = response.replace('%doctor%', doctor);
+                        response = response.replace('%username%', username);
+                        response = response.replace('%cemail%', email);
+                        CKEDITOR.instances["editor1"].setData(response);
+                        loader.innerHTML = '';
+                        //console.log(textArea);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                        loader.innerHTML = '';
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                        loader.innerHTML = '';
+                    }
+                });
+            }
+
+            function ajaxGetTemplate(tempid) {
+                //console.log(tempid);
+                $.ajax({
+                    url: url = ajaxsubjecturl.replace('temp_id', tempid),
+                    dataType: "json",
+                    success: function (response) {
+                        //console.log(response);
+
+                        emailsubject.value = response;
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+
+            function ajaxGetAttachment(tempid) {
+                //console.log(tempid);
+                $.ajax({
+                    url: url = ajaxattachment.replace('temp_id', tempid),
+                    dataType: "json",
+                    success: function (response) {
+                        //console.log(response);
+
+                        attachmentnode.innerHTML = response;
+                        //console.log(attachmentnode);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+            
+            $("#dialog-login").dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                show: {
+                    effect: "blind",
+                    duration: 500
+                },
+                hide: {
+                    effect: "blind",
+                    duration: 500
+                }
+            });
+
+
+
+            $(function () {
+                var successcheck = $('#successcheck').attr('data-action');
+                if (successcheck === 'success') {
+                    var alarmBox = document.getElementById("dialog-login");
+                    alarmBox.innerHTML = 'Message sent!';
+                    $("#dialog-login").dialog("open");
+                }
+                console.log(successcheck);
+            });
+            
+            
+            
+            
+            
+            
+            
+        });
+
+
+    </script>
+
+
+
+
+
+{% endblock %}

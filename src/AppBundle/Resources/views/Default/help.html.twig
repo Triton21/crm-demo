@@ -1,0 +1,127 @@
+{% extends "AppBundle:Default:leadbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+{% endblock %}
+{% block content %} 
+
+
+
+
+
+    <!-- ALL leads -->
+
+    
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Help</h3>
+                </div>
+                <div class="panel-body">
+                    <article>
+                        <h2>Main purpose of the Dent1st Crm application</h2>
+                        <p>This application is designed to help our work with new leads/patients. You can consider this as a helper tool to keep track of the communication and activities before the patient comes in to our practice for consultation. This is not changing our substituting Aerona. 
+                            This application is designed as a preparatory tool to convert leads to patients.
+                            <br><br>
+                        </p>
+                    </article>
+                    <article>
+                        <h2>Workflow</h2>
+                        <h3>New leads</h3>
+                        <p>There are two possible ways to get new leads</p>
+                        <br>
+                        <p style="font-weight: bold;">1) Press the check new leads link</p>
+                        <p>Please note new leads NOT downloading automatically, in order to receive new leads the check mail link needs to be clicked.
+                            This will check all the three online form source we receiving currently by email.
+                        </p>
+                        <p>This will check all the three online form source we receiving currently by email.</p>
+                        <ul>
+                            <li>Dent1st callback request</li>
+                            <li>Dent1st treatment request</li>
+                            <li>HSDIC</li>
+                        </ul>
+                        <p>You can check the source to find out if its a groupon patient or not. HSDIC source will be groupon patient.</p>
+                        <p style="font-weight: bold;">2) Submit new lead manually</p>
+                        <p>On all page you can see a top new lead form. Just fill out the necessary fields and press  save.</p>
+                        <p>We are not registering DoB in this crm application (this will be in the aerona if someone is coming for a consultation. At this stage the only unique entity is the email address. Names can be duplicated (eg John Smith), phone numbers (partners for example) as well but email address is not.</p>
+                        <br>
+                        <p style="font-weight: bold;">What if someone is already in our database?</p>
+                        <p>The program will check the new entry email address against the database. If the lead is already exist you will be redirected to the lead progress section.</p>
+                        <br>
+                        <p style="font-weight: bold;">After new entry is saved</p>
+                        <p>You will be redirected to the to the lead progress section. The new entry main status will be new. </p>
+                        <br>
+                        <p style="font-weight: bold;">Source</p>
+                        <p>Please register any new client who calls us during the day. Also please register any client who left us a message with messagebase.</p>
+                        <br>
+                        <h3>Lead progress section</h3>
+                        <p>If you click on any customer name at any stage you will be redirected to the lead progress section. </p>
+                        <p>First thing you need to do is change to Main status to: In progress</p>
+                        <img src="{{ asset('bundles/app/images/leadprogress1.jpg') }}" alt="image not found" />
+                        <br>
+                        <p>After this you will see a note field. Please enter any useful information related to the patient enquiry. </p>
+                        <img src="{{ asset('bundles/app/images/leadprogress2.jpg') }}" alt="image not found" />
+                        <br>
+                        <br>
+                        <p style="font-weight: bold;">Workflow with the lead</p>
+                        <p>As you will se all the call history will be saved and visible to each patient. If you can`t reach the patient just press the Could not reach button and it will be saved. </p>
+                        <img src="{{ asset('bundles/app/images/leadprogress3.jpg') }}" alt="image not found" />
+                        <br>
+                        <p>In progress status: this patient will be visible in the ToDo list:</p>
+                        <br>
+                        <p style="font-weight: bold;">Booked for consultation</p>
+                        <p>If the patient decides to come for a consultation the only thing you need to do is update the Main status to booked for consultation. That's it! This lead will be saved as your personal won lead and calculated in your personal statistic. You can still leave some note if you wish.</p>
+                        <img src="{{ asset('bundles/app/images/leadprogress4.jpg') }}" alt="image not found" />
+                        <br>
+                        <br>
+                        <p style="font-weight: bold;">Dead lead</p>
+                        <p>If we contacted the patient five times then you will have the option to consider the Main status as dead. Please do not change it to dead just because we contacted five times already. </p>
+                        <img src="{{ asset('bundles/app/images/leadprogress6.jpg') }}" alt="image not found" />
+                        <br>
+                        <br>
+                        <h3>Work with New list</h3>
+                        <p>You can check new leads on the home screen or in the New section. Simple press the Get button. You will be assigned to this lead. You will be redirected to the lead progress section.</p>
+                        <br>
+                        <h3>Work with ToDo list</h3>
+                        <p>If any patient main status registered as In progress than it will be visible in the ToDo list.
+                            You can click on the patient name in order to be redirected to the progress section.
+                            If this patient assigned to someone else you can just simple press the Get button. 
+                            Please feel free to work with any patient any time if the main status in In progress.
+                        </p>
+                        <img src="{{ asset('bundles/app/images/leadprogress5.jpg') }}" alt="image not found" />
+                        <br>
+                        <br>
+                        <h3>Assign lead</h3>
+                        <p>You can assign leads if the main status is new or it is In progress but the lead is assigned to someone else. There are two main area to assign patients.</p>
+                        <ul><li>New lead</li>
+                            <li>ToDo lead</li>
+                        </ul>
+                        <br>
+                        <h3>Statistic</h3>
+                        <p>All our activity in this application will be saved. You can see your personal statistic by pressing the stat link on the left navigation panel. This is self explanatory. You can see some basic information on your activities and results.</p>
+                        <br>
+                        <h3>Possible issues</h3>
+                        <p>This application is fully working and tested however bugs and errors can occur sometime. Please report if you see any issue.</p>
+                        <p style="font-weight: bold;">Entry duplication</p>
+                        <p>There is one  possibility to entry duplication. If the patient sends us multiple online enquiry the leads will be saved multiple times. As you don't have the right to delete entry please report any duplication if you see.</p>
+                        <br>
+                        <p>If you have any question please drop me an email</p>
+                        <p>Peter</p>
+                    
+                    </article>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    
+
+
+
+
+
+{% endblock %}
+{% block javascripts %}
+    {% endblock %}

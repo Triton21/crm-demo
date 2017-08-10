@@ -1,0 +1,71 @@
+{% extends "AppBundle:Default:lead.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+{%block stylesheets %}
+{% endblock %}
+{% block content %} 
+
+
+
+
+
+    <!-- ALL leads -->
+
+
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Pending lead</h3>
+            </div>
+            <div class="panel-body">
+                <div class="gi-1x">
+                    <table class="table table-striped gi-4p">
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>PC</th>
+                                <th>Assign</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+
+
+
+                            </tr>
+                        </thead>
+                        {% for all in alllead %}
+                            <tr>
+                                <td><a href="{{ path('lead_progress', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                <td>{{ all.customerTel }}</td>
+                                <td>{{ all.customerEmail }}</td>
+                                <td>{{ all.message }}</td>
+                                <td>{{ all.createdAt|date('d-m-Y') }}</td>
+                                <td>{{ all.assign }}</td>
+                                <td>{% if all.assign != name %} {% if all.status == 'Dead' %}
+                                    <form action="{{ path('lead_all') }}" method="POST">
+                                        <input type="hidden" name="assign" value="{{ all.id }}">
+                                        <input class="btn btn-success btn-xs" type="submit" value="Get"/>
+                                    </form>
+                                    {% endif %}
+                                        {% endif %}
+                                        </td>
+                                        <td>{{ all.status }}</td>
+                                        <td><a href="{{ path('lead_progress', { 'id': all.id})}}">Edit</a></td>
+                                        {% endfor %}
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    {% endblock %}
+                        {% block javascripts %}
+                        {% endblock %}

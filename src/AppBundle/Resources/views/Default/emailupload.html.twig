@@ -1,0 +1,84 @@
+{% extends "AppBundle:Default:emailbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block welcome%}Welcome {{name}}{%endblock%}
+
+
+
+{%block content %}  
+    <div class="container">
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Saved templates</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-striped gi-5p">
+
+                            <thead>
+                                <tr>
+                                    <th>File name</th>
+                                    <th>Uploaded</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            {% if uploads == false %}
+                                <tr>
+                                    <td>There are no uploaded attachments</td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>
+                                    {% endif %}
+                            {% for all in uploads %}
+                                <tr>
+                                    <td>{{ all.imageName }}</td>
+                                    <td>{{ all.updatedAt|date('m-d-Y') }}</td>
+                                    <td><a href="{{ path('emailupload_delete', { 'id': all.id }) }}" class="btn btn-danger btn-sm">Delete</a></td>
+                                    </tr>
+                                {% endfor %}
+                            
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Upload attachment</h3>
+                </div>
+                <div class="panel-body">
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+
+                </div>
+            </div>
+        </div>              
+
+
+
+
+
+
+    </div>
+
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}
+

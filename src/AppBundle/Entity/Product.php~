@@ -1,0 +1,279 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Naming\NamerInterface;
+
+/**
+ * Product
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductRepository")
+ * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks() 
+ */
+class Product {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
+     * 
+     * @var File
+     * @Assert\File(
+     * maxSize = "1024k",
+     *     mimeTypes = {"application/pdf", "application/msword", "text/plain"},
+     *     mimeTypesMessage = "Please upload a valid pdf or word file"
+     * )
+     */
+    private $imageFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imageName", type="string", length=255)
+     */
+    private $imageName;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="listname", type="string", length=255, nullable=true)
+     */
+    private $listname;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="typename", type="string", length=255, nullable=true)
+     */
+    private $typename;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emailid", type="integer", nullable=true)
+     */
+    private $emailid;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255, nullable=true)
+     */
+    private $path;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set imageFile
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setImageFile(File $image = null) {
+        $this->imageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile() {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string $imageName
+     */
+    public function setImageName($imageName) {
+        $this->imageName = $imageName;
+    }
+
+    /**
+     * Get imageName
+     *
+     * @return string 
+     */
+    public function getImageName() {
+        return $this->imageName;
+    }
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="username", type="string", length=255)
+     *
+     */
+    protected $username;
+
+    /**
+     * Get Username
+     *
+     * @return string 
+     */
+    public function getUsername() {
+        return $this->username;
+    }
+
+    /**
+     * @param string $Username
+     */
+    public function setUsername($username) {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get getupdatedAt
+     *
+     * @return \DateTime
+     */
+    public function getupdatedAt() {
+        return $this->updatedAt;
+    }
+
+
+
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Product
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Set listname
+     *
+     * @param string $listname
+     *
+     * @return Product
+     */
+    public function setListname($listname)
+    {
+        $this->listname = $listname;
+
+        return $this;
+    }
+
+    /**
+     * Get listname
+     *
+     * @return string
+     */
+    public function getListname()
+    {
+        return $this->listname;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Product
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set typename
+     *
+     * @param string $typename
+     *
+     * @return Product
+     */
+    public function setTypename($typename)
+    {
+        $this->typename = $typename;
+    
+        return $this;
+    }
+
+    /**
+     * Get typename
+     *
+     * @return string
+     */
+    public function getTypename()
+    {
+        return $this->typename;
+    }
+
+    /**
+     * Set emailid
+     *
+     * @param integer $emailid
+     *
+     * @return Product
+     */
+    public function setEmailid($emailid)
+    {
+        $this->emailid = $emailid;
+    
+        return $this;
+    }
+
+    /**
+     * Get emailid
+     *
+     * @return integer
+     */
+    public function getEmailid()
+    {
+        return $this->emailid;
+    }
+}

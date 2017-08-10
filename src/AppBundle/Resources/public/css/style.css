@@ -1,0 +1,593 @@
+.carousel {
+    height: 300px;
+    margin-bottom: 50px;
+}
+.carousel-caption {
+    z-index: 10;
+}
+.carousel .item {
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 300px;
+}
+
+.panel-grey {
+    border-color: #cccccc;
+    color: #fff;
+}
+
+.panel-grey > .panel-heading {
+    border-color: #cccccc;
+    color: #fff;
+    background-color: #cccccc;
+
+}
+
+.panel-grey > a {
+    color: #cccccc;
+}
+
+.panel-grey > a:hover {
+    color: #cccccc;
+}
+
+.panel-custom {
+    border-color: #db3340;
+    color: #fff;
+}
+
+.panel-custom > .panel-heading {
+    border-color: #db3340;
+    color: #fff;
+    background-color: #db3340;
+
+}
+
+.panel-custom > a {
+    color: #db3340;
+}
+
+.panel-custom > a:hover {
+    color: #cccccc;
+}
+
+.panel-lcustom {
+    border-color: #de7b82;
+    color: #fff;
+}
+
+.panel-lcustom > .panel-heading {
+    border-color: #de7b82;
+    color: #fff;
+    background-color: #de7b82;
+
+}
+
+.panel-lcustom > a {
+    color: #de7b82;
+}
+
+.panel-lcustom > a:hover {
+    color: #cccccc;
+}
+
+
+.panel-custom2 {
+    border-color: #0e7ee6;
+    color: #fff;
+}
+
+.panel-custom2 > .panel-heading {
+    border-color: #0e7ee6;
+    color: #fff;
+    background-color: #0e7ee6;
+
+}
+
+.panel-custom2 > a {
+    color: #0e7ee6;
+}
+
+.panel-custom2 > a:hover {
+    color: #cccccc;
+}
+
+
+
+
+
+.panel-green {
+    border-color: #5cb85c;
+    color: #fff;
+}
+
+.panel-green > .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+
+}
+
+.panel-green > a {
+    color: #5cb85c;
+}
+
+.panel-green > a:hover {
+    color: #3d8b3d;
+}
+
+.panel-lgreen {
+    border-color: #99cc99;
+    color: #fff;
+}
+
+.panel-lgreen > .panel-heading {
+    border-color: #99cc99;
+    color: #fff;
+    background-color: #99cc99;
+
+}
+
+.panel-lgreen > a {
+    color: #99cc99;
+}
+
+.panel-lgreen > a:hover {
+    color: #99cc99;
+}
+
+.panel-lblue {
+    border-color: #99ccff;
+    color: #fff;
+}
+
+.panel-lblue > .panel-heading {
+    border-color: #99ccff;
+    color: #fff;
+    background-color: #99ccff;
+
+}
+
+.panel-lblue > a {
+    color: #99ccff;
+}
+
+.panel-lblue > a:hover {
+    color: #99ccff;
+}
+
+.panel-lred {
+    border-color: #cc9999;
+    color: #fff;
+}
+
+.panel-lred > .panel-heading {
+    border-color: #cc9999;
+    color: #fff;
+    background-color: #cc9999;
+
+}
+
+.panel-lred > a {
+    color: #cc9999;
+}
+
+.panel-lred > a:hover {
+    color: #cc9999;
+}
+
+
+.panel-lorange {
+    border-color: #ffcc66;
+    color: #fff;
+}
+
+.panel-lorange > .panel-heading {
+    border-color: #ffcc66;
+    color: #fff;
+    background-color: #ffcc66;
+
+}
+
+.panel-lorange > a {
+    color: #ffcc66;
+}
+
+.panel-lorange > a:hover {
+    color: #ffcc66;
+}
+
+
+
+.panel-orange {
+    border-color: #cc6600;
+    color: #fff;
+}
+
+.panel-orange > .panel-heading {
+    border-color: #cc6600;
+    color: #fff;
+    background-color: #cc6600;
+
+}
+
+.panel-orange > a {
+    color: #cc6600;
+}
+
+.panel-orange > a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red > .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red > a {
+    color: #d9534f;
+}
+
+.panel-red > a:hover {
+    color: #b52b27;
+}
+
+.nav-pills-red > li {
+    float: left;
+}
+.nav-pills-red > li > a {
+    border-radius: 4px;
+}
+.nav-pills-red > li + li {
+    margin-left: 2px;
+}
+.nav-pills-red > li.active > a,
+.nav-pills-red > li.active > a:hover,
+.nav-pills-red > li.active > a:focus {
+    color: #fff;
+    background-color: #d9534f;
+}
+
+
+
+.gi-1x{font-size: 1em;}
+.gi-2x{font-size: 2em;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+
+.gi-1p{font-size: 9px;}
+.gi-2p{font-size: 10px;}
+.gi-3p{font-size: 11px;}
+.gi-4p{font-size: 12px;}
+.gi-5p{font-size: 13px;}
+.gi-6p{font-size: 14px;}
+.gi-7p{font-size: 16px;}
+.gi-8p{font-size: 18px;}
+.gi-9p{font-size: 20px;}
+.gi-35p{font-size: 35px;}
+.gi-45p{font-size: 45px;}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+tr.found{
+
+}
+
+#indexred h1 {
+    color:red;
+}
+
+#indexwhite h1 {
+    color:white;
+}
+
+.badgegrey {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #666666;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #cccccc;
+    border-radius: 10px;
+}
+
+
+.badgegreen {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: green;
+    border-radius: 10px;
+}
+
+.badgeyellow {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #ff9900;
+    border-radius: 10px;
+}
+
+.badgeblue{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: blue;
+    border-radius: 10px;
+}
+
+.badgered{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.badgedarkred{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #c2341c;
+    border-radius: 10px;
+}
+
+
+.badgeorange{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #cc6600;
+    border-radius: 10px;
+}
+
+.col-xs-05 {
+    width: 4.166666665%;
+}
+
+.col-xs-025 {
+    width: 2%;
+}
+
+.col-xs-075 {
+    width: 6%;
+}
+
+.col-xs-015 {
+    width: 12%;
+}
+
+.col-xs-25 {
+    width: 18%;
+}
+
+.col-sm-012 {
+    width: 11%;
+}
+
+.col-xs-025, .col-sm-012, .col-xs-25, .col-xs-015 , .col-xs-075, .col-xs-05, .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.col-xs-025, .col-sm-012, .col-xs-25, .col-xs-015 , .col-xs-075, .col-xs-05, .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+    float: left;
+}
+
+.search-field {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+
+
+
+
+
+body,html{
+    height: 100%;
+}
+
+/* remove outer padding */
+.main .row{
+    padding: 0px;
+    margin: 0px;
+}
+
+/*Remove rounded coners*/
+
+nav.sidebar.navbar {
+    border-radius: 0px;
+}
+
+nav.sidebar, .main{
+    -webkit-transition: margin 200ms ease-out;
+    -moz-transition: margin 200ms ease-out;
+    -o-transition: margin 200ms ease-out;
+    transition: margin 200ms ease-out;
+}
+
+/* Add gap to nav and right windows.*/
+.main{
+    padding: 10px 10px 0 10px;
+}
+
+/* .....NavBar: Icon only with coloring/layout.....*/
+
+/*small/medium side display*/
+@media (min-width: 768px) {
+
+    /*Allow main to be next to Nav*/
+    .main{
+        position: absolute;
+        width: calc(100% - 40px); /*keeps 100% minus nav size*/
+        margin-left: 40px;
+        float: right;
+    }
+
+    /*lets nav bar to be showed on mouseover*/
+    nav.sidebar:hover + .main{
+        margin-left: 200px;
+    }
+
+    /*Center Brand*/
+    nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+        margin-left: 0px;
+    }
+    /*Center Brand*/
+    nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+        text-align: center;
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    /*Center Icons*/
+    nav.sidebar a{
+        padding-right: 13px;
+    }
+
+    /*adds border top to first nav box */
+    nav.sidebar .navbar-nav > li:first-child{
+        border-top: 1px #e5e5e5 solid;
+    }
+
+    /*adds border to bottom nav boxes*/
+    nav.sidebar .navbar-nav > li{
+        border-bottom: 1px #e5e5e5 solid;
+    }
+
+    /* Colors/style dropdown box*/
+    nav.sidebar .navbar-nav .open .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    /*allows nav box to use 100% width*/
+    nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
+        padding: 0 0px 0 0px;
+    }
+
+    /*colors dropdown box text */
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+        color: #777;
+    }
+
+    /*gives sidebar width/height*/
+    nav.sidebar{
+        width: 200px;
+        height: 100%;
+        margin-left: -160px;
+        float: left;
+        z-index: 8000;
+        margin-bottom: 0px;
+    }
+
+    /*give sidebar 100% width;*/
+    nav.sidebar li {
+        width: 100%;
+    }
+
+    /* Move nav to full on mouse over*/
+    nav.sidebar:hover{
+        margin-left: 0px;
+    }
+    /*for hiden things when navbar hidden*/
+    .forAnimate{
+        opacity: 0;
+    }
+}
+
+/* .....NavBar: Fully showing nav bar..... */
+
+@media (min-width: 1330px) {
+
+    /*Allow main to be next to Nav*/
+    .main{
+        width: calc(100% - 200px); /*keeps 100% minus nav size*/
+        margin-left: 200px;
+    }
+
+    /*Show all nav*/
+    nav.sidebar{
+        margin-left: 0px;
+        float: left;
+    }
+    /*Show hidden items on nav*/
+    nav.sidebar .forAnimate{
+        opacity: 1;
+    }
+}
+
+nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+    color: #CCC;
+    background-color: transparent;
+}
+
+nav:hover .forAnimate{
+    opacity: 1;
+}
+section{
+    padding-left: 15px;
+}
+

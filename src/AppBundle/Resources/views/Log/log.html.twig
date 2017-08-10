@@ -1,0 +1,310 @@
+{% extends "AppBundle:Log:logbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+
+    <link href="{{asset('bundles/app/css/override-bts.css')}}" rel="stylesheet">
+    {% for all in allog %}
+        <style type="text/css">
+            .morecontent{{all.id}} span {
+                display: none;
+            }
+            .morelink{{all.id}} {
+                color: #6c8ecf;
+                display: block;
+            }
+            #loader {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+    {% endfor %}
+
+
+{%endblock%}
+
+
+{% block content %} 
+
+
+
+
+
+    <!-- ALL leads -->
+
+
+    <div class="col-lg-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create new telephone Log or new task</h3>
+            </div>
+            <div class="panel-body">
+
+                {{ form_start(form2) }}
+                <div class="col-xs-1">
+                    <!-- Disable chrome autofill with 2 fake line -->
+                    {{ form_label(form2.customerName) }}
+                    {{ form_errors(form2.customerName) }}
+                    {{ form_widget(form2.customerName) }}
+                </div>
+                <div class="col-xs-015">
+                    {{ form_label(form2.customerEmail) }}
+                    {{ form_errors(form2.customerEmail) }}
+                    {{ form_widget(form2.customerEmail) }}
+                </div>
+                <div style="display: none">>
+                    {{ form_label(form2.leadid) }}
+                    {{ form_errors(form2.leadid) }}
+                    {{ form_widget(form2.leadid) }}
+                </div>
+                <div class="col-xs-1">
+                    {{ form_label(form2.customerTel) }}
+                    {{ form_errors(form2.customerTel) }}
+                    {{ form_widget(form2.customerTel) }}
+                </div>
+                <div class="col-xs-075">
+                    {{ form_label(form2.deadline) }}
+                    {{ form_errors(form2.deadline) }}
+                    {{ form_widget(form2.deadline) }}
+                </div>
+                <div class="col-xs-075">
+                    {{ form_label(form2.inorout) }}
+                    {{ form_errors(form2.inorout) }}
+                    {{ form_widget(form2.inorout) }}
+                </div>
+                <div class="col-xs-2">
+                    {{ form_label(form2.note) }}
+                    {{ form_errors(form2.note) }}
+                    {{ form_widget(form2.note) }}
+                </div>
+                <div class="col-xs-2">
+                    {{ form_label(form2.action) }}
+                    {{ form_errors(form2.action) }}
+                    {{ form_widget(form2.action) }}
+                </div>
+                <div class="col-xs-1">
+                    {{ form_label(form2.request) }}
+                    {{ form_errors(form2.request) }}
+                    {{ form_widget(form2.request) }}
+                </div>
+                <div class="col-xs-1">
+                    {{ form_label(form2.reassign) }}
+                    {{ form_errors(form2.reassign) }}
+                    {{ form_widget(form2.reassign) }}
+                </div>
+                <div class="col-xs-05">
+                    <br>
+                    <ul>
+                        <li>
+                            {{ form_label(form2.flag) }}
+                            {{ form_errors(form2.flag) }}
+                            {{ form_widget(form2.flag) }}
+
+                        </li>
+                        <li>
+                            {{ form_label(form2.solved) }}
+                            {{ form_errors(form2.solved) }}
+                            {{ form_widget(form2.solved) }}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-05 loader">
+                    <br>
+                    <div style="text-align: right;">
+                        {{ form_widget(form2.save) }}
+                    </div>
+                </div> 
+                {{ form_end(form2) }}
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <table>
+                        <tr><td>
+                                All log&nbsp;&nbsp;&nbsp;&nbsp; 
+                            </td>
+                            <td>
+                                Page:
+                                {%if pagedown == false%} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="{{ path('log_main', { 'page': pagedown, 'itemperpage': itemperpage, 'namefilter':namefilter,})}}"><span class="gi-7p glyphicon glyphicon-chevron-left"></span>{%endif%}
+
+                                    {% for all in pagesarray %}{% if page == all %} <button type="button" class="btn btn-sm disabled">{{all}}</button>{%else%}
+                                            <a href="{{ path('log_main', { 'page': all, 'itemperpage': itemperpage, 'namefilter':namefilter,})}}"><button type="button" class="btn btn-default btn-sm">{{all}}</button>{%endif%}</a>
+                                                {% endfor %}
+                                                    {%if pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="{{ path('log_main', { 'page': pageup, 'itemperpage': itemperpage, 'namefilter':namefilter,})}}"><span class="gi-7p glyphicon glyphicon-chevron-right"></span>{%endif%}
+
+                                                    </td>
+                                                    <td style="width:16%"></td>
+                                                    <td>
+                                                        <select name="newitem" class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
+                                                            <option value="{{ path('log_main', { 'itemperpage': '25','namefilter':namefilter,})}}" {% if itemperpage == '25'%} selected="selected"{%endif%}>25</option>
+                                                            <option value="{{ path('log_main', { 'itemperpage': '50', 'namefilter':namefilter,})}}" {% if itemperpage == '50'%} selected="selected"{%endif%}>50</option>
+                                                            <option value="{{ path('log_main', { 'itemperpage': '100', 'namefilter':namefilter,})}}" {% if itemperpage == '100'%} selected="selected"{%endif%}>100</option>
+                                                            <option value="{{ path('log_main', { 'itemperpage': '150', 'namefilter':namefilter,})}}" {% if itemperpage == '150'%} selected="selected"{%endif%}>150</option>
+                                                            <option value="{{ path('log_main', { 'itemperpage': '200', 'namefilter':namefilter,})}}" {% if itemperpage == '200'%} selected="selected"{%endif%}>200</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter:&nbsp;&nbsp;</td>
+                                                    <td>
+                                                        <select name="namefilter" class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
+                                                            <option value="{{ path('log_main', { 'itemperpage': itemperpage,'namefilter':'all',})}}" {% if namefilter == 'all' %} selected="selected"{%endif%}></option>
+                                                            {% for all in usersarray %}
+                                                                {% if all != ' ' %}
+                                                                    <option value="{{ path('log_main', { 'itemperpage': itemperpage,'namefilter':all,})}}" {% if all == namefilter %} selected="selected"{%endif%}>{{all}}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+
+                                                    </td>
+                                                    </tr>
+                                                    </table>
+                                                    </h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <table class="table table-striped gi-4p">
+
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Patient</th>
+                                                                    <th>Email</th>
+                                                                    <th>Phone</th>
+                                                                    <th>Created</th>
+                                                                    <th>Deadline</th>
+                                                                    <th>In/Out</th>
+                                                                    <th>Coordinator</th>
+                                                                    <th>Note</th>
+                                                                    <th>Action</th>
+                                                                    <th>Request to collegue</th>
+                                                                    <th>Assign to</th>
+                                                                    <th>Log ID</th>
+                                                                    <th>Flag</th>
+                                                                    <th>Solved?</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            {% for all in allog %}
+                                                                {% if all.solved == 1 %}
+                                                                    <tr>
+                                                                    {% else %}
+                                                                    <tr style="background-color:#ffcccc">
+                                                                    {% endif %}
+                                                                    <td style="width:7%"><a href="{{ path('log_progress', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                                                    <td style="width:8%">{{ all.customerEmail }}</td>
+                                                                    <td style="width:7%">{{ all.customerTel }}</td>
+                                                                    <td style="width:8%">{{ all.createdAt|date('d-m-Y / H:i:s') }}</td>
+                                                                    {% if all.deadline %}
+                                                                        <td style="width:6%">{{ all.deadline|date('d-m-Y') }}</td>
+                                                                    {% else %}
+                                                                        <td style="width:6%"> N/A </td>
+                                                                    {% endif %}
+                                                                    <td style="width:3%">{{ all.inorout }}</td>
+                                                                    <td style="width:5%">{{ all.assign }}</td>
+                                                                    <td style="width:16%"><span class="more{{all.id}}">{{ all.note }}</span></td>
+                                                                    <td style="width:16%"><span class="more{{all.id}}">{{ all.action }}</span></td>
+                                                                    <td style="width:11%">{{ all.request }}</td>
+                                                                    <td style="width:5%">{{ all.reassign }}</td>
+                                                                    <td style="width:5%">{{ all.id }}</td>
+                                                                    <td style="width:4%">{% if all.flag == '1' %}<span class="gi-7p glyphicon glyphicon-flag" style="color:red"></span>{% endif %}</td>
+                                                                    <td style="width:4%">{% if all.solved == '1' %}<span class="glyphicon glyphicon-check gi-7p" style="color:green"></span>{% else %}<a href="{{ path('log_progress', { 'id': all.id})}}"><span class="glyphicon glyphicon-exclamation-sign gi-7p" id="solved{{all.id}}" style="color:red"></span></a>{% endif %}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </table>
+
+
+                                                    </div>
+                                                    </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+
+
+                                                    {% endblock %}
+
+
+
+                                                        {% block javascripts %}
+                                                            
+                                                            <script>
+                                                                $(document).ready(function () {
+                                                                    $("#form_customerName").preventAutofill();
+                                                                    $("#form_customerEmail").preventAutofill();
+                                                                    $(function () {
+                                                                        $.ajax({
+                                                                            url: "{{ path('lead_autocomplete')}}",
+                                                                            dataType: "json",
+                                                                            success: function (response) {
+                                                                                console.log(response);
+                                                                                $("#form_customerName").autocomplete({
+                                                                                    minLength: 1,
+                                                                                    source: response,
+                                                                                    select: function (event, ui) {
+                                                                                        $("#customerName").val(ui.item.customerName);
+                                                                                        $("#form_customerEmail").val(ui.item.customerEmail);
+                                                                                        $("#form_customerTel").val(ui.item.customerTel);
+                                                                                        $("#form_leadid").val(ui.item.id);
+                                                                                    },
+                                                                                    minLength:2
+                                                                                });
+                                                                            },
+                                                                            complete: function () {
+                                                                                console.log('Request is complete');
+                                                                            },
+                                                                            error: function () {
+                                                                                console.log('Oops...there was an error!');
+                                                                            }
+                                                                        });
+                                                                    });
+                                                                });
+                                                            </script>
+                                                            {% for all in allog %}
+                                                                <script>
+                                                                    $(document).ready(function () {
+                                                                        // Configure/customize these variables.
+                                                                        var showChar = 200; // How many characters are shown by default
+                                                                        var ellipsestext = " ...";
+                                                                        var moretext = "more >";
+                                                                        var lesstext = "less";
+                                                                        var solved{{all.id}} = document.getElementById("solved{{all.id}}");
+                                                                        $('.more{{all.id}}').each(function () {
+                                                                            var content = $(this).html();
+                                                                            if (content.length > showChar) {
+
+                                                                                var c = content.substr(0, showChar);
+                                                                                var h = content.substr(showChar, content.length - showChar);
+                                                                                var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent{{all.id}}"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink{{all.id}}">' + moretext + '</a></span>';
+                                                                                $(this).html(html);
+                                                                            }
+
+                                                                        });
+                                                                        $(".morelink{{all.id}}").click(function () {
+                                                                            if ($(this).hasClass("less")) {
+                                                                                $(this).removeClass("less");
+                                                                                $(this).html(moretext);
+                                                                            } else {
+                                                                                $(this).addClass("less");
+                                                                                $(this).html(lesstext);
+                                                                            }
+                                                                            $(this).parent().prev().toggle();
+                                                                            $(this).prev().toggle();
+                                                                            return false;
+                                                                        });
+                                                                    });
+
+
+                                                                </script>
+                                                            {% endfor %}
+                                                        {% endblock %}

@@ -1,0 +1,36 @@
+<div class="container">
+    <div id="emailconversation" action-data="{{leadid}}"></div>
+<div class="col-lg-10">
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="col-lg-5">Email history: <span style="font-weight: bold;">{{email}}</span> </div>
+            <div class="col-lg-7">
+                {%if pager.pagedown == false%} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="#"><span id="emailpagedown{{leadid}}" action-data="{{pager.pagedown}}" class="gi-7p glyphicon glyphicon-chevron-left"></span></a>{%endif%}
+                {% for all in pager.pagesarray %}{% if pager.page == all %} <button type="button" class="btn btn-sm disabled">{{all}}</button>{%else%}
+                        <a href="#"><button id="emailpage{{leadid}}" action-data="{{all}}" type="button" class="btn btn-default btn-sm">{{all}}</button>{%endif%}</a>
+                            {% endfor %}
+                                {%if pager.pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="#"><span id="emailpageup{{leadid}}" action-data="{{pager.pageup}}" class="gi-7p glyphicon glyphicon-chevron-right"></span></a>{%endif%}
+                            <div style="min-height:2em;"></div>
+                        </div>
+
+                            {% for all in myconversation %}
+                                <div {% if email == all['fromemail'] %} class="col-lg-10"{% else %}class="col-lg-offset-2 col-lg-10"{% endif %}>
+                                    <div {% if email == all['fromemail'] %} class="panel panel-default" {% else %} class="panel panel-info" {% endif %}>
+                                        <div class="panel-heading">
+                                            From: <span style="font-weight: bold;">{% if email != all['fromemail'] %}{{ all['username']}} / {% endif %} {{all['fromemail']}}</span>&nbsp;&nbsp;&nbsp;
+                                            Date: <span style="font-weight: bold;">{{ all.maildate|date('d-m-Y H:i:s') }}</span>&nbsp;&nbsp;&nbsp;
+                                            Subject: <span style="font-weight: bold;">{{all.subject[:40] ~ '...'}}</span>
+                                        </div>
+                                        <div class="panel-body">
+                                            {{all['content']}}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>

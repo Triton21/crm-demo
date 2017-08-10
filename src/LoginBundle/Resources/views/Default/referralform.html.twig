@@ -1,0 +1,299 @@
+{% extends '::loginlayout.html.twig' %}
+{%block stylesheets %}
+    <style>
+        .myContainer {
+            background-color: white;
+            margin-top:  -20px;
+
+
+        }
+        .myNavbar {
+            -webkit-box-shadow:0px 2px 3px #cccccc;
+            -moz-box-shadow:0px 2px 3px #cccccc;
+            box-shadow:0px 2px 3px #cccccc;
+        }
+        .myHeader {
+            margin-top: 25px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 0px;
+            border-bottom: solid 2px #d8d8d8;
+            font-size: 30px;
+            color: #52bbf2;
+        }
+        .control-label {
+            margin-top: 5px;
+            margin-bottom: -2px;
+        }
+        h3 {
+            color: #52bbf2;
+        }
+    </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{%endblock%} 
+
+
+{% block body %}
+
+
+
+
+
+    {% if app.session.flashbag.has('success') %}
+        <div class="container">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="alert alert-success" style="font-size:20px; text-align: center;">
+                    {% for message in app.session.flashbag.get('success') %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class='container myContainer'>
+        <div class='col-md-12' style='min-height: 500px;'>
+            <div class='myHeader'>
+                <p><span>Referral Form</span></p> 
+            </div>
+            <div class="container">
+                <div class='col-md-7 col-sm-12'>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sollicitudin metus ac urna accumsan, 
+                        egestas vehicula erat luctus. In non nibh sem. Proin sed enim semper, ultrices ante ut,
+                        pretium turpis. Suspendisse quis vehicula est, eu laoreet enim. 
+                        Curabitur dui ex, vestibulum sed magna quis, pellentesque tempor diam. 
+                    </p>
+                    <br>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3>Practice Details</h3>
+                    </div>
+                    {{ form_start(form, {'attr': {'id': 'referral_form'}}) }}
+                    {{ form_errors(form) }}
+                    <div class="col-md-6">
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_practice_name">Practice Name</label>
+                            {{ form_errors(form.practice_name) }}
+                            {{ form_widget(form.practice_name) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_contact_name">Name</label>
+                            {{ form_errors(form.contact_name) }}
+                            {{ form_widget(form.contact_name) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_practice_email">Practice Email</label>
+                            {{ form_errors(form.practice_email) }}
+                            {{ form_widget(form.practice_email) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_practice_phone">Phone Number</label>
+                            {{ form_errors(form.practice_phone) }}
+                            {{ form_widget(form.practice_phone) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_practice_gdc">GDC Number</label>
+                            {{ form_errors(form.practice_gdc) }}
+                            {{ form_widget(form.practice_gdc) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_practice_address">Address</label>
+                            {{ form_errors(form.practice_address) }}
+                            {{ form_widget(form.practice_address) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3>Patient Details</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_firstname">First Name</label>
+                            {{ form_errors(form.firstname) }}
+                            {{ form_widget(form.firstname) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_lastname">Last Name</label>
+                            {{ form_errors(form.lastname) }}
+                            {{ form_widget(form.lastname) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_name">Name</label>
+                            {{ form_errors(form.name) }}
+                            {{ form_widget(form.name) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_email">Email</label>
+                            {{ form_errors(form.email) }}
+                            {{ form_widget(form.email) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_phone">Phone</label>
+                            {{ form_errors(form.phone) }}
+                            {{ form_widget(form.phone) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-4 control-label required">Date of birth</label>
+                            </div>
+                            {{ form_errors(form.dob) }}
+                            {{ form_widget(form.dob) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_addressfirstline">Address first line</label>
+                            {{ form_errors(form.addressfirstline) }}
+                            {{ form_widget(form.addressfirstline) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_addresstown">Town</label>
+                            {{ form_errors(form.addresstown) }}
+                            {{ form_widget(form.addresstown) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_postcode">Postcode</label>
+                            {{ form_errors(form.postcode) }}
+                            {{ form_widget(form.postcode) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">  
+                        <h3>Medical details</h3>    
+                    </div>
+
+                    <div class="col-md-12">
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_perio">Periodontal status</label>
+                            {{ form_errors(form.perio) }}
+                            {{ form_widget(form.perio) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_oralhygiene">Oral hygiene</label>
+                            {{ form_errors(form.oralhygiene) }}
+                            {{ form_widget(form.oralhygiene) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_medical">Medical history</label>
+                            {{ form_errors(form.medical) }}
+                            {{ form_widget(form.medical) }}
+                        </div>
+                        <div>
+                            <label class="col-sm-4 control-label required" for="appbundle_client_note">Requred treatment details</label>
+                            {{ form_errors(form.note) }}
+                            {{ form_widget(form.note) }}
+                        </div>
+                        <div class="col-md-12">  
+                            <h3>Referral type</h3>    
+                        </div>
+                        <div>
+                            {{ form_errors(form.referraltype) }}
+                            {{ form_widget(form.referraltype) }}
+                        </div>
+                        <div class="form-group center">
+                            <div class="col-md-12" style="text-align: center; margin-top: 1em;">
+                                <div class="g-recaptcha" data-sitekey="6LfGlhEUAAAAACGIA3yUDTodFbChqE2ngikHjGnT"></div>
+                            </div>
+                        </div>
+                        <div class="form-group center">
+                            <div class="col-md-12" style="text-align: center; margin-top: 2em;">
+                                {{ form_widget(form.save) }}
+                            </div>
+                        </div>
+                        <div class="form-group center">
+                            <div class="col-md-12" style="text-align: center;"> 
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                        <a href="{{path('login')}}" id='backToHome' style="display:none;" class="btn btn-info" role="button">Back To Home</a>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+{%endblock%} 
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $("#bs-example-navbar-collapse-1>ul>li.active").removeClass("active");
+            $('#referralform').addClass('active');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //console.log($("#appbundle_client_firstname"));
+
+            $('#appbundle_client_firstname').attr('autocomplete', 'false');
+            $('#appbundle_client_lastname').attr('autocomplete', 'false');
+            $('#appbundle_client_firstname').on('input', function () {
+                var myval = $(this).val();
+                var lastname = $('#appbundle_client_lastname').val();
+                $('#appbundle_client_name').val(myval + ' ' + lastname);
+            });
+            $('#appbundle_client_lastname').on('input', function () {
+                var myval = $(this).val();
+                var firstname = $('#appbundle_client_firstname').val() + ' ';
+                $('#appbundle_client_name').val(firstname + myval);
+            });
+        });
+    </script> 
+
+    <script>
+        $(document).ready(function () {
+            var completed = "{{completed}}"
+            //disable form fields if form completed
+            if (completed) {
+                var form = document.getElementById("referral_form");
+                var elements = form.elements;
+                for (var i = 0, len = elements.length; i < len; ++i) {
+                    elements[i].readOnly = true;
+                }
+                $('#appbundle_client_save').hide();
+                $('#backToHome').show();
+
+                //fill the name field
+                var firstname = $('#appbundle_client_firstname').val();
+                var lastname = $('#appbundle_client_lastname').val();
+                $('#appbundle_client_name').val(firstname + ' ' + lastname);
+
+                $("#appbundle_client_referraltype_0").attr('disabled', true);
+                $("#appbundle_client_referraltype_1").attr('disabled', true);
+                $("#appbundle_client_referraltype_2").attr('disabled', true);
+            }
+        });
+    </script> 
+
+
+
+
+{% endblock %}  

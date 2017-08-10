@@ -1,0 +1,85 @@
+{% extends "AppBundle:Confirm:confirmbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+
+
+
+{%block content %}  
+    <div class="container">
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">TEMPORARY CONFIRM PAGE</h3>
+
+                </div>
+
+                <br><br>
+                <br><br>
+                <div class="container" style="text-align: center">
+                    <div class="col-lg-6">
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <br><br>
+                <div class="container" style="text-align: center">
+                    <a href="{{ path('confirm_temp', { 'counter': counter })}}" role="button" class="btn btn-primary btn-lg">{{counter}}</a>
+
+                </div>
+                <br><br>
+                <div class="container" style="text-align: center">
+                    <a href="{{ path('confirm_temp', { 'counter': 0 })}}" role="button" class="btn btn-primary btn-lg">Reset counter</a>
+
+                </div>
+                <br><br>
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $(function () {
+
+
+
+
+            }
+
+
+
+        });
+
+
+    </script>
+
+
+
+
+
+{% endblock %}
+
+

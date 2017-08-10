@@ -1,0 +1,60 @@
+{% extends "AppBundle:Mainemail:emailbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+    <style>
+        .panel-heading h3 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: normal;
+            width: 75%;
+            padding-top: 8px;
+        }
+
+    </style>
+{%endblock%}
+
+{% block renderaccount %}
+    {{ render(controller('AppBundle:Mainemail:renderaccountnav', {'id': id})) }}
+                            {% endblock %}
+
+
+{%block content %}  
+    <div class="col-lg-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {{folder}} is empty!
+
+
+                </h3>
+            </div>
+            <div class="panel-body">
+
+                NO EMAILS TO DISPLAY!
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+
+
+
+
+{%endblock%}   
+
+
+
+{% block javascripts %}
+
+    
+
+
+
+
+
+{% endblock %}

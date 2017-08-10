@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="Peter Csatai" content="CRM" />
+        <meta name="description" content="Dent1st crm and lead management system">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Crm and Lead Management System</title>
+
+        <!-- css stylesheets -->
+        <script src="{{asset('bundles/app/ckeditor/ckeditor.js')}}"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="{{asset('bundles/app/js/jquery-color-212.js')}}"></script>
+        <script src="{{asset('bundles/app/js/jquery.prevent-autofill.min.js')}}"></script>
+        <link href="{{asset('bundles/app/css/style.css')}}" rel="stylesheet">
+        <link href="{{asset('bundles/app/css/sidebar.css')}}" rel="stylesheet">
+        <link href="{{asset('bundles/app/spinner/ispinner.css')}}" rel="stylesheet">
+        <link href="{{asset('bundles/app/plugins/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css')}}" rel="stylesheet">
+        <link href="{{asset('bundles/app/plugins/clockpicker-gh-pages/dist/bootstrap-clockpicker.min.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+        {%block stylesheets %}
+        {%endblock%}
+
+    </head>
+    <body>
+        <!-- ALARM -->
+        <div id="dialog-confirm" title="Alert"></div>
+
+        <!-- fixed navigation bar navbar-fixed-top-->
+        <div class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <div class="navbar-brand">{% block welcome %}{% endblock %}</div>
+                </div>
+                <div>{% block search %}{% endblock %}</div>
+                <div class="collapse navbar-collapse" id="b-menu-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{path('lead_manager')}}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li><a href="{{path('lead_help')}}"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                        <li><a href="{{path('lead_logoutregister')}}" >Logout</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{path('log_contactadmin')}}">Contact administrator</a></li>
+                                <li><a href="#">User profile</a></li>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <li><a href="{{path('marketing_statistic')}}">Lead statistic</a></li>
+                                    <li><a href="{{path('email_manager')}}">Email Settings</a></li>
+                                    <li><a href="{{path('admin_main')}}">User admin</a></li>
+                                    <li><a href="{{path('mainemail_index')}}">Main email</a></li>
+                                    {% endif %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div> <!-- /.nav-collapse -->
+            </div> <!-- /.container -->
+        </div> <!-- /.navbar -->
+        <div style="min-height: 62px;"></div>
+
+
+        {% block frame1 %}
+        {% endblock %}
+
+        {% block flashmessage %}
+        {%endblock%} 
+
+        {%block content %}   
+        {%endblock%}   
+
+        {%block frame2 %}
+        {%endblock%} 
+
+        <script src="{{asset('bundles/app/barrating/jquery.barrating.min.js')}}"></script>
+        <script src="{{asset('bundles/app/plugins/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js')}}"></script>
+        <script src="{{asset('bundles/app/plugins/clockpicker-gh-pages/dist/bootstrap-clockpicker.min.js')}}"></script>
+        <script>
+            $(document).ready(function () {
+
+                $(function () {
+                    $("#dialog-confirm").dialog({
+                        autoOpen: false,
+                        modal: true,
+                        buttons: {
+                            "Snooze for 10 mins": function () {
+                                var alarmID = $(this).data('alarmID');
+                                console.log(alarmID);
+                                snoozeAlarm(alarmID);
+                                $(this).dialog("close");
+                            },
+                            "Turn off": function () {
+                                var alarmID = $(this).data('alarmID');
+                                turnoffAlarm(alarmID);
+                                $(this).dialog('close');
+                            }
+                        },
+                        show: {
+                            effect: "blind",
+                            duration: 500
+                        },
+                        hide: {
+                            effect: "blind",
+                            duration: 500
+                        }
+                    });
+                });
+                $(function () {
+                    $.ajax({
+                        url: "{{ path('lead_checkalarm')}}",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response !== 'X') {
+                                console.log(response);
+                                var alarmId = response['alarmid'];
+                                var alarm = response['alarm'];
+                                console.log(alarmId);
+                                var alarmBox = document.getElementById("dialog-confirm");
+                                alarmBox.innerHTML = alarm;
+                                $("#dialog-confirm").data('alarmID', alarmId).dialog("open");
+                                console.log('alarm ON');
+                            } else {
+                                console.log('No alarm');
+                            }
+                        }
+                    });
+                });
+                function snoozeAlarm(alarmID) {
+                    console.log(alarmID);
+                    var route = '{{ path('lead_snoozealarm', { 'id': "MYPLACEHOLDER"})}}';
+                    $.ajax({
+                        url: route.replace("MYPLACEHOLDER", alarmID),
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    });
+                }
+
+                function turnoffAlarm(alarmID) {
+                    console.log(alarmID);
+                    var route = '{{ path('lead_turnoffalarm', { 'id': "MYPLACEHOLDER"})}}';
+                    $.ajax({
+                        url: route.replace("MYPLACEHOLDER", alarmID),
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    });
+                }
+
+                var myInterval = setInterval(function () {
+                    $.ajax({
+                        url: "{{ path('lead_checkalarm')}}",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response !== 'X') {
+                                console.log(response);
+                                var alarmId = response['alarmid'];
+                                var alarm = response['alarm'];
+                                console.log(alarmId);
+                                var alarmBox = document.getElementById("dialog-confirm");
+                                alarmBox.innerHTML = alarm;
+                                $("#dialog-confirm").data('alarmID', alarmId).dialog("open");
+                                console.log('alarm ON');
+                            } else {
+                                console.log('No alarm');
+                            }
+                        }
+                    });
+                }, 60000);
+
+                var autotimeout = setTimeout(function () {
+                    location.href = "{{ path('lead_autotimeout')}}";
+                }, 7200000);
+            });
+        </script>
+        {% block javascriptbase %}
+        {% endblock %}
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>
+

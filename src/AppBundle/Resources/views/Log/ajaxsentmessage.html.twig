@@ -1,0 +1,123 @@
+<nav>
+    <ul class="pagination">
+        <li {% if page == 1 %}class="disabled"{%endif%}><a href="#" id="pagedown" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        
+        {% for all in pagesarray %}
+        <li {% if page == all %}class="active currentpage" data-action="{{maxpage}}" {% endif %}><a id="pagenumber" data-action="{{all}}" href="#">{{all}} </a></li>
+            {% endfor %}
+        <li {% if page == maxpage %}class="disabled"{%endif%}>
+            <a href="#" id="pageup" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+
+
+<table class="table gi-4p table-striped table-condensed">
+
+
+    <thead class="gi-5p">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Date</th>
+            <th>To</th>
+            <th>Deadline</th>
+            <th>Patient</th>
+            <th>Call log</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th></th>
+            <th></th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+
+        {% for all in sent %}
+            <tr {% if all.unread == false %}style="font-weight:bold;"{% endif %}>
+                 {% if all.priority == 1 %}
+                    <td class="col-md-05">
+                        <span class="gi-5p glyphicon glyphicon-exclamation-sign"></span>
+                    </td>
+                {% else %}
+                    <td class="col-md-05"></td>
+                {% endif %}
+                <td class="col-md-05">
+                    {% if all.unread == false %}
+                        <span class="gi-5p glyphicon glyphicon-envelope"></span>
+                    {% endif %}
+                </td>
+                <td class="col-md-1">
+                    {{ all.createdAt|date('d-m-Y H:i:s') }}
+                </td>
+                <td class="col-md-05">
+                    {{ all.assign }}
+                </td>
+                {% if all.deadline == true %}
+                    <td class="col-md-1">
+                        {{ all.deadline|date('d-m-Y') }}
+                    </td>
+                {% else %}
+                    <td class="col-md-1">
+                        n/a
+                    </td>
+                {% endif%}
+                <td class="col-md-1">
+                    {% if all.leadid == true %}
+                        {% if all.logid == true %}
+                            <a href="{{ path('log_progress', { 'id': all.logid})}}">{{ all.customerName }}</a>
+                        {% else %}
+                            <a href="{{ path('lead_progresstest', { 'id': all.leadid})}}">{{ all.customerName }}</a>
+                        {% endif %}
+                    {% else %}
+                        {{ all.customerName }}
+                    {% endif %}
+                </td>
+                {% if all.logid == true %}
+                    <td class="col-md-05">
+                        <a href="{{ path('log_progress', { 'id': all.logid})}}">{{ all.logid }}</a>
+                    </td>
+                {% else %}
+                    <td class="col-md-1">
+                        n/a
+                    </td>
+                {% endif%}
+                <td class="col-md-2">
+                    {{ all.subject|slice(0, 50) ~ '...'}}
+                </td>
+                <td class="col-md-4">
+                    {{ all.body|slice(0, 50) ~ '...'}}
+                </td>
+                 <td class="col-md-05">
+                    {% if all.unread == false %}Delivered{%else%}Seen{% endif %}
+                </td>
+                <td class="col-md-05">
+                    <button type="button" id="myreadbutton" data-action="{{all.id}}" class="btn btn-success btn-xs">Read</button>
+                </td>
+
+
+            </tr>
+            <tr>
+                <td colspan="11">
+                    <div id="readmessage{{all.id}}"></div>
+                </td>
+            </tr>
+
+
+        {% endfor %} 
+
+
+
+    </tbody>
+
+</table>
+

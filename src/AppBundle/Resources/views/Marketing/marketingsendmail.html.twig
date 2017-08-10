@@ -1,0 +1,90 @@
+{% extends "AppBundle:Marketing:marketingbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{% block welcome %}Welcome {{name}}{% endblock %}
+
+
+
+{%block content %}  
+
+    <div class="col-lg-9">
+        {% if error != false %}
+            {% if error == 'nan' %}        
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Email success!&nbsp;&nbsp;&nbsp; <a href="{{ path('lead_progress', { 'id': id})}}">Go back</a></h3>
+                    </div>
+
+                </div>
+            {% else %}
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">There was a problem with the email sending! Error code: {{error}} <a href="{{ path('lead_progress', { 'id': id})}}">Go back</a></h3>
+                    </div>
+
+                </div>
+            {% endif %} 
+        {% endif %} 
+
+
+
+
+
+
+        {% if error == false %}
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Send an email</h3>
+                </div>
+
+
+                <div class="panel-body">
+
+                    <p> {{ form_start(formsendmail) }}</p>
+                    <p>
+                        {{ form_label(formsendmail.campaign) }}
+                        {{ form_errors(formsendmail.campaign) }}
+                        {{ form_widget(formsendmail.campaign) }}
+                    </p>
+                    <p>
+                        {{ form_label(formsendmail.Subject) }}
+                        {{ form_errors(formsendmail.Subject) }}
+                        {{ form_widget(formsendmail.Subject) }}
+                    </p>
+                    <p>
+
+                        {{ form_errors(formsendmail.Message) }}
+                        {{ form_widget(formsendmail.Message , { 'attr': { 
+                            'style' : 'height:800px', 
+                            'cols' : '1' }} ) }}
+                    </p>
+
+                    {%if attachname == true %}<p><span class="glyphicon glyphicon-paperclip"></span> &nbsp;&nbsp;&nbsp;{{attachname}}</p>{% endif %}
+                    {%if attachname == false %}<p style="color:red;"><span class="glyphicon glyphicon-paperclip"></span>&nbsp;&nbsp; NO ATTACHMENT</p>{% endif %}
+
+                    <p>{{ form_end(formsendmail) }} <a href="{{ path('lead_progress', { 'id': id})}}"><span class="btn btn-danger btn-xs">Cancel</span></a></p>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+
+
+
+
+
+
+
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}

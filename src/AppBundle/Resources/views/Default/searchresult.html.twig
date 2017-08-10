@@ -1,0 +1,151 @@
+{% extends "AppBundle:Default:leadbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+{%block stylesheets %}
+{% endblock %}
+{% block content %} 
+
+
+    <div class="col-lg-12">
+
+
+
+        <!-- SEARCH RESULT FOR NAME -->
+        {% if namesearch == true %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search result for name</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-striped gi-4p">
+
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Message</th>
+                                    <th>Date</th>
+                                    <th>PC</th>
+                                    <th>Assign</th>
+                                    <th>Status</th>
+
+
+                                </tr>
+                            </thead>
+                            {% for all in namesearch %}
+                                <tr>
+                                    <td style="width:10%"><a href="{{ path('lead_progresstest', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                    <td style="width:10%">{{ all.customerTel }}</td>
+                                    <td style="width:10%">{{ all.customerEmail }}</td>
+                                    <td style="width:35%">{{ all.message }}</td>
+                                    <td style="width:10%">{{ all.createdAt|date('d-m-Y') }}</td>
+                                    <td style="width:10%">{{ all.assign }}</td>
+                                    <td style="width:5%"></td>
+                                    <td style="width:5%">{{ all.status }}</td>
+                                    <td style="width:5%"></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+            </div>    
+        {% endif %}
+
+        <!-- SEARCH RESULT FOR EMAIL -->
+        {% if emailsearch == true %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search result for email</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-striped gi-4p">
+
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Message</th>
+                                    <th>Date</th>
+                                    <th>PC</th>
+                                    <th>Assign</th>
+                                    <th>Status</th>
+
+
+                                </tr>
+                            </thead>
+                            {% for all in emailsearch %}
+                                <tr>
+                                    <td style="width:10%"><a href="{{ path('lead_progresstest', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                    <td style="width:10%">{{ all.customerTel }}</td>
+                                    <td style="width:10%">{{ all.customerEmail }}</td>
+                                    <td style="width:35%">{{ all.message }}</td>
+                                    <td style="width:10%">{{ all.createdAt|date('d-m-Y') }}</td>
+                                    <td style="width:10%">{{ all.assign }}</td>
+                                    <td style="width:5%"></td>
+                                    <td style="width:5%">{{ all.status }}</td>
+                                    <td style="width:5%"></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+            </div>   
+        {% endif %}
+
+
+        <!-- SEARCH RESULT FOR Phone -->
+        {% if telsearch == true %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search result for Phone</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-striped gi-4p">
+
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Message</th>
+                                    <th>Date</th>
+                                    <th>PC</th>
+                                    <th>Assign</th>
+                                    <th>Status</th>
+
+
+                                </tr>
+                            </thead>
+                            {% for all in telsearch %}
+                                <tr>
+                                    <td style="width:10%"><a href="{{ path('lead_progresstest', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                    <td style="width:10%">{{ all.customerTel }}</td>
+                                    <td style="width:10%">{{ all.customerEmail }}</td>
+                                    <td style="width:35%">{{ all.message }}</td>
+                                    <td style="width:10%">{{ all.createdAt|date('d-m-Y') }}</td>
+                                    <td style="width:10%">{{ all.assign }}</td>
+                                    <td style="width:5%"></td>
+                                    <td style="width:5%">{{ all.status }}</td>
+                                    <td style="width:5%"></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+            </div>   
+        {% endif %}
+
+
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+{% endblock %}

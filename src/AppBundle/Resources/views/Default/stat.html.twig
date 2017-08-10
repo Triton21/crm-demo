@@ -1,0 +1,215 @@
+{% extends "AppBundle:Default:leadbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+{%block stylesheets %}
+{% endblock %}
+{% block content %} 
+
+
+
+    <!-- Statistic panels -->
+
+    <div class="col-lg-10">
+        <div class="col-lg-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Total call statistic</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-condensed gi-5p">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Calls</th>
+                                    <th>Could not reach</th>
+                                    <th></th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>This month</td>
+                                <td>{{countstat.10}}</td>
+                                <td>{{countstat.12}}</td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{countstat.11}}</td>
+                                <td>{{countstat.13}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Total result statistic</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-condensed gi-5p">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Won</th>
+                                    <th>In progress</th>
+                                    <th>Dead</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>This month</td>
+                                <td>{{countstat.14}}</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{countstat.15}}</td>
+                                <td>{{countstat.17}}</td>
+                                <td>{{countstat.19}}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Call statistic for {{name}} </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-condensed gi-5p">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Calls</th>
+                                    <th>Could not reach</th>
+                                    <th></th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+
+                            <tr>
+                                <td>This month</td>
+                                <td>{{countstat.0}}</td>
+                                <td>{{countstat.2}}</td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{countstat.1}}</td>
+                                <td>{{countstat.3}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Result statistic for {{name}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-condensed gi-5p">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Won</th>
+                                    <th>In progress</th>
+                                    <th>Dead</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>This month</td>
+                                <td>{{countstat.4}}</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{countstat.5}}</td>
+                                <td>{{countstat.7}}</td>
+                                <td>{{countstat.9}}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="col-lg-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Statistic by month {{name}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-condensed gi-5p">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Won</th>
+                                </tr>
+                            </thead>
+                            {% for key, result in resultarray %}
+                                <tr>
+                                    <td>{{key}}</td>
+                                    <td>{{result}}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block javascripts %}
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "AppBundle:Admin:adminbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{% block welcome %}Welcome {{name}}{% endblock %}
+
+
+
+{%block content %} 
+    <div class="col-md-12">
+        <br>
+        <div class="col-md-offset-4 col-md-2">
+            <form class="form-inline" action="{{ path('admin_worklog')}}" method="POST">
+                <input type="text" name="selectdate" id="datepicker" class="input-sm form-control" data-provide="datepicker" data-date-format="dd-mm-yyyy" placeholder="Select a date" data-date-format="dd-mm-yyyy" >
+                <button type="submit" class="btn btn-default btn-sm">Select</button>
+            </form>
+        </div>
+        <div class="col-md-1">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('admin_worklog')}}"><button type="button" class="btn btn-success btn-sm">Today</button></a>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+    <div class="md-12">
+        <div class="col-md-2" style="text-align: right;">
+            <div style="min-height: 100px;"></div>
+            <a href="{{ path('admin_worklog', { 'username': username, 'todayString': todayString, 'pager': 'down'})}}"><span class="gi-45p glyphicon glyphicon-chevron-left"></span></a>
+        </div>
+
+
+        <div class="col-md-8">
+            <div class="panel panel-danger">
+
+                <div class="panel-heading" style="text-align: center;">
+                    <h3 class="panel-title">
+                        <table>
+                            <tr>
+                                <td>
+                                    <select name="namefilter" class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
+                                        <option value="{{ path('admin_worklog', { 'username': 'all'})}}" {% if username == 'all' %} selected="selected"{%endif%}></option>
+                                        {% for all in usersarray %}
+                                            {% if all != ' ' %}
+                                                <option value="{{ path('admin_worklog', { 'username': all, 'todayString': todayString})}}" >{{all}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td>
+                                    {{ todayString|date('d-m-Y') }}&nbsp;&nbsp;{{ todayString|date('l') }}
+                                </td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td>User: {{username}}</td>
+                            </tr>
+                        </table>
+
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped gi-5p">
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        {% for all in userworklog %}
+                            <tr>
+                                <td style="width:33.3%">{{ all.username }}</td>
+                                <td style="width:33.3%">{{ all.register }}</td>
+                                <td style="width:33.3%">{{ all.createdAt|date('H:i:s') }}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+        <div class="col-md-2">
+            <div style="min-height: 100px;"></div>
+            <a href="{{ path('admin_worklog', { 'username': username, 'todayString': todayString, 'pager': 'up'})}}"><span class="gi-45p glyphicon glyphicon-chevron-right"></span></a>
+        </div>           
+
+    </div>
+
+
+{%endblock%}   
+
+
+
+
+{% block javascripts %}
+
+
+
+
+
+
+{% endblock %}

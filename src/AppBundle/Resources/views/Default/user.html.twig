@@ -1,0 +1,208 @@
+{% extends "FOSUserBundle::base.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block welcome%}Welcome {{name}}{%endblock%}
+{%block stylesheets %}
+    <style type="text/css">
+
+        .panel-green {
+            border-color: #5cb85c;
+            color: #fff;
+        }
+
+        .panel-green > .panel-heading {
+            border-color: #5cb85c;
+            color: #fff;
+            background-color: #5cb85c;
+
+        }
+
+        .panel-green > a {
+            color: #5cb85c;
+        }
+
+        .panel-green > a:hover {
+            color: #3d8b3d;
+        }
+
+        .panel-red {
+            border-color: #d9534f;
+        }
+
+        .panel-red > .panel-heading {
+            border-color: #d9534f;
+            color: #fff;
+            background-color: #d9534f;
+        }
+
+        .panel-red > a {
+            color: #d9534f;
+        }
+
+        .panel-red > a:hover {
+            color: #b52b27;
+        }
+
+        .nav-pills-red > li {
+            float: left;
+        }
+        .nav-pills-red > li > a {
+            border-radius: 4px;
+        }
+        .nav-pills-red > li + li {
+            margin-left: 2px;
+        }
+        .nav-pills-red > li.active > a,
+        .nav-pills-red > li.active > a:hover,
+        .nav-pills-red > li.active > a:focus {
+            color: #fff;
+            background-color: #d9534f;
+        }
+
+
+
+
+
+
+
+        .gi-1x{font-size: 1em;}
+        .gi-2x{font-size: 2em;}
+        .gi-3x{font-size: 3em;}
+        .gi-4x{font-size: 4em;}
+        .gi-5x{font-size: 5em;}
+
+        .gi-1p{font-size: 9px;}
+        .gi-2p{font-size: 10px;}
+        .gi-3p{font-size: 11px;}
+        .gi-4p{font-size: 12px;}
+        .gi-5p{font-size: 13px;}
+
+        .table-striped>tbody>tr:nth-child(odd)>td,
+        tr.found{
+
+        }
+
+        .badgegreen {
+            display: inline-block;
+            min-width: 10px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            background-color: green;
+            border-radius: 10px;
+        }
+
+        .badgeyellow {
+            display: inline-block;
+            min-width: 10px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            background-color: yellow;
+            border-radius: 10px;
+        }
+
+        .badgeblue{
+            display: inline-block;
+            min-width: 10px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            background-color: blue;
+            border-radius: 10px;
+        }
+
+        .badgered{
+            display: inline-block;
+            min-width: 10px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            background-color: red;
+            border-radius: 10px;
+        }
+
+
+        .badgeorange{
+            display: inline-block;
+            min-width: 10px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            background-color: #cc6600;
+            border-radius: 10px;
+        }
+
+        td.phone
+        {
+            width: 80px;
+
+        }
+
+        td.email
+        {
+            width: 80px;
+
+        }
+
+        table.table.table-striped tr.found td {
+            background-color:#CECBCB;
+        }
+    </style>
+
+
+
+
+{%endblock%}
+
+{%block body %}
+    {% block create %}
+    {% endblock %}
+
+    {%block panel %}
+    {%endblock%} 
+
+    {%block frame1 %}
+    {%endblock%} 
+
+    {%block content %}   
+    {%endblock%}   
+
+    {%block frame2 %}
+    {%endblock%} 
+
+
+{%endblock%}
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}

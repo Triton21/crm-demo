@@ -1,0 +1,152 @@
+{% extends "AppBundle:Marketing:marketingbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{% block welcome %}Welcome {{name}}{% endblock %}
+
+
+
+{%block content %}  
+
+
+
+    <div class="container">
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Your task</h3>
+                </div>
+                <div class="panel-body">
+                    {% for all in emailtask %}
+
+                        <div class="panel panel-default">
+                            <table class="table table-striped gi-4p">
+                                <thead>
+                                    <tr>
+                                        <th>Task ID</th>  
+                                        <th>Email</th>  
+                                        <th>Created at</th>  
+                                        <th>Next consultation</th>  
+                                        <th>Active</th>  
+                                        <th>Counter</th>  
+                                        <th>Contacts</th>  
+                                        <th></th>  
+                                        <th></th>  
+                                        <th></th>  
+                                        <th></th>  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if runId == all.id %}
+                                        <tr style="font-weight: bold; background-color:#ffcccc" class="table table-striped gi-5p">
+                                            <td>{{ all.id }}</td>
+                                            <td><a href="{{ path('marketing_displayemail', { 'id': all.id }) }}" target="_blank"><span class="glyphicon glyphicon-open"></span></a></td>
+                                            <td>{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                            <td>{{ all.nextcons }}</td>
+                                            {% if all.done == '0' %}
+                                                <td>Task is running</td>
+                                            {% elseif all.done == '2' %}
+                                                <td>Task is stopped</td>
+                                            {% elseif all.done == '3' %}
+                                                <td>Ready to start</td>
+                                            {% else %}
+                                                <td>Task is finished</td>    
+                                            {% endif %}
+                                            <td>{% if all.counter > all.leadnum %}{{all.leadnum}}{% else %}{{ all.counter }}{% endif%}</td>
+                                            <td>{{ all.leadnum }}</td>
+                                            <td><a href="{{ path('marketing_taskstart', { 'id': all.id }) }}" class="btn btn-success btn-xs" {% if all.done == '0' %}disabled{%endif%}>Start</a></td>
+                                            <td><a href="{{ path('marketing_taskstop', { 'id': all.id }) }}" class="btn btn-danger btn-xs" {% if all.done == '2' %}disabled{%endif%}>Stop</a></td>
+                                            <td><a href="{{ path('marketing_taskdelete', { 'id': all.id }) }}" class="btn btn-danger btn-xs">Delete</a></td>
+                                            <td><a href="{{ path('marketing_campaignedit', { 'id': all.campId }) }}" class="btn btn-success btn-xs">Dashboard</a></td>
+                                        </tr>
+                                    {% else %}
+                                        <tr {% if all.done == '3' %}style="background-color:#ccffcc"{% else %}style="color:grey;"{% endif %} class="table table-striped gi-5p">
+                                            <td>{{ all.id }}</td>
+                                            <td><a href="{{ path('marketing_displayemail', { 'id': all.id }) }}" target="_blank"><span class="glyphicon glyphicon-open"></span></a></td>
+                                            <td>{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                            <td>{{ all.nextcons }}</td>
+                                            {% if all.done == '0' %}
+                                                <td>Task is running</td>
+                                            {% elseif all.done == '2' %}
+                                                <td>Task is stopped</td>
+                                            {% elseif all.done == '3' %}
+                                                <td>Ready to start</td>
+                                            {% else %}
+                                                <td>Task is finished</td>    
+                                            {% endif %}
+                                            <td>{% if all.counter > all.leadnum %}{{all.leadnum}}{% else %}{{ all.counter }}{% endif%}</td>
+                                            <td>{{ all.leadnum }}</td>
+                                            <td><a href="{{ path('marketing_taskstart', { 'id': all.id }) }}" class="btn btn-success btn-xs" {% if runId != false%}disabled{% endif%}>Start</a></td>
+                                            <td><a href="{{ path('marketing_taskstop', { 'id': all.id }) }}" class="btn btn-danger btn-xs" disabled>Stop</a></td>
+                                            <td><a href="{{ path('marketing_taskdelete', { 'id': all.id }) }}" class="btn btn-danger btn-xs">Delete</a></td>
+                                            <td><a href="{{ path('marketing_campaignedit', { 'id': all.campId }) }}" class="btn btn-success btn-xs">Campaign details</a></td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div id="refresh" class="btn btn-success btn-xs">Refresh</div>
+                </div>
+                <div class="panel-body" id="monitor">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    <script>
+        var myEl = document.getElementById("monitor");
+        var node = document.createElement("DIV");
+        //var textnode = document.createTextNode("Water");
+        //node.appendChild(textnode);
+        function aButtonPressed() {
+            $.ajax({
+                url: "{{ path('marketing_ajaxupdate')}}",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    template = response;
+                    myEl.innerHTML = template;
+                },
+                complete: function () {
+                    console.log('Request is complete');
+                },
+                error: function () {
+                    console.log('Oops...there was an error!');
+                }
+            });
+        }
+        function changeText(myEl) {
+            myEl.textContent = 'I am new text!';
+        }
+
+
+
+        $(document).ready(function () {
+            $('#refresh').on('click', function (event) {
+                event.preventDefault();
+                aButtonPressed();
+            });
+        });
+    </script>
+{% endblock %}

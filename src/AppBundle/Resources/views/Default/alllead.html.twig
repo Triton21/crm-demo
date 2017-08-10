@@ -1,0 +1,157 @@
+{% extends "AppBundle:Default:leadbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+    {% for all in alllead %}
+        <style type="text/css">
+            .morecontent{{all.id}} span {
+                display: none;
+            }
+            .morelink{{all.id}} {
+                color: #6c8ecf;
+                display: block;
+            }
+        </style>
+    {% endfor %}
+{%endblock%}
+{% block content %} 
+
+
+
+
+
+    <!-- ALL leads -->
+
+
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <table>
+                        <tr><td>
+                                All leads&nbsp;&nbsp;&nbsp;&nbsp; 
+                            </td>
+                            <td>
+                                Page:&nbsp;
+                                {%if pagedown == false%} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="{{ path('lead_all', { 'page': pagedown, 'itemperpage': itemperpage})}}"><span class="gi-7p glyphicon glyphicon-chevron-left"></span>{%endif%}
+                                {% for all in pagesarray %}{% if page == all %}<span><button type="button" class="btn btn-sm disabled">{{all}}</button></span>
+                                {%else%}<a href="{{ path('lead_all', { 'page': all, 'itemperpage': itemperpage})}}"><button type="button" class="btn btn-default btn-sm">{{all}}</button>{%endif%}</a>
+                                        {% endfor %}
+                            {%if pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="{{ path('lead_all', { 'page': pageup, 'itemperpage': itemperpage})}}"><span class="gi-7p glyphicon glyphicon-chevron-right"></span>{%endif%}
+                                
+                            </td>
+                                        <td style="width:16%"></td>
+                                        <td>
+                                                <select name="newitem" class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
+                                                    <option value="{{ path('lead_all', { 'itemperpage': '25',})}}" {% if itemperpage == '25'%} selected="selected"{%endif%}>25</option>
+                                                    <option value="{{ path('lead_all', { 'itemperpage': '50',})}}" {% if itemperpage == '50'%} selected="selected"{%endif%}>50</option>
+                                                    <option value="{{ path('lead_all', { 'itemperpage': '100',})}}" {% if itemperpage == '100'%} selected="selected"{%endif%}>100</option>
+                                                    <option value="{{ path('lead_all', { 'itemperpage': '200',})}}" {% if itemperpage == '200'%} selected="selected"{%endif%}>200</option>
+                                                </select>
+                                        </td>
+                                    <tr>
+                                </table>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="gi-1x">
+                                <table class="table table-striped gi-4p">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Message</th>
+                                            <th>Date</th>
+                                            <th>PC</th>
+                                            <th>Assign</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+
+
+
+                                        </tr>
+                                    </thead>
+                                    {% for all in alllead %}
+                                        <tr>
+                                            <td><a href="{{ path('lead_progress', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                            <td>{{ all.customerTel }}</td>
+                                            <td>{{ all.customerEmail }}</td>
+                                            <td style="width:33%">
+                                                <span class="more{{all.id}}">{{ all.message }}</span>
+                                            </td>
+                                            <td>{{ all.createdAt|date('d-m-Y') }}</td>
+                                            <td>{{ all.assign }}</td>
+                                            <td>{% if all.assign != name %} {% if all.status == 'Dead' %}
+                                                <form action="{{ path('lead_all') }}" method="POST">
+                                                    <input type="hidden" name="assign" value="{{ all.id }}">
+                                                    <input class="btn btn-success btn-xs" type="submit" value="Get"/>
+                                                </form>
+                                                {% endif %}
+                                                    {% endif %}
+                                                    </td>
+                                                    <td>{{ all.status }}</td>
+                                                    <td><a href="{{ path('lead_progress', { 'id': all.id})}}">Edit</a></td>
+                                                    {% endfor %}
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                {% endblock %}
+                    {% block javascripts %}
+                        {% for all in alllead %}
+                            <script>
+                                $(document).ready(function () {
+                                    // Configure/customize these variables.
+                                    var showChar = 250; // How many characters are shown by default
+                                    var ellipsestext = " ...";
+                                    var moretext = "more >";
+                                    var lesstext = "less";
+
+
+                                    $('.more{{all.id}}').each(function () {
+                                        var content = $(this).html();
+
+                                        if (content.length > showChar) {
+
+                                            var c = content.substr(0, showChar);
+                                            var h = content.substr(showChar, content.length - showChar);
+
+                                            var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent{{all.id}}"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink{{all.id}}">' + moretext + '</a></span>';
+
+                                            $(this).html(html);
+                                        }
+
+                                    });
+
+                                    $(".morelink{{all.id}}").click(function () {
+                                        if ($(this).hasClass("less")) {
+                                            $(this).removeClass("less");
+                                            $(this).html(moretext);
+                                        } else {
+                                            $(this).addClass("less");
+                                            $(this).html(lesstext);
+                                        }
+                                        $(this).parent().prev().toggle();
+                                        $(this).prev().toggle();
+                                        return false;
+                                    });
+                                });
+
+
+                            </script>
+                        {% endfor %}
+                    {% endblock %}

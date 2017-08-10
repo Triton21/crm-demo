@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <title>{% block title %}Symfony login{% endblock %}</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+        <!-- Custom styles for this template -->
+        <link href="{{asset('bundles/login/css/style.css')}}" rel="stylesheet">
+        <link href="{{asset('bundles/app/css/style.css')}}" rel="stylesheet">
+        <link href="{{asset('bundles/app/css/sidebar.css')}}" rel="stylesheet">
+        <style type="text/css">
+            @font-face {
+                font-family: 'Drug'; 
+                src:    url({{asset('bundles/app/fonts/Drugs.otf')}}) format('opentype'); 
+            }
+            .myFont {
+                font-family: 'Drug';
+            }
+            .myLogo {
+                display:inline-block;
+                font-family: 'Drug';
+                font-size: 22px;
+                color: white;
+            }
+
+            @media all and (max-width: 300px) {
+                .sideBarDiv { display: none; }
+            }
+            #page-wrapper {
+                min-height: 65em;
+                margin-top: 50px;
+                background-color:white;
+            }
+        </style>
+        {% block stylesheets %}
+
+
+        {% endblock %}
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="{{path('lead_managermain')}}" class="navbar-brand">
+                        <div class="myLogo">
+                            <img class="pull-left" style="margin-top:-3px;margin-right:10px;margin-left:-5px;" src="{{asset('bundles/app/images/LogoMakrSmall18.png')}}" alt="A3Software Logo">
+                            <span style="color:white;margin-left:-5px;"> CRM </span><span style="color:#cc3333;">Admin</span>
+                        </div>
+                    </a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-right navbar-nav">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{path('admin')}}">Admin</a></li>
+                                {% endif %}
+                            <li><a href="{{path('register')}}">Register</a></li>
+                            <li><a href="{{path('logout')}}">Logout</a></li>
+                        {% endif %}
+                    </ul> 
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+
+        <div class="container">
+            {% block body %}
+
+            {% endblock %}
+        </div><!-- /.container -->
+
+        <!-- Bootstrap core JavaScript
+          ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        {% block javascripts %}
+
+        {% endblock %}
+
+    </body>
+</html>

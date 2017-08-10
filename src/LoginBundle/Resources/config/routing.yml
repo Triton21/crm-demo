@@ -1,0 +1,98 @@
+login:
+    path:   /login
+    defaults: { _controller: LoginBundle:Security:login }
+    
+login_contact:
+    path: /contact-us
+    defaults: { _controller: LoginBundle:Pages:contact }
+    
+login_findus:
+    path: /find-us
+    defaults: { _controller: LoginBundle:Pages:findus }
+    
+login_phone:
+    path: /phone
+    defaults: { _controller: LoginBundle:Pages:phone }
+    
+login_info:
+    path: /dentist-info
+    defaults: { _controller: LoginBundle:Pages:info }
+    
+login_about:
+    path: /about-info
+    defaults: { _controller: LoginBundle:Pages:about }
+    
+login_check:
+    path:   /login_check
+
+logout:
+    path:   /logout
+
+admin:
+    path:   /admin
+    defaults: { _controller: LoginBundle:User:index }
+    
+admin_show:
+    path:   /showuser/{id}
+    defaults: { _controller: LoginBundle:User:show, id:id }
+    
+admin_new:
+    path:   /newuser/{id}
+    defaults: { _controller: LoginBundle:User:new, id:id }
+    
+admin_create:
+    path:   /createuser
+    defaults: { _controller: LoginBundle:User:create }
+    methods:  [POST]
+    
+admin_delete:
+    path:   /deleteuser/{id}
+    defaults: { _controller: LoginBundle:User:delete }
+    methods:  [DELETE]
+    
+admin_password:
+    path:   /{id}/password
+    defaults: { _controller: LoginBundle:User:password }
+    
+admin_edit:
+    path:   /edituser/{id}
+    defaults: { _controller: LoginBundle:User:edit }
+    
+admin_update:
+    path:   /adminupdate/{id}
+    defaults: { _controller: LoginBundle:User:update }
+    methods:  [PUT]
+    
+admin_password_update:
+    path:   /admin-passoword-update/{id}
+    defaults: { _controller: LoginBundle:User:passwordUpdate }
+    methods:  [PUT]
+    
+register:
+    path:   /register
+    defaults: { _controller: LoginBundle:Register:register }
+    
+verification:
+    path:   /verification/{newId}
+    defaults: { _controller: LoginBundle:Register:sendVerification, newId:newId }
+    
+activation:
+    path:   /practice/{token}
+    defaults: { _controller: LoginBundle:Register:activation, token:token }
+    
+forgotPassword:
+    path:   /forgot-password
+    defaults: { _controller: LoginBundle:Register:forgot }
+    
+resetPassword:
+    path:   /reset-password/{token}
+    defaults: { _controller: LoginBundle:Register:resetPassword, token:token }
+    
+changePassword:
+    path:   /change-password/{token}
+    defaults: { _controller: LoginBundle:Register:changePassword, token:token }
+    
+referralform:
+    path:   /referral-form
+    defaults: { _controller: LoginBundle:Pages:referralform }
+    

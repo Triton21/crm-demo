@@ -1,0 +1,139 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+        
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+        # in_memory:
+            # memory: ~
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
+                login_path: /login
+                check_path: /login_check
+                success_handler: redirect.after.login
+                
+            logout:
+                path: /logout
+                target: /
+                success_handler: redirect.after.logout
+            
+            anonymous:    true
+            
+            remember_me:
+                key:      "%secret%"
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+            # anonymous: ~
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: ROLE_ADMIN }
+        - { path: ^/resetting, role: ROLE_ADMIN }
+        - { path: ^/user, role: ROLE_USER }
+        - { path: ^/backoffice, role: ROLE_ADMIN }
+        - { path: ^/lead, role: ROLE_USER }
+        - { path: ^/leadtemplatedelete, role: ROLE_USER }
+        - { path: ^/leadtemplateedit, role: ROLE_USER }
+        - { path: ^/leadtemplateduplicate, role: ROLE_USER }
+        - { path: ^/email, role: ROLE_USER }
+        - { path: ^/checklead, role: ROLE_USER }
+        - { path: ^/alllead, role: ROLE_USER }
+        - { path: ^/mylead, role: ROLE_USER }
+        - { path: ^/todolead, role: ROLE_USER }
+        - { path: ^/newlead, role: ROLE_USER }
+        - { path: ^/mywon, role: ROLE_USER }
+        - { path: ^/allwon, role: ROLE_USER }
+        - { path: ^/flag, role: ROLE_USER }
+        - { path: ^/reminder, role: ROLE_USER }
+        - { path: ^/search, role: ROLE_USER }
+        - { path: ^/stat, role: ROLE_USER }
+        - { path: ^/help, role: ROLE_USER }
+        - { path: ^/progress, role: ROLE_USER }
+        - { path: ^/edit, role: ROLE_USER }
+        - { path: ^/send, role: ROLE_USER }
+        - { path: ^/sendmail, role: ROLE_USER }
+        - { path: ^/emailonline, role: ROLE_USER }
+        - { path: ^/emailsettings, role: ROLE_USER }
+        - { path: ^/settings, role: ROLE_USER }
+        - { path: ^/deletesettings, role: ROLE_USER }
+        - { path: ^/activatesettings, role: ROLE_USER }
+        - { path: ^/emailtemplate, role: ROLE_USER }
+        - { path: ^/emailtemplatehtml, role: ROLE_USER }
+        - { path: ^/uploadattachment, role: ROLE_USER }
+        - { path: ^/uploaddelete, role: ROLE_USER }
+        - { path: ^/etemplatedelete, role: ROLE_USER }
+        - { path: ^/etemplateedit, role: ROLE_USER }
+        - { path: ^/etemplateduplicate, role: ROLE_USER }
+        - { path: ^/pending, role: ROLE_USER }
+        - { path: ^/log, role: ROLE_USER }
+        - { path: ^/logprogress, role: ROLE_USER }
+        - { path: ^/myunsolved, role: ROLE_USER }
+        - { path: ^/logunsolved, role: ROLE_USER }
+        - { path: ^/logalert, role: ROLE_USER }
+        - { path: ^/logflagged, role: ROLE_USER }
+        - { path: ^/logreminder, role: ROLE_USER }
+        - { path: ^/logedit, role: ROLE_USER }
+        - { path: ^/logsave, role: ROLE_USER }
+        - { path: ^/confirm, role: ROLE_USER }
+        - { path: ^/confirmsent, role: ROLE_USER }
+        - { path: ^/doctorlist, role: ROLE_USER }
+        - { path: ^/setdocactive, role: ROLE_USER }
+        - { path: ^/doctordelete, role: ROLE_USER }
+        - { path: ^/confirmtempplate, role: ROLE_USER }
+        - { path: ^/confirmtempplateedit, role: ROLE_USER }
+        - { path: ^/ajaxtempplate, role: ROLE_USER }
+        - { path: ^/ajaxattach, role: ROLE_USER }
+        - { path: ^/ajaxtemplatebody, role: ROLE_USER }
+        - { path: ^/ctemplatedelete, role: ROLE_USER }
+        - { path: ^/ctemplateremoveattach, role: ROLE_USER }
+        - { path: ^/ctemplateduplicate, role: ROLE_USER }
+        - { path: ^/uploadattachmentconfirm, role: ROLE_USER }
+        - { path: ^/uploaddeleteconfirm, role: ROLE_USER }
+        - { path: ^/marketing, role: ROLE_ADMIN }
+        - { path: ^/newsletter, role: ROLE_ADMIN }
+        - { path: ^/newsletteredit, role: ROLE_ADMIN }
+        - { path: ^/newslettersend, role: ROLE_ADMIN }
+        - { path: ^/taskmonitor, role: ROLE_ADMIN }
+        - { path: ^/taskstart, role: ROLE_ADMIN }
+        - { path: ^/taskstop, role: ROLE_ADMIN }
+        - { path: ^/taskdelete, role: ROLE_ADMIN }
+        - { path: ^/newsletterdelete, role: ROLE_ADMIN }
+        - { path: ^/emaildelete, role: ROLE_ADMIN }
+        - { path: ^/emailsingledelete, role: ROLE_ADMIN }
+        - { path: ^/elist, role: ROLE_ADMIN }
+        - { path: ^/ajaxelist, role: ROLE_ADMIN }
+        - { path: ^/ajaxupdate, role: ROLE_ADMIN }
+        - { path: ^/ajaxpost, role: ROLE_ADMIN }
+        - { path: ^/newslettertemplate, role: ROLE_ADMIN }
+        - { path: ^/newsletterduplicate, role: ROLE_ADMIN }
+        - { path: ^/newslettertemplatedelete, role: ROLE_ADMIN }
+        - { path: ^/marketingedit, role: ROLE_ADMIN }
+        - { path: ^/newslettersendmail, role: ROLE_ADMIN }
+        - { path: ^/leadtest, role: ROLE_ADMIN }
+        - { path: ^/todoleadtest, role: ROLE_ADMIN }
+        

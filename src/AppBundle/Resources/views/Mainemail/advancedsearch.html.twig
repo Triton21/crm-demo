@@ -1,0 +1,136 @@
+{% extends "AppBundle:Mainemail:emailbase.html.twig" %}
+{% block title %}Advanced search{% endblock %}
+
+{%block stylesheets %}
+    <style> 
+        .emailheading {
+            padding: 7px 5px 7px 0px;
+        }
+        .closetoleft {
+            padding: 7px 0px 0px 0px;
+        }
+    </style>     
+{% endblock %}
+
+
+
+{%block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Advaned search</h3>
+            </div>
+
+            <div class="panel-body">
+
+                {{ form_start(maininboxSearchForm) }}
+                {{ form_widget(maininboxSearchForm) }}
+                {{ form_end(maininboxSearchForm) }}
+            </div>
+        </div>
+        {% if countAll != false %}    
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-3 closetoleft">
+                            <h3 class="panel-title">
+                                <div style="font-weight:bold;">Incoming Search results:&nbsp;&nbsp;&nbsp;{{countAll}}</div> 
+                            </h3>
+
+                        </div>
+
+                        <!-- PAGINATOR FOR NORMAL DISPLAY  -->
+                        <div class="col-lg-8">
+                            {% if pager.pagedown == false %} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="#"><span class="gi-7p glyphicon glyphicon-chevron-left"></span></a>{%endif%}
+                            {% for all in pager.pagesarray %}{% if pager.page == all %} <button type="button" class="btn btn-sm disabled">{{all}}</button>{%else%}
+                                    <a href="#"><button id="pagebutton" action-data="{{all}}" type="button" class="btn btn-default btn-sm pagebutton">{{all}}</button>{%endif%}</a>
+                                        {% endfor %}
+                                            {% if pager.pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="#"><span class="gi-7p glyphicon glyphicon-chevron-right"></span></a>{% endif %}
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="panel-body">
+                                <table class="table table-striped gi-1x">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Account</th>
+                                            <th>Date</th>
+                                            <th>From</th>
+                                            <th>Subject</th>
+                                            <th>Open</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for all in results %}
+                                            <tr></th>
+                                                <td>{{all.id}}</td>
+                                                <td>{{accountsarray[all.settid]}}</td>
+                                                <td>
+                                                    {% if all.maildate|date('U') > todayMidnigth|date('U') %}
+                                                        {{ all.maildate|date('H:i:s') }}
+                                                    {% else %}
+                                                        {{ all.maildate|date('d-m-Y') }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{all.fromname[:19] ~ ''}}</td>
+                                                <td>{{all.subject[:55] ~ '...'}}</td>
+                                                <td style="width:5%; text-align:center;"><a href="{{ path('mainemail_openemail', { 'id': all.id }) }}" target="_blank"><span class="gi-7p glyphicon glyphicon-open"></span></a></td>
+                                                <td style="width:5%; text-align:center;"><a href="{{ path('mainemail_inbox', { 'id': all.settid, 'focusId' : all.id  }) }}"><span class="gi-7p glyphicon glyphicon-expand"></span></a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                        {% endif %}
+                            {% if results == 'NO RESULTS' %}   
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+
+                                        <h3 class="panel-title">
+                                            <div style="font-weight:bold;">No result</div> 
+                                        </h3>
+
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+
+
+
+
+
+
+
+                        {% endblock %}
+
+                            {% block javascripts %}
+
+                                <script type="text/javascript">
+                                    $(document).ready(function () {
+                                        $('#appbundle_maininboxsearch_sortSelect').on('change', function () {
+                                            $('#appbundle_maininboxsearch_direction').val(this.value);
+                                        });
+
+
+                                        $(document).on('click', ".pagebutton", function (e) {
+                                            var pageid = $(this).attr('action-data');
+                                            console.log(pageid);
+                                            $('[name="appbundle_maininboxsearch[page]"]').val(pageid);
+                                            $('form').submit();
+                                        });
+                                        $("#appbundle_maininboxsearch_texthtml").on('change', function () {
+                                            $('[name="appbundle_maininboxsearch[page]"]').val(1);
+                                        });
+                                    });
+                                </script>
+
+                            {% endblock %}

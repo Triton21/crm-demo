@@ -1,0 +1,131 @@
+{% extends "AppBundle:Log:logbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+
+{% block content %} 
+
+
+
+
+
+    <!-- TODAY REMINDER -->
+
+
+    
+        <div class="col-lg-10">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Today or expired reminders</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped gi-4p">
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Created</th>
+                                <th>Deadline</th>
+                                <th>In/Out</th>
+                                <th>Coordinator</th>
+                                <th>Note</th>
+                                <th>Action</th>
+                                <th>Request to collegue</th>
+                                <th>Assign to</th>
+                                <th>Flag</th>
+                                <th>Solved?</th>
+
+                            </tr>
+                        </thead>
+                        {% for all in reminder %}
+                            <tr>
+                                <td style="width:7%"><a href="{{ path('log_progress', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                <td style="width:8%">{{ all.customerEmail }}</td>
+                                <td style="width:7%">{{ all.customerTel }}</td>
+                                <td style="width:8%">{{ all.createdAt|date('d-m-Y / H:i:s') }}</td>
+                                <td style="width:6%">{{ all.deadline|date('d-m-Y') }}</td>
+                                <td style="width:3%">{{ all.inorout }}</td>
+                                <td style="width:5%">{{ all.assign }}</td>
+                                <td style="width:20%">{{ all.note }}</td>
+                                <td style="width:12%">{{ all.action }}</td>
+                                <td style="width:11%">{{ all.request }}</td>
+                                <td style="width:5%">{{ all.reassign }}</td>
+                                <td style="width:4%">{% if all.flag == '1' %}<span class="gi-7p glyphicon glyphicon-flag" style="color:red"></span>{% endif %}</td>
+                                <td style="width:4%">{% if all.solved == '1' %}<span class="glyphicon glyphicon-check gi-7p" style="color:green"></span>{% else %}<span class="glyphicon glyphicon-exclamation-sign gi-7p" style="color:red"></span>{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+                    
+                    
+                    
+                    <!-- TODAY REMINDER -->
+
+
+    <div class="col-sm-012"></div>
+        <div class="col-lg-10">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Reminders</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped gi-4p">
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Created</th>
+                                <th>Deadline</th>
+                                <th>In/Out</th>
+                                <th>Coordinator</th>
+                                <th>Note</th>
+                                <th>Action</th>
+                                <th>Request to collegue</th>
+                                <th>Assign to</th>
+                                <th>Flag</th>
+                                <th>Solved?</th>
+
+                            </tr>
+                        </thead>
+                        {% for all in allreminder %}
+                            <tr>
+                                <td style="width:7%"><a href="{{ path('log_progress', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                <td style="width:8%">{{ all.customerEmail }}</td>
+                                <td style="width:7%">{{ all.customerTel }}</td>
+                                <td style="width:8%">{{ all.createdAt|date('d-m-Y / H:i:s') }}</td>
+                                <td style="width:6%">{{ all.deadline|date('d-m-Y') }}</td>
+                                <td style="width:3%">{{ all.inorout }}</td>
+                                <td style="width:5%">{{ all.assign }}</td>
+                                <td style="width:20%">{{ all.note }}</td>
+                                <td style="width:12%">{{ all.action }}</td>
+                                <td style="width:11%">{{ all.request }}</td>
+                                <td style="width:5%">{{ all.reassign }}</td>
+                                <td style="width:4%">{% if all.flag == '1' %}<span class="gi-7p glyphicon glyphicon-flag" style="color:red"></span>{% endif %}</td>
+                                <td style="width:4%">{% if all.solved == '1' %}<span class="glyphicon glyphicon-check gi-7p" style="color:green"></span>{% else %}<span class="glyphicon glyphicon-exclamation-sign gi-7p" style="color:red"></span>{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

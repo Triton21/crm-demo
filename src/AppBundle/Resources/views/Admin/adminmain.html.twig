@@ -1,0 +1,61 @@
+{% extends "AppBundle:Admin:adminbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+
+
+{%block content %} 
+    <div class="container">
+
+
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">User administration </h3>
+            </div>
+            <div class="panel-body">
+
+                <table class="table table-striped gi-5p">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    {% for all in alluser %}
+                        <tr>
+                            <td>{{ all.username }}</td>
+                            <td>{{ all.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+
+
+
+            </div>
+        </div>
+                <div class="container">
+                    <a href="{{path('admin')}}" role="button" class="btn btn-lg btn-default">Advanced user admin</a>
+                </div>
+
+
+
+
+    </div>
+
+
+{%endblock%}   
+
+
+
+
+{% block javascripts %}
+
+
+</script>
+
+
+
+{% endblock %}

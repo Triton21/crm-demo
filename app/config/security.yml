@@ -1,0 +1,233 @@
+security:
+    encoders:
+        LoginBundle\Entity\User: bcrypt
+        LoginBundle\Security\User\WebserviceUser: bcrypt
+        
+    role_hierarchy:
+        ROLE_CUSTOMER: [ROLE_CUSTOMER]
+        ROLE_USER: [ROLE_USER, ROLE_CUSTOMER]
+        ROLE_ADMIN: [ROLE_USER, ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_MAKE_ADMINS]
+
+    providers:
+        database_users:
+            entity: { class: LoginBundle:User }
+            
+    access_denied_url: /
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            form_login:
+                check_path: /login_check
+                login_path: /login
+                username_parameter: _email
+                csrf_provider: security.csrf.token_manager
+                
+            logout:
+                path: /logout
+                target: /
+            
+            anonymous:    ~
+            
+        textmessage:
+            pattern: ^/receivetextmessage
+            security: false
+            
+#            remember_me:
+#                key:      "%secret%"
+#                lifetime: 604800 # 1 week in seconds
+#                path:     /
+        
+    access_control:
+        - { path: ^/receivetextmessage, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: ROLE_ADMIN }
+        - { path: ^/register/confirmed, role: ROLE_ADMIN }
+        - { path: ^/resetting, role: ROLE_ADMIN }
+        - { path: ^/profile, role: ROLE_USER }
+        - { path: ^/user, role: ROLE_USER }
+        - { path: ^/backoffice, role: ROLE_ADMIN }
+        - { path: ^/confirm, role: ROLE_USER }
+        - { path: ^/confirmsent, role: ROLE_USER }
+        - { path: ^/confirmsent-search, role: ROLE_USER }
+        - { path: ^/doctorlist, role: ROLE_USER }
+        - { path: ^/doctoredit, role: ROLE_USER }
+        - { path: ^/setdocactive, role: ROLE_USER }
+        - { path: ^/doctordelete, role: ROLE_USER }
+        - { path: ^/confirmtempplate, role: ROLE_USER }
+        - { path: ^/confirmtempplateedit, role: ROLE_USER }
+        - { path: ^/ajaxtempplate, role: ROLE_USER }
+        - { path: ^/ajaxattach, role: ROLE_USER }
+        - { path: ^/leadajaxattach, role: ROLE_USER }
+        - { path: ^/ajaxtemplatebody, role: ROLE_USER }
+        - { path: ^/ctemplatedelete, role: ROLE_USER }
+        - { path: ^/seetemplate, role: ROLE_USER }
+        - { path: ^/seesent, role: ROLE_USER }
+        - { path: ^/ctemplateremoveattach, role: ROLE_USER }
+        - { path: ^/etemplateremoveattach, role: ROLE_USER }
+        - { path: ^/ctemplateduplicate, role: ROLE_USER }
+        - { path: ^/uploadattachmentconfirm, role: ROLE_USER }
+        - { path: ^/leadalarmlist, role: ROLE_USER }
+        - { path: ^/uploaddeleteconfirm, role: ROLE_USER }
+        - { path: ^/email, role: ROLE_USER }
+        - { path: ^/emailonline, role: ROLE_USER }
+        - { path: ^/emailsettings, role: ROLE_USER }
+        - { path: ^/deletesettings, role: ROLE_USER }
+        - { path: ^/activatesettings, role: ROLE_USER }
+        - { path: ^/activateincoming, role: ROLE_USER }
+        - { path: ^/settings, role: ROLE_USER }
+        - { path: ^/emailtemplate, role: ROLE_USER }
+        - { path: ^/emailcleaninbox, role: ROLE_USER }
+        - { path: ^/leadtemplate, role: ROLE_USER }
+        - { path: ^/emailtemplatehtml, role: ROLE_USER }
+        - { path: ^/uploadattachment, role: ROLE_USER }
+        - { path: ^/uploaddelete, role: ROLE_USER }
+        - { path: ^/etemplatedelete, role: ROLE_USER }
+        - { path: ^/etemplateedit, role: ROLE_USER }
+        - { path: ^/etemplateduplicate, role: ROLE_USER }
+        - { path: ^/leadtemplatedelete, role: ROLE_USER }
+        - { path: ^/leadtemplateedit, role: ROLE_USER }
+        - { path: ^/leadtemplateduplicate, role: ROLE_USER }
+        - { path: ^/seeleadtemplate, role: ROLE_USER }
+        - { path: ^/marketing, role: ROLE_ADMIN }
+        - { path: ^/newsletter, role: ROLE_ADMIN }
+        - { path: ^/leadstatistic, role: ROLE_ADMIN }
+        - { path: ^/newsletteredit, role: ROLE_ADMIN }
+        - { path: ^/createcampaignfromfile, role: ROLE_ADMIN }
+        - { path: ^/newslettersend, role: ROLE_ADMIN }
+        - { path: ^/taskmonitor, role: ROLE_ADMIN }
+        - { path: ^/taskstart, role: ROLE_ADMIN }
+        - { path: ^/taskstop, role: ROLE_ADMIN }
+        - { path: ^/taskdelete, role: ROLE_ADMIN }
+        - { path: ^/newsletterdelete, role: ROLE_ADMIN }
+        - { path: ^/emaildelete, role: ROLE_ADMIN }
+        - { path: ^/emailsingledelete, role: ROLE_ADMIN }
+        - { path: ^/ajaxelist, role: ROLE_ADMIN }
+        - { path: ^/ajaxupdate, role: ROLE_ADMIN }
+        - { path: ^/newslettertemplate, role: ROLE_ADMIN }
+        - { path: ^/newsletterdisplaytemplate, role: ROLE_ADMIN }
+        - { path: ^/newsletterdisplayemail, role: ROLE_ADMIN }
+        - { path: ^/newsletterduplicate, role: ROLE_ADMIN }
+        - { path: ^/newslettertemplatedelete, role: ROLE_ADMIN }
+        - { path: ^/marketingedit, role: ROLE_ADMIN }
+        - { path: ^/newslettersendmail, role: ROLE_ADMIN }
+        - { path: ^/lead, role: ROLE_USER }
+        - { path: ^/leadlogin, role: ROLE_USER }
+        - { path: ^/checkloginmodal, role: ROLE_USER }
+        - { path: ^/logoutregister, role: ROLE_USER }
+        - { path: ^/autotimeout, role: ROLE_USER }
+        - { path: ^/loginregister, role: ROLE_USER }
+        - { path: ^/leadmain, role: ROLE_USER }
+        - { path: ^/notreachedlastweek, role: ROLE_USER }
+        - { path: ^/leadnotreachedthisweek, role: ROLE_USER }
+        - { path: ^/notreachedtwoweeks, role: ROLE_USER }
+        - { path: ^/notreachedthreeweeks, role: ROLE_USER }
+        - { path: ^/notreachedfourweeks, role: ROLE_USER }
+        - { path: ^/leadrecommended, role: ROLE_USER }
+        - { path: ^/autocomplete, role: ROLE_USER }
+        - { path: ^/checkalarm, role: ROLE_USER }
+        - { path: ^/leadajaxtodo, role: ROLE_USER }
+        - { path: ^/ajaxleadprogress, role: ROLE_USER }
+        - { path: ^/leadajaxprogform, role: ROLE_USER }
+        - { path: ^/ajaxupdatecontacted, role: ROLE_USER }
+        - { path: ^/ajaxalarmsetup, role: ROLE_USER }
+        - { path: ^/ajaxalarmsetupnew, role: ROLE_USER }
+        - { path: ^/ajaxgetalarm, role: ROLE_USER }
+        - { path: ^/ajaxalarmoff, role: ROLE_USER }
+        - { path: ^/ajaxupdateprobability, role: ROLE_USER }
+        - { path: ^/ajaxupdatevalues, role: ROLE_USER }
+        - { path: ^/leadajaxpostform, role: ROLE_USER }
+        - { path: ^/checklead, role: ROLE_USER }
+        - { path: ^/alllead, role: ROLE_USER }
+        - { path: ^/mylead, role: ROLE_USER }
+        - { path: ^/leadtest, role: ROLE_USER }
+        - { path: ^/todolead, role: ROLE_USER }
+        - { path: ^/todoleadtest, role: ROLE_USER }
+        - { path: ^/newlead, role: ROLE_USER }
+        - { path: ^/newleadajax, role: ROLE_USER }
+        - { path: ^/ajaxemail, role: ROLE_USER }
+        - { path: ^/ajaxgettemplate, role: ROLE_USER }
+        - { path: ^/sendmailajax, role: ROLE_USER }
+        - { path: ^/mywon, role: ROLE_USER }
+        - { path: ^/allwon, role: ROLE_USER }
+        - { path: ^/flag, role: ROLE_USER }
+        - { path: ^/reminder, role: ROLE_USER }
+        - { path: ^/search, role: ROLE_USER }
+        - { path: ^/progress, role: ROLE_USER }
+        - { path: ^/progresstest, role: ROLE_USER }
+        - { path: ^/snoozealarm, role: ROLE_USER }
+        - { path: ^/turnoffalarm, role: ROLE_USER }
+        - { path: ^/visitturnoffalarm, role: ROLE_USER }
+        - { path: ^/leadeditajaxform, role: ROLE_USER }
+        - { path: ^/ajaxflag, role: ROLE_USER }
+        - { path: ^/ajaxupdatecontactdetails, role: ROLE_USER }
+        - { path: ^/stat, role: ROLE_USER }
+        - { path: ^/help, role: ROLE_USER }
+        - { path: ^/edit, role: ROLE_USER }
+        - { path: ^/test, role: ROLE_USER }
+        - { path: ^/send, role: ROLE_USER }
+        - { path: ^/sendmail, role: ROLE_USER }
+        - { path: ^/pending, role: ROLE_USER }
+        - { path: ^/logajaxalarmsetup, role: ROLE_USER }
+        - { path: ^/log, role: ROLE_USER }
+        - { path: ^/logalarmlist, role: ROLE_USER }
+        - { path: ^/logajaxalarmoff, role: ROLE_USER }
+        - { path: ^/logajaxgetalarm, role: ROLE_USER }
+        - { path: ^/logvisitturnoffalarm, role: ROLE_USER }
+        - { path: ^/logprogress, role: ROLE_USER }
+        - { path: ^/myunsolved, role: ROLE_USER }
+        - { path: ^/logtodolist, role: ROLE_USER }
+        - { path: ^/logunsolved, role: ROLE_USER }
+        - { path: ^/logmessage, role: ROLE_USER }
+        - { path: ^/logsentmessage, role: ROLE_USER }
+        - { path: ^/logcreatemessage, role: ROLE_USER }
+        - { path: ^/logcontactadmin, role: ROLE_USER }
+        - { path: ^/ajaxmessage, role: ROLE_USER }
+        - { path: ^/ajaxLogcommunication, role: ROLE_USER }
+        - { path: ^/ajaxreply, role: ROLE_USER }
+        - { path: ^/ajaxreplyform, role: ROLE_USER }
+        - { path: ^/ajaxsentmessage, role: ROLE_USER }
+        - { path: ^/ajaxreadmessage, role: ROLE_USER }
+        - { path: ^/ajaxchangeread, role: ROLE_USER }
+        - { path: ^/logalert, role: ROLE_USER }
+        - { path: ^/logflagged, role: ROLE_USER }
+        - { path: ^/logreminder, role: ROLE_USER }
+        - { path: ^/logedit, role: ROLE_USER }
+        - { path: ^/logsave, role: ROLE_USER }
+        - { path: ^/logsave, role: ROLE_USER }
+        - { path: ^/cron-main, role: ROLE_ADMIN }
+        - { path: ^/cron-test2, role: ROLE_ADMIN }
+        - { path: ^/templatenew, role: ROLE_USER }
+        - { path: ^/templatesearch, role: ROLE_USER }
+        - { path: ^/templatelogsearch, role: ROLE_USER }
+        - { path: ^/pricelist, role: ROLE_USER }
+        - { path: ^/admin-main, role: ROLE_ADMIN }
+        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/admin_show, role: ROLE_ADMIN }
+        - { path: ^/admin_new, role: ROLE_ADMIN }
+        - { path: ^/admin_create, role: ROLE_ADMIN }
+        - { path: ^/admin_delete, role: ROLE_ADMIN }
+        - { path: ^/admin_password, role: ROLE_ADMIN }
+        - { path: ^/admin_edit, role: ROLE_ADMIN }
+        - { path: ^/admin_update, role: ROLE_ADMIN }
+        - { path: ^/admin_password_update, role: ROLE_ADMIN }
+        - { path: ^/register, role: ROLE_USER }
+        - { path: ^/ajaxtextmessage, role: ROLE_USER }
+        - { path: ^/ajaxgetTextTemplate, role: ROLE_USER }
+        - { path: ^/ajaxSendText, role: ROLE_USER }
+        - { path: ^/ajaxtextHistory, role: ROLE_USER }
+        - { path: ^/textmessage, role: ROLE_USER }
+        - { path: ^/text-message-received, role: ROLE_USER }
+        - { path: ^/text-message-received-search, role: ROLE_USER }
+        - { path: ^/text-message-sent-search, role: ROLE_USER }
+        - { path: ^/texttemplate, role: ROLE_USER }
+        - { path: ^/texttemplatedelete, role: ROLE_USER }
+        - { path: ^/texttemplate-edit, role: ROLE_USER }
+        - { path: ^/, role: ROLE_USER }
+ 

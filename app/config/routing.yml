@@ -1,0 +1,12 @@
+login:
+    resource: "@LoginBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+#invoice:
+#    resource: "@InvoiceBundle/Resources/config/routing.yml"
+#    prefix:   /
+    

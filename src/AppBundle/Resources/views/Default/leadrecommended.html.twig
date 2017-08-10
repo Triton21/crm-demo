@@ -1,0 +1,306 @@
+{% extends "AppBundle:Default:leadbase.html.twig" %}
+
+{%block stylesheets %}
+    <link href="{{asset('bundles/app/css/override-bts.css')}}" rel="stylesheet">
+    <link href="{{asset('bundles/app/css/override-nav-tab.css')}}" rel="stylesheet">
+
+
+
+    <style type="text/css">
+        .myPanel {
+            padding: 10px 30px 50px 10px;
+        }
+        .myHeading {
+            margin-top: 35px;
+            margin-bottom: 35px;
+        }
+        .myIcon {
+            padding: 0px 0px 0px 0px;
+        }
+        .myText {
+            padding: 10px 0px 30px 0px;
+        }
+
+
+
+    </style>
+{%endblock%}
+{%block content %} 
+
+
+    <div class="container">
+
+
+        <div class="col-md-offset-1 col-md-9">
+            <div class="panel with-nav-tabs panel-primary">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab1primary" data-toggle="tab">Recommended lead</a></li>
+                        <li><a href="#tab2primary" data-toggle="tab">Recommended task</a></li>
+                        <span style="font-size:30px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone-alt">&nbsp;</span>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab1primary">
+                            <div class="col-md-offset-1 col-md-10">
+
+                                <div {% if countlead.0 != 0 %} class="panel panel-danger myHeading" {% else %} class="panel panel-success myHeading" {% endif %}>
+
+
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title myPanel">
+                                            <div class="col-xs-12">
+
+                                                <div class="col-xs-5 myText" style="font-weight: bold;">
+                                                   New leads:
+                                                </div>
+                                                <div class="col-xs-5" style="font-size:36px;">
+                                                    {{countlead.0}}
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <a href="{{ path('lead_newajax')}}"><span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-step-forward" style="font-size:32px; color:#3c763d;"></span></a>
+
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    {% if countlead.0 != 0 %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-exclamation-sign" style="font-size:32px; color:#a94442;"></span>
+                                                    {% else %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-ok" style="font-size:32px; color:green;"></span>
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                 <div {% if countthisweek != 0 %} class="panel panel-danger myHeading" {% else %} class="panel panel-success myHeading" {% endif %}>
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title myPanel">
+                                            <div class="col-xs-12">
+
+                                                <div class="col-xs-5 myText"  style="font-weight: bold;">
+                                                    Not  reached this week:
+                                                </div>
+                                                <div class="col-xs-5" style="font-size:36px;">
+                                                    {{countthisweek}}
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <a href="{{ path('lead_notreachedthisweek')}}"><span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-step-forward" style="font-size:32px; color:#3c763d;"></span></a>
+
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    {% if countlastweek != 0 %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-exclamation-sign" style="font-size:32px; color:#a94442;"></span>
+                                                    {% else %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-ok" style="font-size:32px; color:green;"></span>
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+                                                
+                                <div {% if countlastweek != 0 %} class="panel panel-danger myHeading" {% else %} class="panel panel-success myHeading" {% endif %}>
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title myPanel">
+                                            <div class="col-xs-12">
+
+                                                <div class="col-xs-5 myText"  style="font-weight: bold;">
+                                                    Not  reached last week:
+                                                </div>
+                                                <div class="col-xs-5" style="font-size:36px;">
+                                                    {{countlastweek}}
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <a href="{{ path('lead_notreachedlastweek')}}"><span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-step-forward" style="font-size:32px; color:#3c763d;"></span></a>
+
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    {% if countlastweek != 0 %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-exclamation-sign" style="font-size:32px; color:#a94442;"></span>
+                                                    {% else %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-ok" style="font-size:32px; color:green;"></span>
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+                                                
+                                                
+                                <div {% if countlastweekTwo != 0 %} class="panel panel-danger myHeading" {% else %} class="panel panel-success myHeading" {% endif %}>
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title myPanel">
+                                            <div class="col-xs-12">
+
+                                                <div class="col-xs-5 myText"  style="font-weight: bold;">
+                                                    Not  reached two weeks ago:
+                                                </div>
+                                                <div class="col-xs-5" style="font-size:36px;">
+                                                    {{countlastweekTwo}}
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <a href="{{ path('lead_notreachedtwoweeks')}}"><span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-step-forward" style="font-size:32px; color:#3c763d;"></span></a>
+
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    {% if countlastweekTwo != 0 %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-exclamation-sign" style="font-size:32px; color:#a94442;"></span>
+                                                    {% else %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-ok" style="font-size:32px; color:green;"></span>
+                                                    {% endif %}         </div>
+
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+                                                    
+                                <div {% if countlastweekThree != 0 %} class="panel panel-danger myHeading" {% else %} class="panel panel-success myHeading" {% endif %}>
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title myPanel">
+                                            <div class="col-xs-12">
+
+                                                <div class="col-xs-5 myText"  style="font-weight: bold;">
+                                                    Not  reached three weeks ago:
+                                                </div>
+                                                <div class="col-xs-5" style="font-size:36px;">
+                                                    {{countlastweekThree}}
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <a href="{{ path('lead_notreachedthreeweeks')}}"><span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-step-forward" style="font-size:32px; color:#3c763d;"></span></a>
+
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    {% if countlastweekTwo != 0 %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-exclamation-sign" style="font-size:32px; color:#a94442;"></span>
+                                                    {% else %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-ok" style="font-size:32px; color:green;"></span>
+                                                    {% endif %}         </div>
+
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+                                                    
+                                <div {% if countlastweekFour != 0 %} class="panel panel-danger myHeading" {% else %} class="panel panel-success myHeading" {% endif %}>
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title myPanel">
+                                            <div class="col-xs-12">
+
+                                                <div class="col-xs-5 myText"  style="font-weight: bold;">
+                                                    Not  reached four weeks ago:
+                                                </div>
+                                                <div class="col-xs-5" style="font-size:36px;">
+                                                    {{countlastweekFour}}
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <a href="{{ path('lead_notreachedfourweeks')}}"><span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-step-forward" style="font-size:32px; color:#3c763d;"></span></a>
+
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    {% if countlastweekTwo != 0 %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-exclamation-sign" style="font-size:32px; color:#a94442;"></span>
+                                                    {% else %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-ok" style="font-size:32px; color:green;"></span>
+                                                    {% endif %}         </div>
+
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                                    
+                                                    
+                                                    
+
+                            </div>
+                        </div>
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                        <div class="tab-pane fade" id="tab2primary">
+                            <div class="col-md-offset-1 col-md-10">
+
+                                <div {% if countlog.2 != 0 %} class="panel panel-danger myHeading" {% else %} class="panel panel-success myHeading" {% endif %}>
+
+
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title myPanel">
+                                            <div class="col-xs-12">
+
+                                                <div class="col-xs-5 myText" style="font-weight: bold;">
+                                                    My unsolved task:
+                                                </div>
+                                                <div class="col-xs-5" style="font-size:36px;">
+                                                    {{countlog.2}}
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <a href="{{ path('log_myunsolved')}}"><span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-step-forward" style="font-size:32px; color:#3c763d;"></span></a>
+
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    {% if countlog.2 != 0 %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-exclamation-sign" style="font-size:32px; color:#a94442;"></span>
+                                                    {% else %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-ok" style="font-size:32px; color:green;"></span>
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div {% if countlog.3 != 0 %} class="panel panel-danger myHeading" {% else %} class="panel panel-success myHeading" {% endif %}>
+
+
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title myPanel">
+                                            <div class="col-xs-12">
+
+                                                <div class="col-xs-5 myText" style="font-weight: bold;">
+                                                    All unsolved task:
+                                                </div>
+                                                <div class="col-xs-5" style="font-size:36px;">
+                                                    {{countlog.3}}
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <a href="{{ path('log_logunsolved')}}"><span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-step-forward" style="font-size:32px; color:#3c763d;"></span></a>
+
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    {% if countlog.3 != 0 %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-exclamation-sign" style="font-size:32px; color:#a94442;"></span>
+                                                    {% else %}
+                                                        <span class="myIcon pull-right hidden-xs showopacity glyphicon glyphicon-ok" style="font-size:32px; color:green;"></span>
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    {%endblock%}   
+
+    {% block emailform %}
+    {% endblock %}
+    {% block javascripts %}
+
+    {% endblock %}

@@ -1,0 +1,120 @@
+{% extends "AppBundle:Default:emailbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block welcome%}Welcome {{name}}{%endblock%}
+
+
+
+    {%block content %}  
+        <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> Saved settings</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped gi-1x">
+                    <thead>
+                        <tr>
+                            <th>Setting name</th>
+                            <th>Created</th>
+                            <th>Username</th>
+                            <th>Authentication</th>
+                            <th>Active</th>
+                            <th>Delete setting</th>
+                            <th>Outgoing on / off</th>
+                            <th>Incoming on / off</th>
+                        </tr>
+                    </thead>
+                    {% for sett in settlist %}
+                        <tr {%if sett.active == '0'%} style="color:grey;"{%else%}style="font-weight: bold;" {%endif%}>
+                            <td>{{ sett.settname }}</td>
+                            <td>{% if sett.createdAt %}{{ sett.createdAt|date('d-m-Y') }}{% endif %}</td>
+                            <td>{{ sett.eusername }}</td>
+                            <td>
+                                {% if sett.auth == '1' %}
+                                <p>Yes</p>
+                            {% else %}
+                                <p>No</p> 
+                                {% endif %}
+                                </td>
+                            <td>
+                                {% if sett.active == '1' %}
+                                <p>Yes</p>
+                            {% else %}
+                                <p>No</p> 
+                                {% endif %}
+                                </td>
+                                <td><a href="{{ path('settings_delete', { 'id': sett.id }) }}" class="btn-xs btn btn-danger">Delete</a>
+                                    {% if sett.active == '0' %}
+                                <td><a href="{{ path('emailmanager_activatesettings', { 'id': sett.id }) }}" class="btn-xs btn btn-info">ON</a>
+                            {% else %}
+                                <td><a href="{{ path('emailmanager_activatesettings', { 'id': sett.id }) }}" class="btn-xs btn btn-info">OFF</a></td>
+                                {% endif %}
+                                    
+                                    {% if sett.incoming == '0' %}
+                                <td><a href="{{ path('emailmanager_activateincoming', { 'id': sett.id }) }}" class="btn-xs btn btn-info">ON</a>
+                            </tr>
+                            {% else %}
+                                <td><a href="{{ path('emailmanager_activateincoming', { 'id': sett.id }) }}" class="btn-xs btn btn-info">OFF</a></td>
+                                </tr>
+                                {% endif %}
+
+                                    
+                                    {% else %}
+                                        <table class="table table-striped gi-1x">
+                                            <tr>
+                                                <td>
+                                                    <em>There are no saved settings. Please create one!</em>                   
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Use Gmail as smtp provider</h3>
+                                    </div>
+                                    <div class="panel-body">
+
+
+                                        {{ form_start(form) }} 
+                                        {{ form_widget(form) }}
+                                        {{ form_end(form) }}
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Use your own smtp provider</h3>
+                                    </div>
+                                    <div class="panel-body">
+
+
+                                        {{ form_start(form2) }} 
+                                        {{ form_widget(form2) }}
+                                        {{ form_end(form2) }}
+
+                                    </div>
+
+                                </div>
+                                        </div>
+        
+    {%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}

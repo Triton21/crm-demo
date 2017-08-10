@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <div class="col-lg-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Send text message </h3>
+            </div>
+            <div class="panel-body">
+                <div class="gi-1x">
+
+                    <br>
+                    Phone
+                    <input id="cPhone{{id}}" type="text" value="{{phone}}" name="cPhone" class="input-sm form-control">
+                    <br>
+                    Template
+                    <select id="textTemplate{{id}}" name="textTemplate" class="input-sm form-control">
+                        <option value="" selected></option>
+                        {% for key, all in templateArray %}
+                            <option value="{{ key }}">{{all}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+
+                    <div class="col-sm-6">
+                        <input id="formTextButton{{id}}" class="btn btn-xs btn-success input-inline" type="button" value="submit"/>
+                    </div>
+                    <div class="col-sm-6" id="loadhere">
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Message </h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <textarea rows="5" style="width:100%;" id="textBody{{id}}" name="textBody"></textarea>
+                </div>
+                <div class="container" id="textButtons{{id}}">
+                    <div class="col-sm-5">
+                        <br>
+                        <br>
+                        <div id="sendtext{{id}}"><button id="textButton{{id}}" class="btn btn-sm btn-success" type="submit" value=" Send "/> Send </button></div>
+                    </div>
+                    <div class="col-sm-5">
+                        <br>
+                        <br>
+                        <button type="button" id="cancelText{{id}}" class="btn btn-danger btn-sm">Cancel</button>
+                    </div>
+                </div>
+
+                <div id="sentTextOkHere{{id}}"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-3" style="margin-left:-9px; margin-right: -5px;">
+                <button class="btn btn-default" id="textHistory{{id}}">
+                    Text message history&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="textHistoryDiv{{id}}" style="display:none;"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Dent1st CRM project</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Customer Relationship Management Software">
+        <meta name="author" content="Peter Csatai">
+
+        <!-- css stylesheets -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script
+            src="http://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="{{asset('bundles/app/js/jquery.onepage-scroll.min.js')}}"></script>
+        <link href="{{asset('bundles/app/css/onepage-scroll.css')}}" rel="stylesheet">
+        <style type="text/css">
+            @font-face {
+                font-family: 'Drug'; 
+                src:    url({{asset('bundles/app/fonts/Drugs.otf')}}) format('opentype'); 
+            }
+            .myFont {
+                font-family: 'Drug';
+            }
+            .centerTitle {
+                font-size: 4em;
+                color: white;
+            }
+            .redTitle {
+                color: red;
+            }
+            .mySignature {
+                font-family: 'Drug';
+                font-size: 1em;
+                color: white;
+            }
+            .myTitle {
+                font-family: 'Drug';
+                text-align: center;
+                font-size:2em;
+                color: white;
+            }
+            .myTitleBlack {
+                font-family: 'Drug';
+                text-align: center;
+                font-size:2em;
+                color: black;
+            }
+            .myTitleSmallBlack {
+                font-family: 'Drug';
+                text-align: center;
+                font-size:1.5em;
+                color: black;
+            }
+            .myDescription {
+                width: 100%;
+                font-family: 'Drug';
+                color: black;
+            }
+            .arrowRow {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .arrowWrap {
+                display: inline-block;
+                width: 5em;
+                height: 4em;
+                border: 1px solid;
+                border-color: #f5f5f5;
+                border-top-left-radius: 1em;
+                border-top-right-radius: 1em;
+                border-bottom-left-radius: 0em;
+                border-bottom-right-radius: 0em;
+            }
+
+            .whiteBackground {
+                background-color: white;
+            }
+
+            .orangeBackground {
+                background-color: white;
+                padding:15px;
+            }
+
+            .orangeBackground {
+                background-color: white;
+                padding:15px;
+            }
+
+            .myFooter {
+                border-top: 1px solid;
+                border-color: black;
+                background-color: gray;
+                padding:5px 5px 20px 5px;
+                text-align: center;
+                color: white;
+            }
+
+            .arrowDown {
+                font-size:2em;
+                color:#f5f5f5;
+                position: relative;
+                top: 30%;
+            }
+            .myPanel {
+                font-family: 'Drug';
+                font-size:1em;
+                display: inline-block;
+                width: 10em;
+                height: 8em;
+                border: 1px solid;
+                border-color: white;
+                border-radius: 2em;
+            }
+            article {
+                font-family: 'Drug';
+                font-size:1.3em;
+                padding-top: 15px;
+                color: white;
+            }
+            .myIcon {
+                font-size: 6em;
+                position: relative;
+                top: 20%;
+                color: white;
+            }
+            section {
+                height:100vh;
+            }
+
+        </style>
+
+
+
+        {%block stylesheets %}
+        {%endblock%}
+    </head>
+
+    <body>
+        <div id="main">
+            <section>
+                <div class="container" id="indexwhite" style ="text-align: center;">
+                    <div style                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ="min-height:8em;"></div>
+                    <div class='myFont centerTitle'>CRM <span class='myFont redTitle'>AND</span> LEAD MANAGMENT
+                    </div>
+
+                    {%block container %}
+                    {%endblock%}
+                    <div style="min-height:20em;"></div>
+
+                    <div class='myTitle'>
+                        Easy to use CRM and Lead management system that eliminates manual work.
+                    </div>
+                    <div class='mySignature'>
+                        Application created by Peter Csatai (2015)
+                    </div>
+                    <div style="min-height:12em;"></div>
+                </div>
+                <div class='arrowRow'>
+                    <div class='arrowWrap' id='pagerDown'>
+                        <span class='glyphicon glyphicon-chevron-down arrowDown'></span>
+                    </div>
+                </div>
+            </section>  
+            <section>
+                <div class='myDescription' style="min-height:50em;">
+                    <div style="min-height:3em;" class='whiteBackground'></div>
+                    <div class='myTitleBlack whiteBackground'>
+                        Keep your sales communication all in one place.
+                        <br>
+                    </div>
+                    <div style="min-height:2em;" class='whiteBackground'></div>
+                    <div style="min-height:4em;"></div>
+                    <div class="container" style="text-align: center;">
+                        <div class='col-lg-12'>
+                            <div class='col-sm-4' style='text-align: center;'>
+                                <div class='myPanel'>
+                                    <span class='glyphicon glyphicon-align-justify myIcon'></span>
+                                </div>
+                                <article>Website contact form integration</article>
+
+                            </div>
+                            <div class='col-sm-4'>
+                                <div class='myPanel'>
+                                    <span class='glyphicon glyphicon-envelope myIcon'></span>
+                                </div>
+                                <article>Email integration</article>
+
+                            </div>
+                            <div class='col-sm-4'>
+                                <div class='myPanel'>
+                                    <span class='glyphicon glyphicon-phone myIcon'></span>
+                                </div>
+                                <article>
+                                    Text message manager
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="min-height:6em;"></div>
+                    <div style="min-height:12em; border-top:1px solid; border-top-color:black;" class='orangeBackground'>
+                        <div class='myTitleSmallBlack whiteBackground' style="padding-bottom:10px;">Register for trial access</div>
+                        {{ form_start(form) }}
+                        <div class='form-group'>
+                            {{ form_errors(form.name) }}
+                            {{ form_widget(form.name) }} 
+                        </div>
+                        <div class='form-group'>
+                            {{ form_errors(form.email) }}
+                            {{ form_widget(form.email) }} 
+                        </div>
+                        <div class='form-group'>
+                            {{ form_errors(form.phone) }}
+                            {{ form_widget(form.phone) }} 
+                        </div>
+
+                        <div style='text-align: center; margin-left: -50px;'>
+                            {{ form_end(form) }}
+
+
+                        </div>
+                    </div>
+                    <div class='myFooter'>
+                        <span style="color:#dcdcdc;">@2017 All rights reserved Peter Csatai </span>| Contact | 
+                        <span style="padding-top:-3px;">
+                            <a href="https://www.linkedin.com/in/peter-csatai-5a88aa81">
+                                <img border="0" alt="Peter Csatai" src="{{ asset('bundles/login/images/linkedin-small.png') }}">
+                            </a>
+                        </span>
+                        <span style="padding-top:-3px;">
+                            <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+                            <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/peter-csatai-5a88aa81" data-format="hover" data-related="false" data-text="Peter Csatai"></script>
+                        </span>
+                    </div>
+                </div>
+            </section>  
+
+
+
+
+        </div>
+        {%block javascripts %}
+        {%endblock%}
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('#main').onepage_scroll();
+            })
+            $(document).on('click', "#pagerDown", function () {
+                console.log('here');
+                $("#main").moveDown();
+            });
+
+
+
+
+        });
+    </script>
+
+</body>
+</html>
+

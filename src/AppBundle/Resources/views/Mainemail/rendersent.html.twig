@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="Peter Csatai" content="CRM" />
+        <meta name="description" content="Dent1st crm and lead management system">
+        <title>Dent1st Crm and Lead Management System</title>
+
+        <!-- css stylesheets -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            #close {
+                margin-left: auto;
+                margin-right: auto;
+                font-weight: bold;
+                text-align: center;
+            }
+            hr {
+                display: block;
+                height: 1px;
+                border: 0;
+                border-top: 1px solid #ccc;
+                margin: 1em 0;
+                padding: 0;
+            }
+            .myMessage {
+                min-height: 300px
+            }
+        </style>
+    </head>
+    <body>
+
+
+
+        <div class="col-lg-12">
+            <div class="row">
+
+                <div style="background-color:white;">
+                    <div style="min-height:5px; font-size: large;"></div>
+                    {% if toarray == true %}
+                    Sent to:&nbsp;&nbsp;<span id="showfromname" style="font-weight: bold;">
+                    {% for key, all in toarray %}
+                        {{key}},&nbsp;&nbsp;
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                    <br>
+                    <div style="min-height:5px; font-size: large;"></div>
+                    From: <span id="showfromname" style="font-weight: bold;">{{fromname}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Email: <span id="showfromemail" style="font-weight: bold;">{{fromemail}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    Date: <span id="showfromdate" style="font-weight: bold;">{{ maildate|date('d-m-Y H:i:s') }} </span> <br/>
+                    <div style="min-height:1em; font-size: large;"></div>
+                    <span style="font-weight: bold;">Subject</span>
+                    <div class="panel panel-info">
+                        <div class="panel-body" style="padding: 5px 15px 5px 25px;">
+                            {{subject}}
+                        </div>
+                    </div>
+
+
+                    <span style="font-weight: bold;"> Message</span>
+                </div>
+                <div class="panel panel-info myMessage">
+                    <div style="min-height:2em; font-size: large;"></div>
+                    <div class="col-lg-12 myMessage">
+
+                        {{textHTML|raw}}
+
+
+                        {% if attachments != false %}
+                            <div style="min-height:3em;"></div>
+                            <hr>
+                            <div style="min-height:1em;"></div>
+                            {% for all in attachments %}
+                                <div>
+                                    <span class="gi-6p glyphicon glyphicon-paperclip"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ asset('Files/' ~ dirname ~ '/Outgoings/' ~ id ~ '/' ~ all.imageName) }}" target="_blank">{{all.imageName}}</a>
+                                    <br>
+                                </div>
+
+
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div style="min-height:2em; font-size: large;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

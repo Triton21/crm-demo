@@ -1,0 +1,464 @@
+{% extends "AppBundle:Mainemail:emailbase.html.twig" %}
+{% block title %}Email manager{% endblock %}
+
+
+{%block stylesheets %}
+    <style>
+        .panel-heading h3 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: normal;
+            width: 75%;
+            padding-top: 8px;
+        }
+        .input-xs, select.input-xs {
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .btn-round {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .btn-round.btn-lg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .btn-round.btn-sm {
+            width: 34px;
+            height: 34px;
+        }
+
+        .btn-round.btn-xs {
+            width: 23px;
+            height: 23px;
+        }
+        .myaddClass {
+            background-color: #d9e7f9;
+        }
+        .tremail {
+            height:10px;
+        }
+        .table-striped>thead>tr>th, .table-striped>tbody>tr>th, .table-striped>tfoot>tr>th, .table-striped>thead>tr>td, .table-striped>tbody>tr>td, .table-striped>tfoot>tr>td {
+            padding: 5px 5px 1px 5px;
+        }
+
+        .emailheading {
+            padding: 7px 5px 7px 7px;
+        }
+
+
+
+
+    </style>
+{%endblock%}
+
+{% block renderaccount %}
+    {{ render(controller('AppBundle:Mainemail:renderaccountnav', {'id': id})) }}
+{% endblock %}
+
+
+{%block content %}  
+    <div id="dialog-form" title="Create new folder">
+        <form>
+            <fieldset>
+                <label for="foldername">Folder name</label>
+                <input type="text" name="foldername" id="foldername" value="" class="text ui-widget-content ui-corner-all">
+
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="successcheck" data-action="{{success}}"></div>
+    <div id="dialog-success" title="Success"></div>
+
+
+    <div class="container">
+        <div class="col-lg-offset-1 col-lg-10">
+            <div class="panel panel-info">
+                <div class="panel-heading emailheading">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6 closetoleft">
+                            <h3 class="panel-title">
+                                Account:<span style="font-weight:bold"> &nbsp;&nbsp;&nbsp;{{settingsname}}</span>
+                            </h3>
+                        </div>
+                        <div class="col-xs-2 pull-right">
+                            <div id="actiondiv">
+                                <select id="action" class="form-control input-sm pull-right gi-6p" >
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            
+                            <form action="{{ path('mainemail_sendemail', { 'type' : 'regularsend'} )}}" method="POST">
+    <div class="col-lg-12">
+        <div class="row">
+            <input type="hidden" value="{{id}}" name="settid" id="settid">
+            <input type="hidden" value="" name="sentid" id="sentid">
+            <input type="hidden" value="{{id}}" name="maininboxid" id="maininboxid">
+            <input type="hidden" value="" name="toname" id="toname">
+            <input type="hidden" value="" name="toarray" id="toarray">
+            <input type="hidden" value="" name="reloadpage" id="reloadpage">
+            <input type="hidden" value="" name="reloadfocusid" id="reloadfocusid">
+            <div style="min-height:1em;"></div>
+            <div class="row">    
+                <div class="col-lg-6">
+                    <span style="font-weight: bold">Name</span>
+                    <input type="text" required name="toname" id="toname" class="input-sm form-control">
+                    <div style="min-height:1em;"></div>
+                </div>
+                <div class="col-lg-6">
+                    <span style="font-weight: bold">Cc</span>
+                    <input type="email" value="" name="sendcc" id="sendcc" class="input-sm form-control">
+                </div>    
+            </div>
+            <div class="row">   
+                <div class="col-lg-6">
+                    <span style="font-weight: bold">Email</span>
+                    <input type="email" value="" required name="sendto" id="sendto" class="input-sm form-control">
+                    <div style="min-height:1em;"></div>
+                </div>
+                <div class="col-lg-6">
+                    <span style="font-weight: bold">Bcc</span>
+                    <input type="email" value="" name="sendbcc" id="sendbcc" class="input-sm form-control">
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <span style="font-weight: bold">Subject</span>
+                <input id="subject" type="text" value="" name="subject" class="input-sm form-control">
+                <div style="min-height:1em;"></div>
+            </div>
+        </div>
+        <span style="font-weight: bold">Message</span>
+        <textarea class="form-control" cols="6" rows="20" name="editor1" id="editor1"> {{ mymessage }} </textarea>
+        <div style="min-height:1em;"></div>
+        <div class="container" id="showattachment">
+
+        </div>
+        <div style="min-height:1em;"></div>
+        <div class="container">
+            <div class="col-sm-6">
+                <br>
+                <input class="btn btn-sm btn-success" type="submit" value=" Send "/>
+            </div>
+            <div class="col-sm-6">
+                <br>
+                <button onclick="location.reload()" type="button" class="btn btn-danger btn-sm">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div style="min-height:1em;">&nbsp;</div>
+<div class="container">
+    <div style="min-height:1em;"></div>
+    <div class="col-sm-6" id="uploadform">
+        <div>Uploadform</div>
+    </div>
+</div>
+
+<div style="min-height:3em;"></div>
+<hr>
+                            
+                            
+                            
+                            
+                            
+                        </div>
+
+                        <div class="row">
+
+                            <div id="emailbody">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+    <script>
+        $(document).ready(function () {
+                var autocompletevalue;
+                $(function () {
+                var selectedfolder = $('#myfolderCreateMessage');
+                        $(selectedfolder).attr("style", "color: white;");
+                });
+                var mainurl = document.URL;
+                if (mainurl.indexOf('success') > -1) {
+                    var newurl = mainurl.replace('/success', '');
+                    window.history.replaceState({}, 'Title', newurl);
+                }
+                
+                $(function () {
+                    CKEDITOR.replace('editor1', {
+                    height: ['350px']
+                    });
+                    createEmptyNewmMessage();
+                    
+                });
+                
+                $(document).on('click', "#toname", function (e) {
+                    $(this).autocomplete({
+                        minLength: 1,
+                            source: autocompletevalue,
+                            select: function (event, ui) {
+                            $("#toname").val(ui.item.name);
+                            $("#sendto").val(ui.item.email);
+                            },
+                            minLength:2
+                        });
+                });
+                
+                $(function () {
+                    $.ajax({
+                    url: "{{ path('mainemail_mainautocomplete')}}",
+                            dataType: "json",
+                            success: function (response) {
+                                autocompletevalue = response;
+                                console.log(autocompletevalue);
+                            },
+                            complete: function () {
+                                console.log('Request is complete');
+                            },
+                            error: function () {
+                                console.log('Oops...there was an error!');
+                            }
+                    });
+                
+                });
+
+                function createEmptyNewmMessage() {
+                var myUrl = "{{ path('mainemail_createmptyreply', { 'settid':'PLACEHOLDER'})}}"
+                    var settid = {{id}};
+                    $.ajax({
+                    url: myUrl.replace("PLACEHOLDER", settid),
+                        dataType: "json",
+                        success: function (response) {
+                        uploadformNewMessage(response);
+                                console.log('emptysent id' + response);
+                                newreplyid = response;
+                                $('#sentid').val(newreplyid);
+                                $('#reloadpage').val('redirecttocreatenew');
+                                $('#reloadfocusid').val('redirecttocreatenew');
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                        console.log('Oops...there was an error!');
+                        }
+                    });
+                }
+
+                function uploadformNewMessage(emailid) {
+                var myUrl = "{{ path('mainemail_ajaxformupload', { 'settid':'PLACEHOLDER1', 'emailid': 'PLACEHOLDER2'})}}"
+                    var settid = {{id}};
+                    $.ajax({
+                    url: myUrl.replace("PLACEHOLDER1", settid).replace("PLACEHOLDER2", emailid),
+                            dataType: "json",
+                            success: function (response) {
+                            $("#uploadform").html(response);
+                                    //$('#sentid').val(newreplyid);
+                                    //uploadform = response;
+                                    //console.log(response);
+
+                            },
+                            complete: function () {
+                            //console.log('Request is complete');
+                            },
+                            error: function () {
+                            console.log('Oops...there was an error!');
+                            }
+                    });
+                }
+
+                $(document).on('submit', "#formnewmessageupload", function (e) {
+                e.preventDefault();
+                        var data = new FormData(this);
+                        var settid = {{id}};
+                        var myUrl = "{{ path('mainemail_ajaxformupload', { 'settid':'PLACEHOLDER1', 'emailid': 'PLACEHOLDER2'})}}";
+                        //var frm = $('#formupload');
+                        //console.log(frm);
+                        $.ajax({
+                        type: 'POST',
+                                url: myUrl.replace("PLACEHOLDER1", settid).replace("PLACEHOLDER2", newreplyid),
+                                //url: myUrl.replace("PLACEHOLDER", newreplyid),
+                                cache: false,
+                                data: data,
+                                processData: false,
+                                contentType: false,
+                                success: function (data)
+                                {
+                                console.log(data);
+                                        var attid = data;
+                                        showAttached(attid);
+                                }
+                        });
+                        return false;
+                });
+                        function showAttached(attid) {
+                        var settid = {{id}};
+                                var myurl = "{{ path('mainemail_ajaxshowattached', { 'id': 'PLACEHOLDER', 'settid':'PLACEHOLDER2'} )}}"
+                                $.ajax({
+                                url: myurl.replace("PLACEHOLDER", attid).replace("PLACEHOLDER2", settid),
+                                        dataType: "json",
+                                        success: function (response) {
+                                        //var attachmentNode = 
+                                        var myDiv = document.createElement('div');
+                                                myDiv.className = 'removenode';
+                                                $(myDiv).html(response);
+                                                $("#showattachment").append(myDiv);
+                                        },
+                                        complete: function () {
+                                        //console.log('Request is complete');
+                                        },
+                                        error: function () {
+                                        console.log('Oops...there was an error!');
+                                        }
+                                });
+                        }
+
+                $(document).on('click', ".removeattach", function (e) {
+                var attid = $(this).attr('action-data');
+                        var clicked = $(this);
+                        var removeNode = $(clicked).parents().eq(1);
+                        $(removeNode).remove();
+                        deleteAttDatabase(attid);
+                });
+                        function deleteAttDatabase(attid) {
+                        var myurl = "{{ path('mainemail_removeattachment', { 'attid': 'PLACEHOLDER'} )}}"
+                                $.ajax({
+                                url: myurl.replace("PLACEHOLDER", attid),
+                                        dataType: "json",
+                                        success: function (response) {
+                                        console.log(response);
+                                        },
+                                        complete: function () {
+                                        console.log('Request is complete');
+                                        },
+                                        error: function () {
+                                        console.log('Oops...there was an error!');
+                                        }
+                                });
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                });</script>
+
+    <script>
+
+
+                $(document).ready(function () {
+        var dialog, form;
+                //dialog box for new folder
+                dialog = $("#dialog-form").dialog({
+        autoOpen: false,
+                height: 200,
+                width: 350,
+                modal: true,
+                buttons: {
+                "Create a folder": function () {
+                var newname = $('#foldername').val();
+                        addFolder(newname);
+                },
+                        Cancel: function () {
+                        dialog.dialog("close");
+                        }
+                },
+                close: function () {
+                form[ 0 ].reset();
+                        allFields.removeClass("ui-state-error");
+                }
+        });
+                form = dialog.find("form").on("submit", function (event) {
+        event.preventDefault();
+                dialog.dialog("close");
+        });
+                $("#new-folder").on("click", function () {
+        dialog.dialog("open");
+        });
+                function addFolder(newname) {
+                var settid = {{id}};
+                        console.log(newname);
+                        var myUrl = "{{ path('mainemail_createfolder', { 'settid':'PLACEHOLDER1', 'foldername':'PLACEHOLDER2'})}}";
+                        $.ajax({
+                        url: myUrl.replace("PLACEHOLDER1", settid).replace("PLACEHOLDER2", newname),
+                                dataType: "json",
+                                success: function (response) {
+                                console.log(response);
+                                        window.location.reload();
+                                },
+                                complete: function () {
+                                //console.log('Request is complete');
+                                },
+                                error: function () {
+                                console.log('Oops...there was an error!');
+                                }
+                        });
+                }
+
+        $("#dialog-success").dialog({
+        autoOpen: false,
+                modal: true,
+                buttons: {
+                Ok: function () {
+                $(this).dialog("close");
+                }
+                },
+                show: {
+                effect: "blind",
+                        duration: 500
+                },
+                hide: {
+                effect: "blind",
+                        duration: 500
+                }
+        });
+                $(function () {
+                var successcheck = $('#successcheck').attr('data-action');
+                        if (successcheck === 'success') {
+                var alarmBox = document.getElementById("dialog-success");
+                        alarmBox.innerHTML = 'Message sent!';
+                        $("#dialog-success").dialog("open");
+                }
+                console.log(successcheck);
+        });
+        });
+    </script>
+{% endblock %}

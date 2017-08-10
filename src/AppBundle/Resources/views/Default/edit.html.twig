@@ -1,0 +1,44 @@
+{% extends "AppBundle:Default:lead.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+{% endblock %}
+{% block content %} 
+
+
+
+
+
+    <!-- Edit leads -->
+    {% if alert == '1' %}
+    <div class="col-lg-8">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">This lead has no email address. Please save it before continue!</h3>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Edit contact details</h3>
+            </div>
+            <div class="panel-body">
+                {{ form_start(form2) }}
+                {{ form_widget(form2) }}
+                {{ form_end(form2) }}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

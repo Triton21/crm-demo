@@ -1,0 +1,726 @@
+{% extends "AppBundle:Mainemail:emailbase.html.twig" %}
+{% block title %}Email manager{% endblock %}
+
+{%block stylesheets %}
+    <style>
+        .panel-heading h3 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: normal;
+            width: 75%;
+            padding-top: 8px;
+        }
+        .input-xs, select.input-xs {
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .btn-round {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .btn-round.btn-lg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .btn-round.btn-sm {
+            width: 34px;
+            height: 34px;
+        }
+
+        .btn-round.btn-xs {
+            width: 23px;
+            height: 23px;
+        }
+        .myaddClass {
+            background-color: #d9e7f9;
+        }
+        .tremail {
+            height:10px;
+        }
+        .table-striped>thead>tr>th, .table-striped>tbody>tr>th, .table-striped>tfoot>tr>th, .table-striped>thead>tr>td, .table-striped>tbody>tr>td, .table-striped>tfoot>tr>td {
+            padding: 10px 5px 6px 5px;
+        }
+
+        .emailheading {
+            padding: 7px 5px 7px 0px;
+        }
+
+        .closetoleft {
+            padding-left: 0px;
+        }
+
+
+
+
+    </style>
+{%endblock%}
+
+{% block renderaccount %}
+    {{ render(controller('AppBundle:Mainemail:renderaccountnav', {'id': id})) }}
+{% endblock %}
+
+{%block content %}
+    
+    <div id="dialog-form" title="Create new folder">
+
+        <form>
+          <fieldset>
+            <label for="foldername">Folder name</label>
+            <input type="text" name="foldername" id="foldername" value="" class="text ui-widget-content ui-corner-all">
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+          </fieldset>
+        </form>
+</div>
+    
+    <div id="successcheck" data-action="{{success}}"></div>
+    <div id="dialog-success" title="Success"></div>
+    <div id="dialog-noresult" title="Alert"></div>
+    
+    
+    <div class="col-lg-5">
+        <div class="panel panel-default">
+            <div class="panel-heading emailheading">
+
+                <div class="col-lg-12">
+                    <div class="col-lg-3 closetoleft">
+                        <h3 class="panel-title" style="font-weight:bold;">Sent emails</h3>
+                    </div>
+
+                    <!-- PAGINATOR FOR NORMAL DISPLAY  -->
+                {% if searchemailid == 'non' %}
+                <div class="col-lg-9">
+                    {%if pager.pagedown == false%} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="{{ path('mainemail_sent', { 'id':id, 'page': pager.pagedown,})}}"><span class="gi-7p glyphicon glyphicon-chevron-left"></span>{%endif%}
+                        {% for all in pager.pagesarray %}{% if pager.page == all %} <button type="button" class="btn btn-sm disabled">{{all}}</button>{%else%}
+                                <a href="{{ path('mainemail_sent', { 'id':id, 'page': all, })}}"><button type="button" class="btn btn-default btn-sm">{{all}}</button>{%endif%}</a>
+                                    {% endfor %}
+                                        {%if pager.pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="{{ path('mainemail_sent', { 'id':id, 'page': pager.pageup,})}}"><span class="gi-7p glyphicon glyphicon-chevron-right"></span></a>{%endif%}
+                            </div>
+                            {% else %}
+
+                <!-- PAGINATOR FOR SEARCH DISPLAY  -->            
+                <div class="col-lg-9">
+                    {%if pager.pagedown == false%} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="{{ path('mainemail_sent', { 'id':id, 'page': pager.pagedown, 'searchemailid' : searchemailid  })}}"><span class="gi-7p glyphicon glyphicon-chevron-left"></span>{%endif%}
+                        {% for all in pager.pagesarray %}{% if pager.page == all %} <button type="button" class="btn btn-sm disabled">{{all}}</button>{%else%}
+                                <a href="{{ path('mainemail_sent', { 'id':id, 'page': all, 'searchemailid' : searchemailid })}}"><button type="button" class="btn btn-default btn-sm">{{all}}</button>{%endif%}</a>
+                                    {% endfor %}
+                                        {%if pager.pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="{{ path('mainemail_sent', { 'id':id, 'page': pager.pageup, 'searchemailid' : searchemailid })}}"><span class="gi-7p glyphicon glyphicon-chevron-right"></span></a>{%endif%}
+                            </div>                
+
+
+                            {% endif %}
+
+                            </div>
+                    <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+                
+                {% if mysearchemail == false %}
+                    <div class="col-lg-offset-2 col-lg-5"> 
+                        <div class="form-inline">
+                        {{ form_start(formsearch) }}
+                           {{ form_errors(formsearch) }}
+
+                           {{ form_errors(formsearch.searchdata) }}
+                            {{ form_widget(formsearch.searchdata) }}
+                           <button type="submit" class="btn btn-sm btn-default">Search</button>
+                        {{ form_end(formsearch) }}
+                       </div>
+                       </div>
+
+                   {% else %}
+                   <div class="gi-5p">Search result for:&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;"> {{mysearchemail}}</span>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="goBack()">Clear search</a>
+                   </div>
+
+                   {% endif %}
+                
+                
+                
+                
+                
+                <table class="table table-striped gi-4p">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mykey, all in allsent %}
+                            <tr id="tr{{all.id}}" action-data="{{all.id}}" array-data="{{mykey}}" class="tremail">
+                                <td style="width:15%" class="shownewemailclick" action-data="{{all.id}}" array-data="{{mykey}}">
+                                    {% if all.maildate|date('U') > todayMidnigth|date('U') %}
+                                        {{ all.maildate|date('H:i:s') }}
+                                    {% else %}
+                                        {{ all.maildate|date('d-m-Y') }}
+                                    {% endif %}
+
+
+                                </td>
+                                <td style="width:15%" class="shownewemailclick" action-data="{{all.id}}" array-data="{{mykey}}">
+                                    <div style="height:100%;width:100%">
+                                        {{all.toarray|first [:19] ~ ''}}
+                                    </div>
+                                </td>
+                                <td style="width:25%" class="shownewemailclick" action-data="{{all.id}}" array-data="{{mykey}}">
+                                    <div style="height:100%;width:100%">
+                                        {% for key in all.toarray|keys %}
+                                            {{key [:25] ~ ''}}
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                                <td style="width:35%" class="shownewemailclick" action-data="{{all.id}}" array-data="{{mykey}}"> 
+                                    {{all.subject[:35] ~ '...'}}
+                                </td>
+                                <td style="width:5%; text-align: right;" class="shownewemailclick" action-data="{{all.id}}" array-data="{{mykey}}"> {% if all.attachment == 1 %}<span class="gi-6p glyphicon glyphicon-paperclip pull-right"></span>{% endif %}</td>
+                                <td style="width:5%"><a href="{{ path('mainemail_sent', { 'id':id, 'page' : page, 'searchemailid' : all.id })}}"><span class="gi-6p glyphicon glyphicon-search pull-right"></span></a></td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-7">
+        <div class="panel panel-info">
+            <div class="panel-heading emailheading">
+                <div class="col-lg-12">
+                    <div class="col-lg-6 closetoleft">
+                        <h3 class="panel-title">
+                            Account:<span style="font-weight:bold"> &nbsp;&nbsp;&nbsp;{{settingsname}}</span>
+                        </h3>
+                    </div>
+                    <div class="col-xs-2 pull-right">
+                        <div id="actiondiv">
+                            <select id="action" class="form-control input-sm pull-right gi-6p" >
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+
+                <div class="col-lg-12">
+                    <div class="row">
+                        
+                        <div id="emailbody">
+
+                                    </div>
+
+                        <div id="iframeappend">
+                            {% if allsent[0] is defined %}
+                                <div id="iframebody0" class="col-lg-12" {% if allsent[0].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[0].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[0].id, 'settid': id })}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+
+                            {% if allsent[1] is defined %}
+                                <div id="iframebody1" class="col-lg-12" {% if allsent[1].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[1].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[1].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[2] is defined %}
+                                <div id="iframebody2" class="col-lg-12" {% if allsent[2].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[2].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[2].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[3] is defined %}
+                                <div id="iframebody3" class="col-lg-12" {% if allsent[3].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[3].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[3].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[4] is defined %}
+                                <div id="iframebody4" class="col-lg-12" {% if allsent[4].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[4].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[4].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[5] is defined %}
+                                <div id="iframebody5" class="col-lg-12" {% if allsent[5].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[5].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[5].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[6] is defined %}
+                                <div id="iframebody6" class="col-lg-12" {% if allsent[6].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[6].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[6].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[7] is defined %}
+                                <div id="iframebody7" class="col-lg-12" {% if allsent[7].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[7].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[7].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[8] is defined %}
+                                <div id="iframebody8" class="col-lg-12" {% if allsent[8].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[8].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[8].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[9] is defined %}
+                                <div id="iframebody9" class="col-lg-12" {% if allsent[9].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[9].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[9].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[10] is defined %}
+                                <div id="iframebody10" class="col-lg-12" {% if allsent[10].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[10].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[10].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[11] is defined %}
+                                <div id="iframebody11" class="col-lg-12" {% if allsent[11].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[11].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[11].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[12] is defined %}
+                                <div id="iframebody12" class="col-lg-12" {% if allsent[12].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[12].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[12].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[13] is defined %}
+                                <div id="iframebody13" class="col-lg-12" {% if allsent[13].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[13].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[13].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[14] is defined %}
+                                <div id="iframebody14" class="col-lg-12" {% if allsent[14].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[14].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[14].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[15] is defined %}
+                                <div id="iframebody15" class="col-lg-12" {% if allsent[15].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[15].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[15].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[16] is defined %}
+                                <div id="iframebody16" class="col-lg-12" {% if allsent[16].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[16].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[16].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[17] is defined %}
+                                <div id="iframebody17" class="col-lg-12" {% if allsent[17].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[17].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[17].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[18] is defined %}
+                                <div id="iframebody18" class="col-lg-12" {% if allsent[18].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[18].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[18].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                            {% if allsent[19] is defined %}
+                                <div id="iframebody19" class="col-lg-12" {% if allsent[19].id != focusId %} style="visibility:collapse; height:0px;" {% endif %}>
+                                    <iframe name="myiframe" style="width: 100%; height: 600px; border: none" id="myiframe{{allsent[19].id}}" src="{{ path('mainemail_rendersent', { 'id':allsent[19].id, 'settid': id})}}" >
+                                    </iframe>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    <script>
+        
+        function goBack() {
+                window.location="{{ path('mainemail_sent', { 'id':id, 'page': page })}}";
+            }
+        
+        $(document).ready(function () {
+            var dialog, mainforwardform, form, selectaction = '<option></option><option value="1">Forward</option>';;
+            var mainurl = document.URL
+                                
+            if (mainurl.indexOf('success') > -1) {
+                var newurl = mainurl.replace('/success', '');
+                window.history.replaceState({}, 'Title', newurl);
+            }
+                                
+            $(function () {
+                var selectedfolder = $('#myfolderSent');
+                $(selectedfolder).attr("style", "color: white;");
+            });
+            
+            //dialog box for new folder
+            dialog = $( "#dialog-form" ).dialog({
+                autoOpen: false,
+                height: 200,
+                width: 350,
+                modal: true,
+                buttons: {
+                  "Create a folder": function () {
+                      var newname = $('#foldername').val();
+                      addFolder(newname);
+                  },
+                  Cancel: function() {
+                    dialog.dialog( "close" );
+                  }
+                },
+                close: function() {
+                  form[ 0 ].reset();
+                  allFields.removeClass( "ui-state-error" );
+                }
+            });
+
+            form = dialog.find( "form" ).on( "submit", function( event ) {
+                event.preventDefault();
+                dialog.dialog( "close" );
+            });
+
+            $( "#new-folder" ).on( "click", function() {
+                dialog.dialog( "open" );
+            });
+
+            function addFolder(newname) {
+                var settid = {{id}};
+                console.log(newname);
+                var myUrl = "{{ path('mainemail_createfolder', { 'settid':'PLACEHOLDER1', 'foldername':'PLACEHOLDER2'})}}";
+
+                $.ajax({
+                    url: myUrl.replace("PLACEHOLDER1", settid).replace("PLACEHOLDER2", newname),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        window.location.reload();
+                    },
+                    complete: function () {
+                        //console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+            
+            // noresult dialog box
+            $("#dialog-noresult").dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                show: {
+                    effect: "blind",
+                    duration: 500
+                },
+                hide: {
+                    effect: "blind",
+                    duration: 500
+                }
+            });
+            
+            $("#dialog-success").dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                show: {
+                    effect: "blind",
+                    duration: 500
+                },
+                hide: {
+                    effect: "blind",
+                    duration: 500
+                }
+            });
+            
+            $(function () {
+                var successcheck = $('#successcheck').attr('data-action');
+                if (successcheck === 'success') {
+                    var alarmBox = document.getElementById("dialog-success");
+                    alarmBox.innerHTML = 'Message sent!';
+                    $("#dialog-success").dialog("open");
+                }
+                if (successcheck === 'noresult') {
+                    var alarmBox = document.getElementById("dialog-noresult");
+                    alarmBox.innerHTML = 'No result. Please try advanced search!';
+                    $("#dialog-noresult").dialog("open");
+                }
+                console.log(successcheck);
+            });
+            
+            
+            //display the first item when page is loaded
+            $(function () {
+                var arrayid = $('#tr' + {{focusId}}).attr('array-data');
+                var emailid = $('#tr' + {{focusId}}).attr('action-data');
+                //$('#iframebody' + arrayid).removeAttr('style');
+                $('#tr' + {{focusId}}).attr("style", "background-color: #d9e7f9;");
+                oldfocusid = {{focusId}};
+                loadforward(emailid);
+            });
+            
+            //display inbox message if clicked 
+            $(document).on('click', ".shownewemailclick", function (e) {
+                $('#emailbody').html('');
+                    var emailid = $(this).attr('action-data');
+                    var arrayid = $(this).attr('array-data');
+                    console.log(emailid);
+                    $('#iframeappend').children('div').attr("style", "visibility:collapse; height:0px;");
+                    $('#iframebody' + arrayid).removeAttr('style');
+                    var focusnode = $('#tr' + emailid);
+                    var oldfocusnode = $('#tr' + oldfocusid);
+                    $(oldfocusnode).removeAttr('style');
+                    $(focusnode).attr("style", "background-color: #d9e7f9;");
+                    oldfocusid = emailid;
+                    //$('#action').val('');
+
+                    //setasseen(emailid);
+                    //loadreply(emailid);
+                    //loadforward(emailid);
+                    //loadreplyall(emailid);
+            });
+            
+            function loadforward(emailid) {
+                var settid = {{id}};
+                var myUrl = "{{ path('mainemail_ajaxsentforwardform', { 'id':'PLACEHOLDER', 'settid' : 'PLACEHOLDER2'})}}"
+                $.ajax({
+                    url: myUrl.replace("PLACEHOLDER", emailid).replace("PLACEHOLDER2", settid),
+                    dataType: "json",
+                    success: function (response) {
+                        mainforwardform = response;
+                        $('#action').html(selectaction);
+                        //console.log(response);
+
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+            
+            function forwardemail() {
+                $("#emailbody").html(mainforwardform);
+                CKEDITOR.replace('editor1', {
+                    height: ['350px']
+                });
+                //$("#uploadform").html(uploadform);
+                createEmptyForward();
+                var mysettid = "{{id}}";
+                //var mysettid = $('#getsettid').attr('action-data');
+                $('#settid').val(mysettid);
+                //console.log(mysettid);
+                $('#sendto').val('');
+            }
+            
+            function createEmptyForward() {
+                var myUrl = "{{ path('mainemail_createmptyforward', { 'settid':'PLACEHOLDER1', 'id':'PLACEHOLDER2'})}}";
+
+                //var myUrl = "{{ path('mainemail_createmptyforward', { 'settid':'PLACEHOLDER'})}}";
+                var settid = {{id}};
+                $.ajax({
+                    url: myUrl.replace("PLACEHOLDER1", settid).replace("PLACEHOLDER2", oldfocusid),
+                    dataType: "json",
+                    success: function (response) {
+                        uploadformNewMessage(response);
+                        //console.log(response);
+                        newreplyid = response;
+                        $('#sentid').val(newreplyid);
+                        $('#reloadpage').val('redirecttosent');
+                        //$('#reloadfocusid').val(oldfocusid);
+                        //forwardattachmentscount();
+                        var newemailid = response;
+                        forwardattachmentdisplay(newemailid);
+                        //forwardattachmentscount();
+                    },
+                    complete: function () {
+                        //console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+            
+            //create new upload form based on new sentid
+            function uploadformNewMessage(emailid) {
+                var myUrl = "{{ path('mainemail_ajaxformupload', { 'settid':'PLACEHOLDER1', 'emailid': 'PLACEHOLDER2'})}}"
+                var settid = {{id}};
+                $.ajax({
+                    url: myUrl.replace("PLACEHOLDER1", settid).replace("PLACEHOLDER2", emailid),
+                    dataType: "json",
+                    success: function (response) {
+                        $("#uploadform").html(response);
+                        //$('#sentid').val(newreplyid);
+                        //uploadform = response;
+                        //console.log(response);
+
+                    },
+                    complete: function () {
+                        //console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+            
+            $(document).on('submit', "#formnewmessageupload", function (e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                var settid = {{id}};
+                var myUrl = "{{ path('mainemail_ajaxformupload', { 'settid':'PLACEHOLDER1', 'emailid': 'PLACEHOLDER2'})}}";
+                //var frm = $('#formupload');
+                //console.log(frm);
+                $.ajax({
+                    type: 'POST',
+                    url: myUrl.replace("PLACEHOLDER1", settid).replace("PLACEHOLDER2", newreplyid),
+                    //url: myUrl.replace("PLACEHOLDER", newreplyid),
+                    cache: false,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (data)
+                    {
+                        console.log(data);
+                        var attid = data;
+                        showAttached(attid);
+                    }
+                });
+                return false;
+            });
+            
+            function forwardattachmentdisplay(newemailid) {
+                var settid = {{id}};
+                var oldemailid = oldfocusid;
+                console.log(newemailid);
+                console.log(oldemailid);
+                var myUrl = "{{ path('mainemail_ajaxsentforwardattachmentdisplay', { 'newid':'PLACEHOLDER', 'oldid':'PLACEHOLDER2' , 'settid':'PLACEHOLDER3'})}}";
+                $.ajax({
+                    url: myUrl.replace("PLACEHOLDER", newemailid).replace("PLACEHOLDER2", oldemailid).replace("PLACEHOLDER3", settid),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        var result = response;
+                        if(result != 'X') {
+                            var arrayLength = result.length;
+                            console.log(arrayLength);
+                            for (var i = 0; i < arrayLength; i++) {
+                                //alert(myStringArray[i]);
+                                console.log(result[i]);
+                                showAttached(result[i]);
+                            }
+                        }
+
+                    },
+                    complete: function () {
+                        //console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+            
+            function showAttached(attid) {
+                var settid = {{id}};
+                var myurl = "{{ path('mainemail_ajaxshowattached', { 'id': 'PLACEHOLDER', 'settid':'PLACEHOLDER2'} )}}"
+                $.ajax({
+                    url: myurl.replace("PLACEHOLDER", attid).replace("PLACEHOLDER2", settid),
+                    dataType: "json",
+                    success: function (response) {
+                        //var attachmentNode = 
+                        var myDiv = document.createElement('div');
+                        myDiv.className = 'removenode';
+                        $(myDiv).html(response);
+                        $("#showattachment").append(myDiv);
+                    },
+                    complete: function () {
+                        //console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+
+            $(document).on('click', ".removeattach", function (e) {
+                var attid = $(this).attr('action-data');
+                var clicked = $(this);
+                var removeNode = $(clicked).parents().eq(1);
+                $(removeNode).remove();
+                deleteAttDatabase(attid);
+            });
+            
+            function deleteAttDatabase(attid) {
+                var myurl = "{{ path('mainemail_removeattachment', { 'attid': 'PLACEHOLDER'} )}}"
+                $.ajax({
+                    url: myurl.replace("PLACEHOLDER", attid),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+            
+            
+            $(document).on('change', "#action", function () {
+                var action = this.value;
+                if (action === '1') {
+                    forwardemail();
+                }
+            });
+            
+            
+            
+        });
+    </script>   
+{% endblock %}

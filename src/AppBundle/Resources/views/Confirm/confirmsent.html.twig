@@ -1,0 +1,92 @@
+{% extends "AppBundle:Confirm:confirmbase.html.twig" %}
+{% block title %}Confirmation History{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .pagination {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .marginFix {
+            margin-bottom:-20px;
+            padding-bottom: -20px;
+        }
+
+
+
+    </style>
+{% endblock %}
+
+
+{%block content %}  
+    <div class="container">
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="text-center">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" {% if pager.pagedown != false %} href="{{ path('confirm_sent', { 'page': pager.pagedown })}}" {% endif %}><span class="gi-5p glyphicon glyphicon-chevron-left"></span></a></li>
+                            {% for all in pager.pagesarray %}<li class="page-item"><a class="page-link" {% if pager.page != all %} href="{{ path('confirm_sent', { 'page': all })}}" {% endif %}>{{all}}</a></li>{% endfor %}
+                            <li class="page-item"><a class="page-link" {%if pager.pageup != false%} href="{{ path('confirm_sent', { 'page': pager.pageup })}}" {% endif %}><span class="gi-5p glyphicon glyphicon-chevron-right"></span></a></li>
+                        </ul>
+                        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Confirmation History&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+
+                        <div class="col-lg-3 pull-right marginFix">
+                            {{ form_start(formsearch) }}
+                            <div class="col-lg-8 marginFix">
+                                <div class="form-group has-feedback">
+                                    {{ form_errors(formsearch.name) }}
+                                    {{ form_widget(formsearch.name) }} 
+                                    <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 marginFix">
+                                {{ form_end(formsearch) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body gi-1x">
+                    <table class="table table-striped gi-5p">
+
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Coordinator</th>
+                                <th>From email</th>
+                                <th>Sent</th>
+                                <th>Date</th>
+                                <th>Subject</th>
+                                <th>Dentist</th>
+                                <th>Open</th>
+                            </tr>
+                        </thead>
+                        {% for all in confsent %}
+                            <tr>
+                                <td style="width:10%">{{all.customerName}}</td>
+                                <td style="width:10%">{{all.customerEmail}}</td>
+                                <td style="width:10%">{{all.user}}</td>
+                                <td style="width:10%">{{all.fromEmail}}</td>
+                                <td style="width:10%">{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                <td style="width:10%">{{all.appDate}}</td>
+                                <td style="width:10%">{{allTemplate[all.Tempid]|length > 25 ? allTemplate[all.Tempid]|slice(0, 25) ~ '..' : allTemplate[all.Tempid]}}</td>
+                                <td style="width:10%">{{all.doctor}}</td>
+                                <td style="width:5%"><a href="{{ path('confirm_seesent', { 'id': all.id }) }}" target="_blank"><span class="glyphicon glyphicon-open"></span></a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}   
+{% block javascripts %}{% endblock %}
+
+

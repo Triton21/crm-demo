@@ -1,0 +1,332 @@
+{% extends "AppBundle:Default:lead.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+    <link href="{{asset('bundles/app/css/override-bts.css')}}" rel="stylesheet">
+
+    {% for all in myleads %}
+        <style type="text/css">
+            .morecontent{{all.id}} span {
+                display: none;
+            }
+            .morelink{{all.id}} {
+                color: #6c8ecf;
+                display: block;
+            }
+            .showlink{{all.id}} {
+                color: grey;
+                display: block;
+            }
+            #loader{{all.id}} {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+    {% endfor %}
+{%endblock%}
+
+{% block content %} 
+
+
+    <!-- MY LEADS -->
+
+
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">My leads</h3>
+            </div>
+            <div class="panel-body">
+                {% for all in myleads %}
+
+                    <div class="panel panel-default">
+                        <div class="container-fluid">
+                            <div class="col-xs-025">
+                                <span style="color:blue;" class="glyphicon glyphicon-user gi-5p"></span>
+                            </div>
+                            <div class="col-lg-2">
+                                <ul>
+                                    <li>  <a href="{{ path('lead_progress', { 'id': all.id})}}">{{ all.customerName }}</a> </li>
+                                    <li>
+                                        {{ all.customerTel }}
+                                    </li>
+                                    <li> {{ all.customerEmail }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-1">
+                                <ul style="text-align: right; font-weight: bold;">
+                                    <li>
+                                        Contacted:
+                                    </li>
+                                    <li>
+                                        Created:
+                                    </li>
+                                    <li>
+                                        Last contact:
+                                    </li>
+                                    <li>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-015">
+                                <ul>
+                                    <li>
+                                        <span class="badgegreen">{{all.contacted}}</span>
+                                    </li>
+                                    {{ all.createdAt|date('d-m-Y H:i:s') }}
+                                    <li>
+                                        {% if all.lastcontact == true %}
+                                            {{ all.lastcontact|date('d-m-Y H:i:s') }}
+                                        {% else %}
+                                            n/a
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        &nbsp;
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-05">
+                                <ul style="text-align: right; font-weight: bold;">
+                                    <li>
+                                        Message:
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <span class="more{{all.id}}">{{ all.message }}</span>
+                            </div>
+                            <div class="col-xs-05">
+                                <ul style="text-align: right; font-weight: bold;">
+                                    <li>
+                                        Status:
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-2">
+                                {{ all.status }}
+                            </div>
+                        </div>
+                        <div id="callmain{{all.id}}"></div>
+                        <div class="panel-footer" id="myfooter{{all.id}}">
+                            <button type="button" class="btn btn-lightblue btn-xs" id="showCallh{{all.id}}">&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down" style="color:white"></span></button>
+                            <button type="button" class="btn btn-default btn-xs" id="showContactForm{{all.id}}">&nbsp;&nbsp;&nbsp;&nbsp;Contact patient&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down"></span></button>
+                            <button type="button" class="btn btn-lightgrey btn-xs">&nbsp;&nbsp;&nbsp;&nbsp;Send email&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-edit" style="color:white"></span></button>
+                            <button type="button" class="btn btn-lightgrey btn-xs">&nbsp;&nbsp;&nbsp;&nbsp;Send appointment confirmation&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-envelope" style="color:white"></span></button>
+                        </div>  
+
+
+
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">My leads</h3>
+            </div>
+
+            <div class="panel-body">
+
+
+                {% for all in myleads %}
+                    <div class="panel panel-default">
+                        <table class="table table-striped gi-4p">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Message</th>
+                                    <th>Date/Time</th>
+                                    <th>Coordinator</th>
+                                    <th>Status</th>
+                                        {% if all.assign != name %}
+                                        <th>Assign</th>
+                                        {% else %}
+                                        <th></th>
+                                        {%endif%}
+                                </tr>
+                            </thead>
+
+                            <tr class="table table-striped gi-5p">
+                                <td style="width:10%"><a href="{{ path('lead_progress', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                <td style="width:8%">{{ all.customerTel }}</td>
+                                <td style="width:14%">{{ all.customerEmail }}</td>
+                                <td style="width:33%">
+                                    <span class="more{{all.id}}">{{ all.message }}</span>
+                                </td>
+                                <td style="width:10%">{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                <td style="width:10%">{{ all.assign }}</td>
+                                <td style="width:8%">{{ all.status }}</td>
+                                {% if all.assign == name %}
+                                    <td style="width:7%"><a href="{{ path('lead_progress', { 'id': all.id})}}">Edit</a></td>
+                                {% else %}
+                                    <td style="width:7%">
+                                        <form action="{{ path('lead_todo') }}" method="POST">
+                                            <input type="hidden" name="assign" value="{{ all.id }}">
+                                            <input class="btn btn-xs btn-success" type="submit" value="Get"/>
+                                        </form>
+                                    </td>
+                                {% endif %}
+
+                            </tr>
+                        </table>
+
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {% for all in myleads %}
+        <script>
+            $(document).ready(function () {
+                // Configure/customize these variables.
+                var showChar = 250; // How many characters are shown by default
+                var ellipsestext = " ...";
+                var moretext = "more >";
+                var lesstext = "less";
+
+                var callmain = document.getElementById("callmain{{all.id}}");
+                //var callbutton = document.getElementById("showCallh{{all.id}}");
+                //var hidebutton = document.getElementById("hideCallh{{all.id}}");
+                var myfooter = document.getElementById("myfooter{{all.id}}");
+                var addHideButton = '<button type="button" class="btn btn-lightblue btn-xs show{{all.id}}">&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-up" style="color:white"></span></button>';
+                var addHideLink = '<span class="hideCallhis{{all.id}} gi-3p" style="color:grey;">&nbsp;&nbsp;&nbsp;&nbsp;Hide&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-up" style="color:grey"></span>';
+                var addshowLink = '<span class="show{{all.id}} gi-3p" style="color:grey;">&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down" style="color:grey"></span>';
+                var loading = '<div class="ispinner gray large animating myload" id="loader{{all.id}}">\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                </div>   ';
+
+                $('.more{{all.id}}').each(function () {
+                    var content = $(this).html();
+
+                    if (content.length > showChar) {
+
+                        var c = content.substr(0, showChar);
+                        var h = content.substr(showChar, content.length - showChar);
+
+                        var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent{{all.id}}"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink{{all.id}}">' + moretext + '</a></span>';
+
+                        $(this).html(html);
+                    }
+
+                });
+
+                $(".morelink{{all.id}}").click(function () {
+                    if ($(this).hasClass("less")) {
+                        $(this).removeClass("less");
+                        $(this).html(moretext);
+                    } else {
+                        $(this).addClass("less");
+                        $(this).html(lesstext);
+                    }
+                    $(this).parent().prev().toggle();
+                    $(this).prev().toggle();
+                    return false;
+                });
+
+                $(document).on('click', "#showCallh{{all.id}}", function () {
+                    loadAnimation();
+                    aButtonPressed();
+                });
+
+                $(document).on('click', "#hideCallh{{all.id}}", function () {
+                    //loadAnimation();
+                    hidecallPressed();
+                });
+
+                function hidecallPressed() {
+                    $("#callmain{{all.id}}").empty();
+                    var hidebutton = document.getElementById("hideCallh{{all.id}}");
+                    myfooter.removeChild(hidebutton);
+                    var myButton = document.createElement('button');
+                    myButton.className = 'btn btn-lightblue btn-xs';
+                    myButton.id = 'showCallh{{all.id}}';
+                    myButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down" style="color:white"></span>';
+                    myfooter.insertBefore(myButton, myfooter.childNodes[0]);
+                }
+
+
+                function loadAnimation() {
+                    var myNewDiv = document.createElement('div');
+                    myNewDiv.id = 'displayhere{{all.id}}';
+                    callmain{{all.id}}.appendChild(myNewDiv);
+                    myNewDiv.innerHTML = loading;
+                    return;
+                }
+
+                function aButtonPressed() {
+                    $.ajax({
+                        url: "{{ path('lead_ajaxtodo', { 'id': all.id})}}",
+                        dataType: "json",
+                        success: function (response) {
+                            $("#callmain{{all.id}}").empty();
+                            var myDiv = document.createElement('div');
+                            myDiv.id = 'displayhere{{all.id}}';
+                            callmain{{all.id}}.appendChild(myDiv);
+                            template = response;
+                            myDiv.innerHTML = template;
+                            var callbutton = document.getElementById("showCallh{{all.id}}");
+                            myfooter.removeChild(callbutton);
+                            var myButton = document.createElement('button');
+                            myButton.className = 'btn btn-primary btn-xs';
+                            myButton.id = 'hideCallh{{all.id}}';
+                            myButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-up" style="color:white"></span>';
+                            myfooter.insertBefore(myButton, myfooter.childNodes[0]);
+                            console.log(callmain{{all.id}});
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+
+                }
+
+
+
+
+
+
+            });
+
+
+        </script>
+    {% endfor %}
+{% endblock %}

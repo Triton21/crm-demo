@@ -1,0 +1,192 @@
+{% extends "::base.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{% block welcome %}Welcome {{name}}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{% if countlog.4 != '0'%} <a href="{{path('log_message')}}"><span style="font-size:20px; color:white;" class="hidden-xs showopacity glyphicon glyphicon-envelope"></span><span class="pull-right badgered">{{countlog.4}}</span></a>{%else%}<a href="{{path('log_message')}}"><span style="font-size:20px; color:gray;" class="hidden-xs showopacity glyphicon glyphicon-envelope"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %} {% endblock %}
+
+{%block basestylesheets %}
+    <style type="text/css">
+        #messages {
+            a:hover 
+        }
+    </style>
+{%endblock%}
+{% block search %}
+    {{ render(controller('AppBundle:Templatelog:searchform')) }}
+
+{% endblock %}
+
+
+
+
+{% block frame1 %}
+    <div class="col-lg-12">
+        <div class="row">
+
+            <!--side navigation panel -->  
+
+            <nav class="navbar navbar-inverse sidebar nav-stacked affix" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{path('log_main')}}">LOG <span class="pull-right glyphicon glyphicon-home"></span></a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{path('log_todolist')}}">Todo list<span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
+                            <li><a href="{{path('log_main')}}">All log<span class="pull-right hidden-xs showopacity badgeyellow">{{countlog.0}}</span></a></li>
+                            <li><a href="{{path('log_logunsolved')}}">All unsolved<span class="pull-right hidden-xs showopacity badgeorange">{{countlog.3}}</span></a></li>
+                            <li><a href="{{path('log_myunsolved')}}">My unsolved<span class="pull-right hidden-xs showopacity badgered">{{countlog.2}}</span></a></li>
+                            <li><a href="{{path('log_alarmlist')}}">Alarm list<span class="pull-right hidden-xs showopacity glyphicon glyphicon-time"></span></a></li>
+                            <li><a {% if countlog.4 != '0'%} onmouseover="this.style.color = '#d9d9d9';" onmouseout="this.style.color = 'white';" style="color:white;"{% endif %} href="{{path('log_message')}}">Messages <span class="hidden-xs showopacity badgered">{{countlog.4}}</span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
+                            <li class="dropdown">
+                                <a href="#" id="personalMainDD" class="dropdown-toggle" data-toggle="dropdown">Personal <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                                <ul id="personalDD" class="dropdown-menu forAnimate" role="menu">
+                                    <li><a href="{{path('log_flagged')}}">My Flag<span class="pull-right hidden-xs showopacity glyphicon glyphicon-flag"></span></a></li>
+                                    <li><a href="{{path('lead_stat')}}">Stat<span class="pull-right hidden-xs showopacity glyphicon glyphicon-signal"></span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+            <div class="main">
+                <!-- MIDDLE CONTENT -->  
+
+                <div class="col-lg-12">
+                    <div style="min-height: 15px;"></div>
+                    <div class="row">
+                        <!-- TOP THREE PANEL -->
+                        <div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-lblue">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <span class="glyphicon glyphicon-user gi-2x"></span>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge">&nbsp;</div>
+                                                <div>Lead manager</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{path('lead_manager')}}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Start</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>  
+
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <span class="glyphicon glyphicon-list gi-2x"></span>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge">&nbsp;</div>
+                                                <div>Telephone Log and Task</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{path('log_main')}}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Start</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-lblue">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <span class="glyphicon glyphicon-list gi-2x"></span>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge">&nbsp;</div>
+                                                <div>Email manager</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{path('mainemail_index')}}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Start</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-lblue">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <span class="glyphicon glyphicon-envelope gi-2x"></span>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge">&nbsp;</div>
+                                                <div>Confirmation manager</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{path('confirm_main')}}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Start</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>  
+
+                        </div>  
+
+                    </div>
+                </div>
+
+
+        <!-- New leads -->
+        
+        <div class="col-lg-12">
+        <div class="row">
+        
+    {% endblock %}
+    {%block content %}
+
+    {%endblock%}
+    {%block frame2 %}
+    </div>
+    </div>
+    </div>
+{%endblock%} 
+{% block javascriptbase %}
+    <script>
+        $(function () {
+            $('#bs-example-navbar-collapse-1').on('shown.bs.collapse', function (e) {
+                $('#inProgressDD').dropdown('toggle', 'open').hide();
+                console.log('shown:', e);
+            });
+        });
+    </script>
+{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -1,0 +1,23 @@
+{%block search%}
+    <div class="search-field">
+        {{ form_start(formsearch) }}
+
+        <div class="col-xs-3">
+            {{ form_errors(formsearch.name) }}
+            {{ form_widget(formsearch.name) }}
+        </div>
+        <div class="col-xs-1">
+            {{ form_errors(formsearch.id) }}
+            {{ form_widget(formsearch.id) }}
+        </div>
+        <div class="col-xs-1">
+            <div class="row">
+                {{ form_widget(formsearch.search) }}
+            </div>
+        </div> 
+
+        {{ form_end(formsearch) }}
+    </div>
+
+
+{%endblock%}

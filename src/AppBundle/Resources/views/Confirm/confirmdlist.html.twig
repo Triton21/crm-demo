@@ -1,0 +1,90 @@
+{% extends "AppBundle:Confirm:confirmbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+
+
+
+{%block content %}  
+    <div class="container">
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Doctor list</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="gi-1x">
+                        <table class="table table-striped gi-5p">
+
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Template</th>
+                                    <th>Active</th>
+                                    <th>Edit</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            {% for all in dlist %}
+                                <tr {% if all.active == 1 %} style="font-weight: bold;" {% else %} style="color:grey" {% endif %}>
+                                    <td style="width:30%">{{ all.dname }}</td>
+                                    
+                                    <td style="width:10%"><a href="{{ path('review_seetemplate', { 'id': all.feedbackid }) }}" target="_blank"><span class="glyphicon glyphicon-open"></span></a></td>
+                                      
+                                    
+                                    <td style="width:10%">
+                                        {% if all.active == 1 %}
+                                            <a href="{{ path('confirm_setdocactive', { 'id': all.id})}}"><span class="glyphicon glyphicon-check gi-7p" style="color:green"></span></a>
+                                            {% else %}
+                                            <a href="{{ path('confirm_setdocactive', { 'id': all.id})}}"><span class="glyphicon glyphicon-exclamation-sign gi-7p" style="color:red"></span></a>   
+                                            {% endif %}
+                                    </td>
+                                    <td style="width:10%"><a href="{{ path('confirm_doctoredit', { 'id': all.id})}}"><span class="glyphicon glyphicon-edit gi-7p"></span></a></td>   
+                                    <td style="width:10%"><a href="{{ path('confirm_doctordelete', { 'id': all.id})}}" class="btn btn-danger btn-xs">Delete</a></td>
+
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Submit new doctor </h3>
+                </div>
+                <div class="panel-body">
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+
+
+                </div>
+            </div>
+        </div> 
+
+
+
+
+
+
+
+    </div>
+
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}
+

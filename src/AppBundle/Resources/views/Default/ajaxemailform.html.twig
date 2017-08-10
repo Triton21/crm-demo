@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <div class="col-lg-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create email </h3>
+            </div>
+            <div class="panel-body">
+                <div class="gi-1x">
+
+                    From
+                    <select id="settings{{id}}" name="settingsid" form="settingsid" class="input-sm form-control">
+                        <option value="" selected></option>
+                        {% for key, all in settingsarray %}
+                            <option value="{{ key }}">{{all}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    Name
+                    <input id="cName{{id}}" type="text" value="{{cname}}" id="cname" name="cname" class="input-sm form-control">
+                    <br>
+                    Email
+                    <input id="cEmail{{id}}" type="text" value="{{email}}" id="email" name="cemail" class="input-sm form-control">
+                    <br>
+                    Date
+                    <input id="appDate{{id}}" type="text" name="appdate" id="datepicker" class="input-sm form-control" data-provide="datepicker" data-date-format="dd-mm-yyyy" placeholder="Appointment date" data-date-format="dd-mm-yyyy" >
+                    <br>
+                    Template
+                    <br>
+                    <select id="template{{id}}" name="template" form="tempform" class="input-sm form-control">
+                        <option value="" selected></option>
+                        {% for key, all in tempnamearray %}
+                            <option value="{{ key }}">{{all}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+
+                    <div class="col-sm-6">
+                        <input id="formButton{{id}}" class="btn btn-xs btn-success input-inline" type="button" value="submit"/>
+                    </div>
+                    <div class="col-sm-6" id="loadhere">
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Email </h3>
+            </div>
+            <div class="panel-body">
+                <div class="gi-1x form-group" id="emailform">
+                    <form method="POST" id="sendmailForm{{id}}" action="{{ path('lead_sendmailajax', { 'id': id})}}">
+                        <input type="hidden" name="settid{{id}}" id="settid{{id}}">
+                        <input type="hidden" name="tempid{{id}}" id="tempid{{id}}">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    To
+                                    <input type="text" value="" name="mailname" id="mailname{{id}}" class="input-sm form-control" readonly>
+                                </div>
+                                <div class="col-lg-4">
+                                    Email
+                                    <input type="text" value="" name="mailemail" id="mailemail{{id}}" class="input-sm form-control" readonly>
+                                </div>
+                                <div class="col-lg-4">
+                                    From
+                                    <input type="text" value="" name="fromemail" id="fromemail{{id}}" class="input-sm form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <br>
+                                    Subject
+                                    <input type="text" name="subject{{id}}" id="subject{{id}}" class="input-sm form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <br>
+                                Message
+                                <textarea name="editor1{{id}}" id="editor1{{id}}">&lt;p&gt;Empty&lt;/p&gt;</textarea>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div id="oldattach{{id}}" class="container">
+
+                            </div>
+                        </div>
+                        
+                        <div class="container" id="something{{id}}">
+                            <div class="col-sm-5">
+                                <br>
+                                <br>
+                                <div id="sendload{{id}}"><button id="sendButton{{id}}" class="btn btn-sm btn-success disabled" type="submit" value=" Send "/> Send </button></div>
+                            </div>
+                            <div class="col-sm-5">
+                                <br>
+                                <br>
+                                <button type="button" id="cancelEmail{{id}}" class="btn btn-danger btn-sm">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="sentOkHere{{id}}"></div>
+            </div>
+        </div>
+    </div>
+</div>

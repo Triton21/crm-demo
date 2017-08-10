@@ -1,0 +1,72 @@
+{% extends "AppBundle:Marketing:marketingbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{% block welcome %}Welcome {{name}}{% endblock %}
+
+
+
+{%block content %}  
+    <div class="container">
+        <div class="col-lg-11">
+
+            
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Lead statistic</h3>
+
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped gi-4p">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>  
+                                    <th>All</th>  
+                                    <th>In progress</th>  
+                                    <th>Not reached</th>  
+                                    <th>Won</th>  
+                                    <th>Pending</th>  
+                                    <th>Dead</th>  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for key, value in fullarray %}
+                                    <tr class="table table-striped gi-5p">
+                                        <td style="width:16.6%">{{ key }}</td>
+                                        <td style="width:16.6%">{{ value['all']}}</td>
+                                        <td style="width:16.6%">{{ value['In progress']}}</td>
+                                        <td style="width:16.6%; font-weight: bold;">{{ value['Not reached']}}</td>
+                                        <td style="width:16.6%">{{ value['Won']}}</td>
+                                        <td style="width:16.6%">{{ value['Pending']}}</td>
+                                        <td style="width:16.6%">{{ value['Dead']}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+                </div>
+
+
+        </div>
+        
+
+
+
+    </div>
+
+
+
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}
+

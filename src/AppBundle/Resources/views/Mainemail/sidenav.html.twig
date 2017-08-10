@@ -1,0 +1,23 @@
+<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+    <ul class="nav navbar-nav" style="border-top: 0px; width:100%;" >
+        <li class="dropdown" style="border-top: 0px; border-bottom: 0px;">
+            <a id="inProgressHrefDD" href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size: 15px;">ACCOUNTS <span class="caret"></span></a>
+            <ul id="inProgressDD" class="dropdown-menu forAnimate" role="menu">
+                {% for key, value in accountnavigation %}
+                    <li><a href="{{ path('mainemail_inbox', { 'id': value.id})}}">{{value.settname}} <span class="pull-right hidden-xs showopacity badgered">{{unseenarray[value.id]}}</span></a></li>
+                    {% endfor %}
+                <div style="min-height:50px;"></div>
+            </ul>
+        </li>    
+    </ul> 
+</div>
+
+
+
+
+
+
+
+
+
+

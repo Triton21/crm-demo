@@ -1,0 +1,43 @@
+{% extends "AppBundle:Review:reviewbase.html.twig" %}
+
+
+
+
+{%block content %} 
+
+    <div class="col-lg-12">
+        {% if success != false %}
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Email success!&nbsp;&nbsp;&nbsp; <a href="{{ path('review_main')}}">Go back</a></h3>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if error != false %}
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">There was a problem with the email sending! Error code: {{error}} <a href="{{ path('review_main')}}">Go back</a></h3>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+
+
+    {%endblock%}   
+
+
+
+
+
+
+
+
+    {% block javascripts %}
+    {% endblock %}

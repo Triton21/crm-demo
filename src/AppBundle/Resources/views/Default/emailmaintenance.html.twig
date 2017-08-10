@@ -1,0 +1,66 @@
+{% extends "AppBundle:Default:emailbase.html.twig" %}
+{% block title %}Inbox{% endblock %}
+
+
+
+
+    {%block content %}  
+        <div class="container">
+            
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Inbox</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="gi-1x">
+                                
+                                
+                                <table class="table table-striped gi-6p">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Account</th>
+                                            <th>Inbox</th>
+                                            <th>Older than 30 days</th>
+                                            <th>Clean old</th>
+                                            <th></th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                        <tr>
+                                            <td>Online Inbox</td>
+                                            <td>{{countinbox}}</td>
+                                            <td>{{countold}}</td>
+                                            <td><a href="{{ path('emailmanager_cleaninbox') }}" class="btn btn-danger">Clean</a></td>
+                                            <td></td>
+                                            <td></td>
+
+                                    </tr>
+                                </table>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    {%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}

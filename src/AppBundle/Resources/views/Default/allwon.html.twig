@@ -1,0 +1,907 @@
+{% extends "AppBundle:Default:leadbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+{%block stylesheets %}
+    <link href="{{asset('bundles/app/css/override-bts.css')}}" rel="stylesheet">
+    {% for all in allwonlead %}
+        <style type="text/css">
+            .morecontent{{all.id}} span {
+                display: none;
+            }
+            .morelink{{all.id}} {
+                color: #6c8ecf;
+                display: block;
+            }
+            .showlink{{all.id}} {
+                color: grey;
+                display: block;
+            }
+            #loader{{all.id}} {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #barratehere{{all.id}} {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .centered{{all.id}} {
+                text-align: center;
+            }
+            .rightAl {
+                text-align: right;
+            }
+            .panelBgr{{all.id}} {
+                background-color: #edf6eb;
+            }
+
+        </style>
+    {% endfor %}
+{% endblock %}
+
+{% block content %} 
+
+
+
+    <!-- My won leads -->
+
+
+    <div class="col-lg-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="col-lg-12">
+                    <div class="col-lg-3">
+                        <h3 class="panel-title">All won leads</h3>
+                    </div>
+                    <!-- PAGINATOR -->
+
+                    <div class="col-lg-9">
+                        <div style="min-height: 22px; width: 100%"></div>
+                        {%if pager.pagedown == false%} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="{{ path('lead_allwon', { 'page': pager.pagedown })}}"><span class="gi-7p glyphicon glyphicon-chevron-left"></span></a>{%endif%}
+                        {% for all in pager.pagesarray %}{% if pager.page == all %} <button type="button" class="btn btn-sm disabled">{{all}}</button>{%else%}
+                                <a href="{{ path('lead_allwon', { 'page': all })}}"><button type="button" class="btn btn-default btn-sm">{{all}}</button>{%endif%}</a>
+                                    {% endfor %}
+                                        {%if pager.pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="{{ path('lead_allwon', { 'page': pager.pageup })}}"><span class="gi-7p glyphicon glyphicon-chevron-right"></span></a>{%endif%}
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <!-- PAGINATOR END -->
+
+                        </div>
+                        <div class="panel-body">
+
+
+                            {% for all in allwonlead %}
+                                <div id="mainPanel{{all.id}}">
+                                    <div class="panel panel-info panelBgr{{all.id}} changePanelClass{{all.id}}" id="changePanel{{all.id}}">
+                                        <div class="container-fluid">
+                                            <div class="col-xs-025">
+                                                <ul>
+                                                    <li class="gi-8p">
+                                                        <span style="color:#6ea3d9;" class="glyphicon glyphicon-user gi-8p"></span></li>
+                                                    <li style="color: red;">
+                                                        <div id="updatedflag{{all.id}}" class="gi-6p"> {% if all.flag == '1' %}<span style="color: red;" class="glyphicon glyphicon-flag gi-6p"></span>{% endif%}</div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                            <div id="updateContactDetails{{all.id}}">
+                                                <div class="col-xs-2">
+                                                    <ul>
+                                                        <li class="gi-8p">  <a href="{{ path('lead_progresstest', { 'id': all.id})}}">{{ all.customerName }}</a> </li>
+                                                        <li>
+                                                            {{ all.customerTel }}
+                                                        </li>
+                                                        <li> {{ all.customerEmail }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <ul style="text-align: right; font-weight: bold;">
+                                                    <li>
+                                                        Contacted:
+                                                    </li>
+                                                    <li>
+                                                        Created:
+                                                    </li>
+                                                    <li>
+                                                        Last contact:
+                                                    </li>
+                                                    <li></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-015" id="contacted{{all.id}}">
+                                                <ul>
+                                                    <li>
+                                                        <span class="badgegreen">{{all.contacted}}</span>
+                                                    </li>
+                                                    <li>
+                                                        {{ all.createdAt|date('d-m-Y H:i:s') }}
+                                                    </li>
+                                                    <li>
+                                                        {% if all.lastcontact == true %}
+                                                            {{ all.lastcontact|date('d-m-Y H:i:s') }}
+                                                        {% else %}
+                                                            n/a
+                                                        {% endif %}
+                                                    </li>
+                                                    <li>
+                                                        &nbsp;
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <ul style="text-align: right; font-weight: bold;">
+                                                    <li>
+                                                        Status:
+                                                    </li>
+                                                    <li>
+                                                        Probability:
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <ul>
+                                                    <li>
+                                                        <div id="displayStatus{{all.id}}">
+                                                            {{ all.status }}
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div id="displayProb{{all.id}}">
+                                                            {% if all.probability == false %}
+                                                                N/A
+                                                            {% else %}
+                                                                <span class="badgedarkred">{{ all.probability }}</span> /10
+                                                            {% endif %}
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-xs-4">
+                                                <ul>
+                                                    <li style="font-weight: bold;">
+                                                        Message:
+                                                    </li>
+
+                                                    <li>
+                                                        <article class="more{{all.id}}">{{ all.message }}</article>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-05">
+                                                <ul style="text-align: right; font-weight: bold;">
+                                                    <li>
+                                                        Flag:
+                                                    </li>
+                                                    <li>
+                                                        Source:
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-xs-05">
+                                                <ul style="text-align: right; font-weight: bold;">
+                                                    <li>
+                                                        <div id="updatedflagRight{{all.id}}" style="color:red;" class="gi-8p">{% if all.flag == '1' %}<span class="gi-8p glyphicon glyphicon-flag" style="color:red"></span>{%else%}&nbsp;{%endif%}</div>
+                                                    </li>
+                                                    <li>
+                                                        <span style="font-weight: normal;">{{all.source}}</span>
+                                                    </li>
+                                            </div>
+                                        </div>
+
+                                        <div id="callmain{{all.id}}"></div>
+                                        <div class="panel-myfooter" id="myfooter{{all.id}}">
+                                            <button type="button" class="btn btn-lightblue btn-xs" id="showCallh{{all.id}}">&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down" style="color:white"></span></button> 
+                                            <button type="button" class="btn btn-lightblue btn-xs" id="showContactForm{{all.id}}">&nbsp;&nbsp;&nbsp;&nbsp;Edit contact details&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down"></span></button>
+                                            <button type="button" class="btn btn-default btn-xs" id="createEmail{{all.id}}">&nbsp;&nbsp;&nbsp;&nbsp;Send email&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-envelope"></span></button>
+                                            <a href="{{ path('confirm_main', { 'id': all.id})}}"><button type="button" class="btn btn-default btn-xs">&nbsp;&nbsp;&nbsp;&nbsp;Appointment confirmation&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-envelope"></span></button></a>
+                                        </div>  
+                                    </div>
+                                </div>
+
+
+                            {% endfor %}
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                {% endblock %}
+
+
+                    {% block javascripts %}
+                        {% for all in allwonlead %}
+                            <script>
+                                $(document).ready(function () {
+                                    // Configure/customize these variables.
+                                    var originalBackgrd = '#edf6eb';
+                                    var showChar = 250; // How many characters are shown by default
+                                    var ellipsestext = " ...";
+                                    var moretext = "more >";
+                                    var lesstext = "less";
+                                    var callmain = document.getElementById("callmain{{all.id}}");
+                                    var myfooter = document.getElementById("myfooter{{all.id}}");
+                                    var loading = '<div class="ispinner gray large animating myload" id="loader{{all.id}}">\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                    </div>   ';
+                                    var loadingsmall = '<div class="ispinner gray animating myload" id="loader{{all.id}}">\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                        <div class="ispinner-blade"></div>\
+                                    </div>   ';
+                                    var s1, s2, s3, s4, s5, s6, s7, s8, s9, s10;
+                                    $('.more{{all.id}}').each(function () {
+                                        var content = $(this).html();
+                                        if (content.length > showChar) {
+
+                                            var c = content.substr(0, showChar);
+                                            var h = content.substr(showChar, content.length - showChar);
+                                            var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent{{all.id}}"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink{{all.id}}">' + moretext + '</a></span>';
+                                            $(this).html(html);
+                                        }
+
+                                    });
+                                    $(".morelink{{all.id}}").click(function () {
+                                        if ($(this).hasClass("less")) {
+                                            $(this).removeClass("less");
+                                            $(this).html(moretext);
+                                        } else {
+                                            $(this).addClass("less");
+                                            $(this).html(lesstext);
+                                        }
+                                        $(this).parent().prev().toggle();
+                                        $(this).prev().toggle();
+                                        return false;
+                                    });
+                                    $(document).on('click', "#showCallh{{all.id}}", function () {
+                                        loadAnimation();
+                                        var currentStatus = document.getElementById("displayStatus{{all.id}}").innerText;
+                                        changePanelBackGround(currentStatus);
+                                        aButtonPressed();
+                                    });
+
+                                    $(document).on('click', "#createEmail{{all.id}}", function () {
+                                        loadAnimation();
+                                        var currentStatus = document.getElementById("displayStatus{{all.id}}").innerText;
+                                        changePanelBackGround(currentStatus);
+                                        createEmail();
+                                    });
+
+                                    function createEmail() {
+                                        $.ajax({
+                                            url: "{{ path('lead_ajaxemail', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                $("#callmain{{all.id}}").empty();
+                                                var myDiv = document.createElement('div');
+                                                myDiv.id = 'displayhere{{all.id}}';
+                                                //callmain{{all.id}}.appendChild(myDiv);
+                                                myDiv.innerHTML = response;
+                                                callmain{{all.id}}.appendChild(myDiv);
+                                                CKEDITOR.replace('editor1{{all.id}}');
+                                                //console.log(response);
+                                                //console.log(callmain{{all.id}});
+                                            },
+                                            complete: function () {
+                                                console.log('Request is complete');
+                                            },
+                                            error: function () {
+                                                console.log('Oops...there was an error!');
+                                            }
+                                        });
+                                    }
+
+                                    $(document).on('click', "#formButton{{all.id}}", function (e) {
+                                        var settings = document.getElementById("settings{{all.id}}").value;
+                                        if (settings) {
+                                            document.getElementById("settid{{all.id}}").value = settings;
+                                            var sendButton = document.getElementById("sendButton{{all.id}}");
+                                            sendButton.className = 'btn btn-sm btn-success';
+                                        }
+                                        var fromsend = document.getElementById("settings{{all.id}}");
+                                        var fromEmailName = fromsend.options[fromsend.selectedIndex].text;
+                                        if (fromEmailName) {
+                                            document.getElementById("fromemail{{all.id}}").value = fromEmailName;
+                                        }
+                                        var cname = document.getElementById("cName{{all.id}}").value;
+                                        if (cname) {
+                                            document.getElementById("mailname{{all.id}}").value = cname;
+                                        }
+                                        var cemail = document.getElementById("cEmail{{all.id}}").value;
+                                        if (cemail) {
+                                            document.getElementById("mailemail{{all.id}}").value = cemail;
+                                        }
+                                        var appdate = document.getElementById("appDate{{all.id}}").value;
+                                        var template = document.getElementById("template{{all.id}}").value;
+
+                                        if (template) {
+                                            var myUrl = "{{ path('lead_ajaxgettemplate', { 'id': 'myPLACEHOLDER'} )}}";
+                                            $.ajax({
+                                                url: myUrl.replace("myPLACEHOLDER", template),
+                                                dataType: "json",
+                                                success: function (response) {
+                                                    username = '{{name}}';
+                                                    var messageBody = response.body;
+                                                    messageBody = messageBody.replace('%firstname%', cname);
+                                                    messageBody = messageBody.replace('%consdate%', appdate);
+                                                    messageBody = messageBody.replace('%username%', username);
+                                                    CKEDITOR.instances["editor1{{all.id}}"].setData(messageBody);
+                                                    document.getElementById("tempid{{all.id}}").value = template;
+                                                    document.getElementById("subject{{all.id}}").value = response.subject;
+                                                    ajaxGetAttachment(template);
+
+                                                },
+                                                complete: function () {
+                                                    console.log('Request is complete');
+                                                },
+                                                error: function () {
+                                                    console.log('Oops...there was an error!');
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                    function ajaxGetAttachment(tempid) {
+                                        var ajaxattachment = '{{ path('lead_ajaxattach', { 'id': 'temp_id'})}}';
+                                        $.ajax({
+                                            url: url = ajaxattachment.replace('temp_id', tempid),
+                                            dataType: "json",
+                                            success: function (response) {
+                                                var attachmentnode = document.getElementById("oldattach{{all.id}}");
+                                                attachmentnode.innerHTML = response;
+                                            },
+                                            complete: function () {
+                                                console.log('Request is complete');
+                                            },
+                                            error: function () {
+                                                console.log('Oops...there was an error!');
+                                            }
+                                        });
+                                    }
+
+                                    $(document).on('click', "#cancelEmail{{all.id}}", function () {
+                                        reversePanel();
+                                        hidecallPressed();
+                                    });
+
+                                    $(document).on('submit', "#sendmailForm{{all.id}}", function (e) {
+                                        var loadsendmail = document.getElementById("sendload{{all.id}}");
+                                        loadsendmail.innerHTML = loading;
+                                        var frm = $('#sendmailForm{{all.id}}');
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize(),
+                                            success: function (data)
+                                            {
+                                                console.log(data);
+                                                messageSent();
+                                                //insertHideButton();
+                                            }
+                                        });
+                                        e.preventDefault();
+                                    });
+
+                                    function messageSent() {
+                                        var sentNote = document.getElementById("something{{all.id}}");
+                                        var insertSentOk = document.getElementById("sentOkHere{{all.id}}");
+                                        var myDiv = document.createElement('div');
+                                        myDiv.className = 'container gi-8p';
+                                        var myButton = document.createElement('button');
+                                        myButton.className = 'btn btn-success btn-sm';
+                                        myButton.id = 'sentOk{{all.id}}';
+                                        myButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-ok" style="color:white"></span>';
+                                        sentNote.innerHTML = '';
+                                        myDiv.innerHTML = 'Email sent!';
+                                        insertSentOk.appendChild(myDiv);
+                                        insertSentOk.appendChild(myButton);
+                                    }
+
+                                    $(document).on('click', "#sentOk{{all.id}}", function (e) {
+                                        e.preventDefault();
+                                        aButtonPressed();
+                                        insertHideButton();
+                                        //hidecallPressed();
+                                    });
+
+
+                                    $(document).on('click', "#hideCallh{{all.id}}", function () {
+                                        reversePanel();
+                                        hidecallPressed();
+                                    });
+                                    $(document).on('click', "#showContactForm{{all.id}}", function () {
+                                        loadAnimation();
+                                        var currentStatus = document.getElementById("displayStatus{{all.id}}").innerText;
+                                        changePanelBackGround(currentStatus);
+                                        contactButtonPressed();
+                                    });
+                                    $(document).on('click', "#hideContact{{all.id}}", function () {
+                                        reversePanel();
+                                        hidecontactPressed();
+                                    });
+
+                                    $(document).on('change', "#flagForm{{all.id}}", function () {
+                                        var frm = $('#flagForm{{all.id}}');
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize(),
+                                            success: function (data)
+                                            {
+                                                console.log(data);
+                                                var dispflag = document.getElementById("updatedflag{{all.id}}");
+                                                var dispflagRight = document.getElementById("updatedflagRight{{all.id}}");
+                                                if (data == 1) {
+                                                    var myflagSpan = document.createElement('span');
+                                                    myflagSpan.className = "glyphicon glyphicon-flag";
+                                                    dispflag.appendChild(myflagSpan);
+                                                    var myflagSpanRight = document.createElement('span');
+                                                    myflagSpanRight.className = "glyphicon glyphicon-flag";
+                                                    dispflagRight.appendChild(myflagSpanRight);
+                                                    console.log(myflagSpan);
+                                                    console.log(dispflag);
+                                                }
+                                                else {
+                                                    dispflag.innerHTML = '';
+                                                    dispflagRight.innerHTML = '';
+                                                    console.log(dispflag);
+                                                }
+                                            }
+                                        });
+                                    });
+
+                                    $(document).on('change', "#changeStatus{{all.id}}", function () {
+                                        var newStatus = $('#changeStatus{{all.id}}').val();
+                                        changePanelBackGround(newStatus);
+                                        var displayStat = document.getElementById("displayStatus{{all.id}}");
+                                        displayStat.innerHTML = loadingsmall;
+                                        // set panel status attribute
+                                        mypanel = document.getElementById("changePanel{{all.id}}");
+                                        mypanel.setAttribute("status", newStatus);
+                                        //pass the status form data to database
+                                        var frm = $('#statusForm{{all.id}}');
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize(),
+                                            success: function (data)
+                                            {
+                                                console.log(data);
+                                                displayStatus();
+                                                insertHideButton();
+                                            }
+                                        });
+                                    });
+
+                                    function insertHideButton() {
+                                        var checkhideBUtton = document.getElementById("hidepanel{{all.id}}");
+                                        if (!checkhideBUtton) {
+                                            var buttonDiv = document.getElementById("myfooter{{all.id}}");
+                                            var myButton = document.createElement('button');
+                                            myButton.className = 'btn btn-danger btn-xs';
+                                            myButton.id = 'hidepanel{{all.id}}';
+                                            myButton.innerHTML = ' Hide this panel   <span class="gi-5p glyphicon glyphicon-chevron-up" style="color:white">';
+                                            buttonDiv.appendChild(myButton);
+                                        }
+                                    }
+
+                                    $(document).on('click', "#hidepanel{{all.id}}", function () {
+                                        var mainPanel = document.getElementById("mainPanel{{all.id}}");
+                                        mainPanel.innerHTML = '';
+                                    });
+
+
+                                    $(document).on('change', "#example{{all.id}}", function () {
+                                        var displaypr = document.getElementById("displayProb{{all.id}}");
+                                        displaypr.innerHTML = loadingsmall;
+                                        var frm = $('#probForm{{all.id}}');
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize(),
+                                            success: function (data)
+                                            {
+                                                console.log(data);
+                                                displayProb();
+                                            }
+                                        });
+                                    });
+
+                                    $(document).on('submit', "#newNote{{all.id}}", function (e) {
+                                        var loadNote = document.getElementById("loadnote{{all.id}}");
+                                        loadNote.innerHTML = loadingsmall;
+                                        var frm = $('#newNote{{all.id}}');
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize(),
+                                            success: function (data)
+                                            {
+                                                console.log(data);
+                                                aButtonPressed();
+                                                updatecontacted();
+                                                insertHideButton();
+                                            }
+                                        });
+                                        e.preventDefault();
+                                    });
+
+                                    $(document).on('submit', "#editform{{all.id}}", function (e) {
+                                        var loadNote = document.getElementById("editload{{all.id}}");
+                                        loadNote.innerHTML = loadingsmall;
+                                        var frm = $('#editform{{all.id}}');
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize(),
+                                            success: function (data)
+                                            {
+                                                console.log(data);
+                                                savedmessage();
+                                                updatecontactDetails();
+                                            }
+                                        });
+                                        e.preventDefault();
+                                    });
+
+                                    function savedmessage() {
+                                        var loadNote = document.getElementById("editload{{all.id}}");
+                                        loadNote.innerHTML = 'Changes has been saved!';
+                                    }
+
+                                    $(document).on('submit', "#alarm{{all.id}}", function (e) {
+                                        var alarmload = document.getElementById("alarmload{{all.id}}");
+                                        alarmload.innerHTML = loadingsmall;
+                                        var frm = $('#alarm{{all.id}}');
+                                        console.log(frm);
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize(),
+                                            success: function (data)
+                                            {
+                                                clearalarmLoad();
+                                                aButtonPressed();
+                                                insertHideButton();
+                                            }
+                                        });
+                                        e.preventDefault();
+                                    });
+
+                                    $(document).on('submit', "#notReached{{all.id}}", function (e) {
+                                        var loadNote = document.getElementById("loadnote{{all.id}}");
+                                        loadNote.innerHTML = loadingsmall;
+                                        var frm = $('#notReached{{all.id}}');
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize(),
+                                            success: function (data)
+                                            {
+                                                console.log(data);
+                                                aButtonPressed();
+                                                updatecontacted();
+                                            }
+                                        });
+                                        e.preventDefault();
+                                    });
+
+                                    $(document).on('click', "#turnoff{{all.id}}", function (e) {
+                                        var loadNote = document.getElementById("turnoffload{{all.id}}");
+                                        loadNote.innerHTML = loading;
+                                        $.ajax({
+                                            url: "{{ path('lead_ajaxalarmoff', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                console.log(response);
+                                                aButtonPressed();
+                                            }
+                                        });
+                                    });
+
+                                    function clearalarmLoad() {
+                                        var alarmload = document.getElementById("alarmload{{all.id}}");
+                                        alarmload.innerHTML = 'Alarm has been set!';
+                                    }
+
+                                    function checkAlarm() {
+                                        var storedNode = document.getElementById("storedalarm{{all.id}}");
+                                        $.ajax({
+                                            url: "{{ path('lead_ajaxgetalarm', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                if (response !== 'no alarm') {
+                                                    storedNode.innerHTML = response;
+                                                    var alarmFormNode = document.getElementById("alarform{{all.id}}");
+                                                    alarmFormNode.innerHTML = '';
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    function updatecontacted() {
+                                        $.ajax({
+                                            url: "{{ path('lead_ajaxupdatecontacted', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                var updateCont = document.getElementById("contacted{{all.id}}");
+                                                updateCont.innerHTML = response;
+                                            }
+                                        });
+                                    }
+
+                                    function updatecontactDetails() {
+                                        $.ajax({
+                                            url: "{{ path('lead_ajaxupdatecontactdetails', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                console.log(response);
+                                                var updateCont = document.getElementById("updateContactDetails{{all.id}}");
+                                                console.log(updateCont);
+                                                updateCont.innerHTML = response;
+                                            }
+                                        });
+                                    }
+
+                                    function displayStatus() {
+                                        $.ajax({
+                                            url: "{{ path('lead_ajaxupdatevalues', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                var displayStat = document.getElementById("displayStatus{{all.id}}");
+                                                displayStat.innerHTML = response;
+                                            }
+                                        });
+                                    }
+
+                                    function displayProb() {
+                                        $.ajax({
+                                            url: "{{ path('lead_ajaxupdateprobability', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                var displayProbability = document.getElementById("displayProb{{all.id}}");
+                                                var probnode = '<span class="badgedarkred" id="probvalue{{all.id}}">' + response + '</span> /10';
+                                                displayProbability.innerHTML = probnode;
+                                            }
+                                        });
+                                    }
+
+                                    function changePanelBackGround(currentStatus) {
+                                        var myPanel = document.getElementById("changePanel{{all.id}}");
+                                        switch (currentStatus) {
+                                            case "new":
+                                                $("#changePanel{{all.id}}").animate({'background-color': '#d2e8cf'}, 'slow');
+                                                myPanel.className = 'panel panel-primary';
+                                                break;
+                                            case "In progress":
+                                                $("#changePanel{{all.id}}").animate({'background-color': '#e0f4ff'}, 'slow');
+                                                myPanel.className = 'panel panel-primary';
+                                                break;
+                                            case "Won":
+                                                $("#changePanel{{all.id}}").animate({'background-color': '#ffecd8'}, 'slow');
+                                                myPanel.className = 'panel panel-primary';
+                                                break;
+                                            case "Pending":
+                                                $("#changePanel{{all.id}}").animate({'background-color': '#dbc8cf'}, 'slow');
+                                                myPanel.className = 'panel panel-primary';
+                                                break;
+                                            case "Not eligible":
+                                                $("#changePanel{{all.id}}").animate({'background-color': '#cdcdcd'}, 'slow');
+                                                myPanel.className = 'panel panel-primary';
+                                                break;
+                                            case "Dead":
+                                                $("#changePanel{{all.id}}").animate({'background-color': '#b5b5b5'}, 'slow');
+                                                myPanel.className = 'panel panel-primary';
+                                                break;
+                                        }
+                                    }
+
+                                    function reversePanel() {
+                                        var myPanel = document.getElementById("changePanel{{all.id}}");
+                                        $("#changePanel{{all.id}}").animate({'background-color': originalBackgrd}, 'slow');
+                                        myPanel.className = 'panel panel-info';
+                                    }
+
+                                    function hidecallPressed() {
+                                        $("#callmain{{all.id}}").empty();
+                                        var hidebutton = document.getElementById("hideCallh{{all.id}}");
+                                        if (hidebutton) {
+                                            myfooter.removeChild(hidebutton);
+                                            var myButton = document.createElement('button');
+                                            myButton.className = 'btn btn-lightblue btn-xs';
+                                            myButton.id = 'showCallh{{all.id}}';
+                                            myButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down" style="color:white"></span>';
+                                            myfooter.insertBefore(myButton, myfooter.childNodes[0]);
+                                        }
+                                    }
+
+
+                                    function loadAnimation() {
+                                        var myNewDiv = document.createElement('div');
+                                        myNewDiv.id = 'displayhere{{all.id}}';
+                                        callmain{{all.id}}.appendChild(myNewDiv);
+                                        myNewDiv.innerHTML = loading;
+                                        return;
+                                    }
+
+                                    function aButtonPressed() {
+                                        $.ajax({
+                                            url: "{{ path('lead_ajaxtodo', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                $("#callmain{{all.id}}").empty();
+                                                var myDiv = document.createElement('div');
+                                                myDiv.id = 'displayhere{{all.id}}';
+                                                callmain{{all.id}}.appendChild(myDiv);
+                                                template = response;
+                                                myDiv.innerHTML = template;
+                                                //remove callhistory button and replace it
+                                                var callbutton = document.getElementById("showCallh{{all.id}}");
+                                                if (callbutton) {
+                                                    myfooter.removeChild(callbutton);
+                                                    var myButton = document.createElement('button');
+                                                    myButton.className = 'btn btn-primary btn-xs';
+                                                    myButton.id = 'hideCallh{{all.id}}';
+                                                    myButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-up" style="color:white"></span>';
+                                                    myfooter.insertBefore(myButton, myfooter.childNodes[0]);
+                                                }
+
+                                                // check if contact button is pressed
+                                                var hidecontactbutton = document.getElementById("hideContact{{all.id}}");
+                                                if (hidecontactbutton) {
+                                                    myfooter.removeChild(hidecontactbutton);
+                                                    var myButton = document.createElement('button');
+                                                    myButton.className = 'btn btn-lightblue btn-xs';
+                                                    myButton.id = 'showContactForm{{all.id}}';
+                                                    myButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;Contact patient&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down"></span>';
+                                                    myfooter.insertBefore(myButton, myfooter.childNodes[2]);
+                                                }
+                                                console.log(callmain{{all.id}});
+                                                //insertbarrate
+                                                var insertbar = document.getElementById("barratehere{{all.id}}");
+                                                var getprobvalue = document.getElementById("probvalue{{all.id}}");
+                                                if (getprobvalue) {
+                                                    probvalue = getprobvalue.firstChild.nodeValue;
+                                                    switch (probvalue) {
+                                                        case "1":
+                                                            var s1 = 'selected="selected"';
+                                                            break;
+                                                        case "2":
+                                                            var s2 = 'selected="selected"';
+                                                            break;
+                                                        case "3":
+                                                            var s3 = 'selected="selected"';
+                                                            break;
+                                                        case "4":
+                                                            var s4 = 'selected="selected"';
+                                                            break;
+                                                        case "5":
+                                                            var s5 = 'selected="selected"';
+                                                            break;
+                                                        case "6":
+                                                            var s6 = 'selected="selected"';
+                                                            break;
+                                                        case "7":
+                                                            var s7 = 'selected="selected"';
+                                                            break;
+                                                        case "8":
+                                                            var s8 = 'selected="selected"';
+                                                            break;
+                                                        case "9":
+                                                            var s9 = 'selected="selected"';
+                                                            break;
+                                                        case "10":
+                                                            var s10 = 'selected="selected"';
+                                                            break;
+                                                    }
+                                                    var barRate = '<div class="br-theme-bars-1to10"><select id="example{{all.id}}" name="newprobab"><option value = "1"' + s1 + '"> 1 </option><option value = "2"' + s2 + '> 2 </option><option value = "3"' + s3 + '> 3 </option><option value = "4"' + s4 + '> 4 </option><option value = "5"' + s5 + '> 5 </option><option value = "6"' + s6 + '> 6 </option><option value = "7"' + s7 + '> 7 </option><option value = "8"' + s8 + '> 8 </option><option value = "9"' + s9 + '> 9 </option><option value = "10"' + s10 + '> 10 </option></select></div>';
+                                                } else {
+                                                    var barRate = '<div class="br-theme-bars-1to10"><select id="example{{all.id}}" name="newprobab"><option value = "1" {% if all.probability == 1 %}selected="selected"{%endif%}> 1 </option><option value = "2" {% if all.probability == 2 %}selected="selected"{%endif%}> 2 </option><option value = "3" {% if all.probability == 3 %}selected="selected"{%endif%}> 3 </option><option value = "4" {% if all.probability == 4 %}selected="selected"{%endif%}> 4 </option><option value = "5" {% if all.probability == 5 %}selected="selected"{%endif%}> 5 </option><option value = "6" {% if all.probability == 6 %}selected="selected"{%endif%}> 6 </option><option value = "7" {% if (all.probability == 7 or all.probability == false) %}selected="selected"{%endif%}> 7 </option><option value = "8" {% if all.probability == 8 %}selected="selected"{%endif%}> 8 </option><option value = "9" {% if all.probability == 9 %}selected="selected"{%endif%}> 9 </option><option value = "10" {% if all.probability == 10 %}selected="selected"{%endif%}> 10 </option></select></div>';
+                                                }
+                                                insertbar.innerHTML = barRate;
+                                                $('#example{{all.id}}').barrating({
+                                                    theme: 'theme-bars-1to10'
+                                                });
+                                                //clockpicker
+                                                $('.clockpicker').clockpicker({donetext: 'Done', twelvehour: false, });
+                                                checkAlarm();
+                                            },
+                                            complete: function () {
+                                                console.log('Request is complete');
+                                            },
+                                            error: function () {
+                                                console.log('Oops...there was an error!');
+                                            }
+                                        });
+                                    }
+
+                                    function contactButtonPressed() {
+                                        $.ajax({
+                                            url: "{{ path('lead_leadeditajaxform', { 'id': all.id})}}",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                $("#callmain{{all.id}}").empty();
+                                                var myDiv = document.createElement('div');
+                                                myDiv.id = 'displayhere{{all.id}}';
+                                                callmain{{all.id}}.appendChild(myDiv);
+                                                template = response;
+                                                myDiv.innerHTML = template;
+                                                //remove callhistory button and replace it
+                                                var callbutton = document.getElementById("showCallh{{all.id}}");
+                                                if (!callbutton) {
+                                                    var callbutton = document.getElementById("hideCallh{{all.id}}");
+                                                }
+                                                myfooter.removeChild(callbutton);
+                                                var myButton = document.createElement('button');
+                                                myButton.className = 'btn btn-lightblue btn-xs';
+                                                myButton.id = 'showCallh{{all.id}}';
+                                                myButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down" style="color:white"></span>';
+                                                myfooter.insertBefore(myButton, myfooter.childNodes[0]);
+                                                //remove contact button and replace it
+                                                var contactbutton = document.getElementById("showContactForm{{all.id}}");
+                                                if (contactbutton) {
+                                                    myfooter.removeChild(contactbutton);
+                                                    var newContactButton = document.createElement('button');
+                                                    newContactButton.className = 'btn btn-primary btn-xs';
+                                                    newContactButton.id = 'hideContact{{all.id}}';
+                                                    newContactButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;Edit contact details&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-up"></span>';
+                                                    myfooter.insertBefore(newContactButton, myfooter.childNodes[2]);
+                                                }
+                                                console.log(myfooter);
+                                                console.log(callmain{{all.id}});
+                                            },
+                                            complete: function () {
+                                                console.log('Request is complete');
+                                            },
+                                            error: function () {
+                                                console.log('Oops...there was an error!');
+                                            }
+                                        });
+                                    }
+
+                                    function hidecontactPressed() {
+                                        $("#callmain{{all.id}}").empty();
+                                        var hidecontactbutton = document.getElementById("hideContact{{all.id}}");
+                                        myfooter.removeChild(hidecontactbutton);
+                                        var myButton = document.createElement('button');
+                                        myButton.className = 'btn btn-lightblue btn-xs';
+                                        myButton.id = 'showContactForm{{all.id}}';
+                                        myButton.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;Contact patient&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down"></span>';
+                                        myfooter.insertBefore(myButton, myfooter.childNodes[2]);
+                                    }
+
+
+                                });
+
+
+                            </script>
+                        {% endfor %}     
+                    {% endblock %}

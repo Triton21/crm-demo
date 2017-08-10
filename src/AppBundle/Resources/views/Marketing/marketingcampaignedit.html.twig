@@ -1,0 +1,170 @@
+{% extends "AppBundle:Marketing:marketingbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{% block welcome %}Welcome {{name}}{% endblock %}
+
+
+
+{%block content %}  
+    <div class="col-lg-11">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Edit: {{oldlistname}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts: {{leadnum}}</h3>
+
+                </div>
+                <div class="panel-body">
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <table>
+                        <tr>
+                            <td>Task panel&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><a href="{{ path('marketing_campaignsend', { 'id': campaignId }) }}" class="btn btn-success btn-xs">Create new task</a></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="panel-body">
+
+                    <div class="panel-body">
+
+                        <div class="panel panel-default">
+                            <table class="table table-striped gi-4p">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th> 
+                                        <th>Display email</th>
+                                        <th>Counter</th>  
+                                        <th>Contacts</th>  
+                                        <th>Status</th>  
+                                        <th>Next cons</th>  
+                                        <th>Created at</th>  
+                                        <th></th>  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for all in task %}
+                                        <tr class="table table-striped gi-5p">
+                                            <td>{{ all.id }}</td>
+                                            <td><a href="{{ path('marketing_displayemail', { 'id': all.id }) }}" target="_blank"class="btn btn-success btn-xs">Open</a></td>
+                                            <td>{% if all.counter > all.leadnum %}{{all.leadnum}}{% else %}{{ all.counter }}{% endif%}</td>
+                                            <td>{{ all.leadnum }}</td>
+                                            {% if all.done == '0' %}
+                                                <td>Task is running</td>
+                                            {% elseif all.done == '2' %}
+                                                <td>Task is stopped</td>
+                                            {% elseif all.done == '3' %}
+                                                <td>Ready to start</td>
+                                            {% else %}
+                                                <td>Task is finished</td>    
+                                            {% endif %}
+                                            <td>{{ all.nextcons }}</td>
+                                            <td>{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                            <td><a href="{{ path('marketing_taskmonitor', { 'id': all.id }) }}" class="btn btn-success btn-xs">Task monitor</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+
+                        <table>
+                            <tr>
+                                <td>Edit contacts&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+
+                                <td>
+                                    {%if pagedown == false%} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="{{ path('marketing_campaignedit', { 'id' : campaignId, 'page': pagedown,'id' : campaignId })}}"><span class="gi-7p glyphicon glyphicon-chevron-left"></span>{%endif%}
+                                        {% for all in pagesarray %}{% if page == all %} <button type="button" class="btn btn-sm disabled">{{all}}</button>{%else%}
+                                                <a href="{{ path('marketing_campaignedit', { 'id' : campaignId, 'page': all,'id' : campaignId })}}"><button type="button" class="btn btn-default btn-sm">{{all}}</button>{%endif%}</a>
+                                                    {% endfor %}
+                                                        {%if pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="{{ path('marketing_campaignedit', { 'id' : campaignId, 'page': pageup,'id' : campaignId })}}"><span class="gi-7p glyphicon glyphicon-chevron-right"></span>{%endif%}
+
+
+
+                                                        </td>
+                                                        <td style="width:5%"></td>
+                                                        {{ form_start(formsearch) }}
+                                                        <td>
+                                                            {{ form_errors(formsearch.name) }}
+                                                            {{ form_widget(formsearch.name) }}
+                                                        </td>
+                                                        <td style="width:5%"></td>
+                                                        <td>
+                                                            {{ form_widget(formsearch.search) }}
+                                                        </td>
+                                                        {{ form_end(formsearch) }}
+
+                                                        </tr>
+                                                        </table>
+                                                        </h3>
+
+                                                        </div>
+                                                        <div class="panel-body">
+
+                                                            <div class="panel panel-default">
+                                                                <table class="table table-striped gi-4p">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Name</th>  
+                                                                            <th>Firstname</th>  
+                                                                            <th>Lastname</th>  
+                                                                            <th>Email</th>  
+                                                                            <th>Created at</th>  
+                                                                            <th>Status</th>  
+                                                                            <th></th>  
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {% for all in contacts %}
+                                                                            <tr class="table table-striped gi-5p">
+                                                                                <td>{{ all.customerName }}</td>
+                                                                                <td>{{ all.firstname }}</td>
+                                                                                <td>{{ all.lastname }}</td>
+                                                                                <td>{{ all.email }}</td>
+                                                                                <td>{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                                                                <td>{{ all.status }}</td>
+                                                                                <td><a href="{{ path('marketing_elistdelete', { 'id': all.id , 'campaignId' : campaignId}) }}" class="btn btn-danger btn-xs">Delete</a></td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                    </tbody>
+
+                                                                </table>
+
+                                                            </div>
+                                                        </div>
+                                                        </div>
+
+                                                        </div>
+                                                        </div>
+
+                                                        {%endblock%}   
+
+
+
+                                                            {% block emailform %}
+                                                            {% endblock %}
+
+
+
+
+                                                        {% block javascripts %}{% endblock %}
+

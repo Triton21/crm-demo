@@ -1,0 +1,18 @@
+<ul>
+    <li>
+        <span class="badgegreen">{{thislead.contacted}}</span>
+    </li>
+    <li>
+        {{ thislead.createdAt|date('d-m-Y H:i:s') }}
+    </li>
+    <li>
+        {% if thislead.lastcontact == true %}
+            {{ thislead.lastcontact|date('d-m-Y H:i:s') }}
+        {% else %}
+            n/a
+        {% endif %}
+    </li>
+    <li>
+        &nbsp;
+    </li>
+</ul>

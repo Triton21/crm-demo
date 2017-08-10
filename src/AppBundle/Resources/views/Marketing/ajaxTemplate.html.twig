@@ -1,0 +1,22 @@
+<div class="panel-body" id="monitor">
+    <table class="table table-striped gi-4p">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        {% for all in esent %}
+            <tr>
+                <td>{{ all.fullName }}</td>
+                <td>{{ all.email }}</td>
+                <td><span class="glyphicon glyphicon-ok gi-7p" style="color:green"></span></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+
+</div>{# empty Twig template #}

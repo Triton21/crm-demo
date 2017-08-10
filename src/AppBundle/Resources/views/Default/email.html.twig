@@ -1,0 +1,57 @@
+{% extends "AppBundle:Default:emailbase.html.twig" %}
+{% block title %}Inbox{% endblock %}
+
+
+
+
+    {%block content %}  
+        <div class="container">
+            
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Inbox</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="gi-1x">
+                                <table class="table table-striped gi-2p">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Inbox</th>
+                                            <th>Subject</th>
+                                            <th>Message</th>
+                                            <th>Date</th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    {% for all in allmail %}
+                                        <tr>
+                                            <td>{{ all.fromemail }}</td>
+                                            <td>{{ all.subject }}</td>
+                                            <td>{{ all.content }}</td>
+                                            <td><td>{{ all.createdAt|date('m-d-Y') }}</td></td>
+                                            <td></td>
+
+                                        {% endfor %}
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    {%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}

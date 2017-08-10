@@ -1,0 +1,202 @@
+{% extends "AppBundle:Log:logbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+
+{%block stylesheets %}
+    <link href="{{asset('bundles/app/css/override-bts.css')}}" rel="stylesheet">
+    <style type="text/css">
+        #loader {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .centered {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+{%endblock%}
+
+{%block content %} 
+    <div class="container">
+        
+        
+        
+        <div class="col-lg-12">
+            <div class="panel with-nav-tabs panel-primary">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs">
+                        <li><a href="{{ path('log_message')}}">Inbox</a></li>
+                        <li class="active"><a href="{{ path('log_sentmessage')}}">Sent</a></li>
+                        <li><a href="{{ path('log_createmessage')}}">Create message</a></li>
+                        <span style="font-size:36px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope">&nbsp;</span>
+                    </ul>
+                    
+                    
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="panel-body" id="sent">
+
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        
+        
+
+
+
+
+
+    </div>
+
+
+
+
+
+{%endblock%}   
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            var loading = '<div class="ispinner gray large animating myload" id="loader">\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                </div>   ';
+            
+            $(function () {
+                $('#sent').html(loading);
+                $.ajax({
+                    url: "{{ path('log_ajaxsentmessage')}}",
+                    dataType: "json",
+                    success: function (response) {
+                        $('#sent').html(response);
+                        //console.log(response);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            });
+            
+            $(document).on('click', "#pagenumber", function (e) {
+                var data = e.target.getAttribute('data-action');
+                var myUrl = "{{ path('log_ajaxsentmessage', {page:'myPLACEHOLDER'})}}";
+                $.ajax({
+                    url: myUrl.replace("myPLACEHOLDER", data),
+                    dataType: "json",
+                    success: function (response) {
+                        $('#sent').html(response);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            });
+            
+            $(document).on('click', "#pagedown", function (e) {
+                var mypage = $('.currentpage').text();
+                var newpage = parseInt(mypage) - 1;
+                if (newpage > 0) {
+                    var myUrl = "{{ path('log_ajaxsentmessage', {page:'myPLACEHOLDER'})}}";
+                    $.ajax({
+                        url: myUrl.replace("myPLACEHOLDER", newpage),
+                        dataType: "json",
+                        success: function (response) {
+                            $('#sent').html(response);
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+                }
+            });
+            
+            $(document).on('click', "#pageup", function (e) {
+                var maxpagestring = $('.currentpage').attr("data-action");
+                var mypage = $('.currentpage').text();
+                var newpage = parseInt(mypage) + 1;
+                var maxpage = parseInt(maxpagestring);
+                if (newpage <= maxpage) {
+                    var myUrl = "{{ path('log_ajaxsentmessage', {page:'myPLACEHOLDER'})}}";
+                    $.ajax({
+                        url: myUrl.replace("myPLACEHOLDER", newpage),
+                        dataType: "json",
+                        success: function (response) {
+                            $('#sent').html(response);
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+                }
+            });
+            
+            $(document).on('click', "#myreadbutton", function (e) {
+                var data = e.target.getAttribute('data-action');
+                $('#readmessage' + data).html(loading);
+                var myUrl = "{{ path('log_ajaxreadmessage', { 'id': 'myPLACEHOLDER'} )}}";
+                $.ajax({
+                    url: myUrl.replace("myPLACEHOLDER", data),
+                    dataType: "json",
+                    success: function (response) {
+                        $('#readmessage' + data).html(response);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+
+
+                });
+            $(document).on('click', "#hide" + data, function () {
+                    $('#readmessage' + data).html('');
+                    $.ajax({
+                        url: "{{ path('log_ajaxmessage')}}",
+                        dataType: "json",
+                        success: function (response) {
+                            $('#incoming').html(response);
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+
+                });
+                });
+            
+            
+            
+        });
+                </script>
+
+{%endblock%} 

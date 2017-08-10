@@ -1,0 +1,116 @@
+{% extends '::loginlayout.html.twig' %}
+{%block stylesheets %}
+    <style>
+        .myContainer {
+            background-color: white;
+            margin-top:  -20px;
+            padding-bottom: 30px;
+
+
+        }
+        .myNavbar {
+            -webkit-box-shadow:0px 2px 3px #cccccc;
+            -moz-box-shadow:0px 2px 3px #cccccc;
+            box-shadow:0px 2px 3px #cccccc;
+        }
+        .myHeader {
+            margin-top: 25px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 0px;
+            border-bottom: solid 2px #d8d8d8;
+            font-size: 30px;
+            color: #52bbf2;
+        }
+    </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{%endblock%} 
+
+
+{% block body %}
+
+    <div class='container myContainer'>
+        <div class='col-md-12'>
+            <div class='myHeader'>
+                <p><span>Contact us</span></p> 
+            </div>
+
+            <div class='col-md-7 col-sm-12'>
+                
+                <p>
+                    {% for flash_message in app.session.flashBag.get('notice') %}
+                    <div class="flash-notice">
+                        <div class="alert alert-success">
+                            <strong>{{ flash_message }}</strong>
+                        </div>
+                    </div>
+                {% endfor %}
+                </p>
+                
+                
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                <div>
+                    {{ form_label(form.name) }}
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+                </div>
+
+                <div>
+                    {{ form_label(form.phone) }}
+                    {{ form_errors(form.phone) }}
+                    {{ form_widget(form.phone) }}
+                </div>
+                <div>
+                    {{ form_label(form.email) }}
+                    {{ form_errors(form.email) }}
+                    {{ form_widget(form.email) }}
+                </div>
+                <div>
+                    {{ form_label(form.message) }}
+                    {{ form_errors(form.message) }}
+                    {{ form_widget(form.message) }}
+                </div>
+                <div class="form-group center">
+                    <div class="col-md-12" style="text-align: center; margin-top: 1em;">
+                        <div class="g-recaptcha" data-sitekey="6LfGlhEUAAAAACGIA3yUDTodFbChqE2ngikHjGnT"></div>
+                    </div>
+                </div>
+
+                <div>
+                    {{ form_widget(form.save) }}
+                </div>
+
+                {{ form_end(form) }}
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+{%endblock%} 
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $("#bs-example-navbar-collapse-1>ul>li.active").removeClass("active");
+            $('#contactUs').addClass('active');
+        });
+    </script>
+
+{% endblock %}  

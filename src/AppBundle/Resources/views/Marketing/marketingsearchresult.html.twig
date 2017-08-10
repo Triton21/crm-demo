@@ -1,0 +1,117 @@
+{% extends "AppBundle:Marketing:marketingbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{% block welcome %}Welcome {{name}}{% endblock %}
+
+
+
+{%block content %}  
+
+    <div class="col-lg-11">
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search result for name
+                    </h3>
+
+                </div>
+                <div class="panel-body">
+
+                    <div class="panel panel-default">
+                        <table class="table table-striped gi-4p">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>  
+                                    <th>Firstname</th>  
+                                    <th>Lastname</th>  
+                                    <th>Email</th>  
+                                    <th>Created at</th>  
+                                    <th>Status</th>  
+                                    <th></th>  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for all in namesearch %}
+                                    <tr class="table table-striped gi-5p">
+                                        <td>{{ all.customerName }}</td>
+                                        <td>{{ all.firstname }}</td>
+                                        <td>{{ all.lastname }}</td>
+                                        <td>{{ all.email }}</td>
+                                        <td>{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                        <td>{{ all.status }}</td>
+                                        <td><a href="{{ path('marketing_elistsingledelete', { 'id': all.id }) }}" class="btn btn-danger btn-xs">Delete</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search result for email
+                    </h3>
+
+                </div>
+                <div class="panel-body">
+
+                    <div class="panel panel-default">
+                        <table class="table table-striped gi-4p">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>  
+                                    <th>Firstname</th>  
+                                    <th>Lastname</th>  
+                                    <th>Email</th>  
+                                    <th>Created at</th>  
+                                    <th>Status</th>  
+                                    <th></th>  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for all in emailsearch %}
+                                    <tr class="table table-striped gi-5p">
+                                        <td>{{ all.customerName }}</td>
+                                        <td>{{ all.firstname }}</td>
+                                        <td>{{ all.lastname }}</td>
+                                        <td>{{ all.email }}</td>
+                                        <td>{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                        <td>{{ all.status }}</td>
+                                        <td><a href="{{ path('marketing_elistsingledelete', { 'id': all.id }) }}" class="btn btn-danger btn-xs">Delete</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}
+

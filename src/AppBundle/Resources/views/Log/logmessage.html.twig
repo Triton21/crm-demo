@@ -1,0 +1,269 @@
+{% extends "AppBundle:Log:logbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+
+
+{%block stylesheets %}
+    <link href="{{asset('bundles/app/css/override-bts.css')}}" rel="stylesheet">
+    <style type="text/css">
+        #loader {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .centered {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+{%endblock%}
+
+{%block content %} 
+    <div class="container" id="mainpage" data-action="{{page}}">
+
+        <div class="col-lg-12">
+            <div class="panel with-nav-tabs panel-primary">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="{{ path('log_message')}}">Inbox</a></li>
+                        <li><a href="{{ path('log_sentmessage')}}">Sent</a></li>
+                        <li><a href="{{ path('log_createmessage')}}">Create message</a></li>
+                        <span style="font-size:36px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope">&nbsp;</span>
+                    </ul>
+
+
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+
+
+                        <div class="panel-body" id="incoming">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{%endblock%}   
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    <script>
+
+        $(document).ready(function () {
+            var loading = '<div class="ispinner gray large animating myload" id="loader">\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                    <div class="ispinner-blade"></div>\
+                </div>   ';
+
+            $(document).on('click', "#pagenumber", function (e) {
+                var data = e.target.getAttribute('data-action');
+                console.log(data);
+                var myUrl = "{{ path('log_ajaxmessage', {page:'myPLACEHOLDER'})}}";
+                $.ajax({
+                    url: myUrl.replace("myPLACEHOLDER", data),
+                    dataType: "json",
+                    success: function (response) {
+                        $('#incoming').html(response);
+                        //console.log(response);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            });
+            
+            $(document).on('click', "#pagedown", function (e) {
+                var mypage = $('.currentpage').text();
+                newpage = parseInt(mypage) - 1;
+                if (newpage > 0) {
+                    var myUrl = "{{ path('log_ajaxmessage', {page:'myPLACEHOLDER'})}}";
+                    $.ajax({
+                        url: myUrl.replace("myPLACEHOLDER", newpage),
+                        dataType: "json",
+                        success: function (response) {
+                            $('#incoming').html(response);
+                            //console.log(response);
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+                }
+
+            });
+            
+            $(document).on('click', "#pageup", function (e) {
+                var maxpagestring = $('.currentpage').attr("data-action");
+                var mypage = $('.currentpage').text();
+                var newpage = parseInt(mypage) + 1;
+                var maxpage = parseInt(maxpagestring);
+                console.log(newpage);
+                if (newpage <= maxpage) {
+                    var myUrl = "{{ path('log_ajaxmessage', {page:'myPLACEHOLDER'})}}";
+                    $.ajax({
+                        url: myUrl.replace("myPLACEHOLDER", newpage),
+                        dataType: "json",
+                        success: function (response) {
+                            $('#incoming').html(response);
+                            //console.log(response);
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+                }
+            });
+            
+            $(document).on('click', "#myreadbutton", function (e) {
+                var data = e.target.getAttribute('data-action');
+                $('#readmessage' + data).html(loading);
+                var myUrl = "{{ path('log_ajaxreadmessage', { 'id': 'myPLACEHOLDER'} )}}";
+                $.ajax({
+                    url: myUrl.replace("myPLACEHOLDER", data),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        $('#readmessage' + data).html(response);
+                        setRead(data);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+
+
+                });
+                $(document).on('click', "#hide" + data, function () {
+                    var mypage = $('.currentpage').text();
+                    $('#readmessage' + data).html('');
+                    var myUrl = "{{ path('log_ajaxmessage', {page:'myPLACEHOLDER'})}}";
+                    $.ajax({
+                        url: myUrl.replace("myPLACEHOLDER", mypage),
+                        dataType: "json",
+                        success: function (response) {
+                            $('#incoming').html(response);
+                            //console.log(response);
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+
+                });
+            });
+
+            $(document).on('click', "#replybutton", function (e) {
+                var mydata = e.target.getAttribute('data-action');
+                var values = mydata.split('-');
+                var myId = values[0];
+                var myPage = values[1];
+                console.log(myId);
+                console.log(myPage);
+                $('#readmessage' + myId).html(loading);
+                var myUrl = "{{ path('log_ajaxreplyform', {id:'myPLACEHOLDER1' , page:'myPLACEHOLDER2'})}}";
+                var newUrl = myUrl.replace("myPLACEHOLDER1", myId);
+                var finalUrl = newUrl.replace("myPLACEHOLDER2", myPage);
+                $.ajax({
+                    url: finalUrl,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        $('#readmessage' + myId).html(response);
+                        setRead(myId);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+
+
+                });
+            });
+            $(document).on('click', "#mySendButton", function (e) {
+                var frm = $('#replyForm').serializeArray();
+                e.preventDefault();
+            });
+
+            function setRead(data) {
+                var myUrl = "{{ path('log_ajaxchangeread', { 'id': 'myPLACEHOLDER'} )}}";
+                $.ajax({
+                    url: myUrl.replace("myPLACEHOLDER", data),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            }
+
+            $(function () {
+                $('#incoming').html(loading);
+                var mypage = $('#mainpage').attr("data-action");
+                console.log(mypage);
+                var myUrl = "{{ path('log_ajaxmessage', {page:'myPLACEHOLDER'})}}";
+                $.ajax({
+                    url: myUrl.replace("myPLACEHOLDER", mypage),
+                    dataType: "json",
+                    success: function (response) {
+                        $('#incoming').html(response);
+                    },
+                    complete: function () {
+                        console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            });
+
+        });
+
+
+    </script>
+
+
+
+
+{% endblock %}

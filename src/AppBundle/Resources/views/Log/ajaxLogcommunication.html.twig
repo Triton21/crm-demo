@@ -1,0 +1,42 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Full communication history</h3>
+    </div>
+    <table class="note gi-4p table table-striped"> 
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>In/Out</th>
+                <th>Coordinator</th>
+                <th>Note</th>
+                <th>Action</th>
+                <th>Request</th>
+                <th>Assign</th>
+                <th>ID</th>
+                <th>Solved</th>
+            </tr>
+        </thead>
+        {% for all in logcomm %}
+            <tr>
+                <td style="width:14%">{{ all.customerName }}</td>
+                <td style="width:10%">{{ all.createdAt|date('d-m-Y') }}</td>
+                <td style="width:3%">{{ all.inorout }}</td>
+                <td style="width:5%">{{ all.assign }}</td>
+                <td style="width:26%">{{ all.note }}</td>
+                <td style="width:12%">{{ all.action }}</td>
+                <td style="width:11%">{{ all.request }}</td>
+                <td style="width:5%">{{ all.reassign }}</td>
+                <td style="width:4%"><a href="{{ path('log_progress', { 'id': all.id})}}">{{ all.id }}</td></a>
+                <td style="width:4%">{% if all.solved == '1' %}<span class="gi-7p glyphicon glyphicon-check" style="color:green"></span>{% else %}<span class="gi-7p glyphicon glyphicon-exclamation-sign" style="color:red"></span>{% endif %}</td>
+            </tr>
+        {% endfor %}
+        <tbody>
+
+        </tbody>
+    </table>
+
+
+
+</div>

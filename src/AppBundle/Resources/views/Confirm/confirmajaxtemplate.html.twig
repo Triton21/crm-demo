@@ -1,0 +1,20 @@
+<div class="col-sm-12">
+    <div>
+        {% if attname1 != false %}
+            <span class="gi-6p glyphicon glyphicon-paperclip"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ asset('images/products/' ~ attname1) }}" target="_blank">{{attname1}}</a>
+            <br>
+        {% endif %}
+    </div>
+    <div>
+        {% if attname2 != false %}
+            <span class="gi-6p glyphicon glyphicon-paperclip"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ asset('images/products/' ~ attname2) }}" target="_blank">{{attname2}}</a>
+        <br>
+        {% endif %}
+    </div>
+    <div>
+        {% if attname3 != false %}
+            <span class="gi-6p glyphicon glyphicon-paperclip"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ asset('images/products/' ~ attname3) }}" target="_blank">{{attname3}}</a>
+        <br>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="col-xs-offset-2 col-xs-7">
+    <br>
+    <form name="replyForm" id="replyForm" action="{{ path('log_ajaxreply', { 'id': id, 'page': page})}}" method="POST" data-action="{{id}}" class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" value="Re: {{subject}}" name="subject" id="subject{{id}}" class="input-sm form-control">
+        <br>
+        <label for="body">Message</label>
+        <textarea value="" name="body" id="body{{id}}" class="input-sm form-control"></textarea>
+        <br>
+        <input type="checkbox" name="sendmail"> Send copy to user email<br>
+        <input class="btn btn-sm btn-success" type="submit" value="Send"/>
+    </form> 
+</div>
+
+

@@ -1,0 +1,157 @@
+
+
+
+
+
+
+<div class="container">
+
+    <div class="col-xs-12">
+        <div class="col-xs-4 gi-6p" style="text-align: right; font-weight:bold;">Acceptance probability:</div>
+        <div class="col-xs-8">
+            <form id="probForm{{ thislead[0].id}}" action="{{ path('lead_ajaxpostform', { 'id': thislead[0].id})}}" method="post">
+                <div id="barratehere{{thislead[0].id}}"></div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+
+    <div class="col-xs-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <table>
+                    <tr>
+                        <td> Change main status: </td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td>
+                            <form id="statusForm{{ thislead[0].id}}" action="{{ path('lead_ajaxpostform', { 'id': thislead[0].id})}}" method="post">
+                                <input type="hidden" name="statusid" value="{{ thislead[0].id}}">
+                                <select class="input-sm form-control" name="newstatus" id="changeStatus{{ thislead[0].id}}">
+                                    <option value="new" {% if thislead[0].status == 'new' %} selected {% endif %}>New</option>
+                                    <option value="In progress" {% if thislead[0].status == 'In progress' %} selected {% endif %}>In progress</option>
+                                    <option value="Won" {% if thislead[0].status == 'Won' %} selected {% endif %}>Booked for cons</option>
+                                    <option value="Pending" {% if thislead[0].status == 'Pending' %} selected {% endif %}>Pending</option>
+                                    <option value="Not eligible" {% if thislead[0].status == 'Not eligible' %} selected {% endif %}>Not eligible</option>
+                                    {% if thislead[0].called5 == true %}
+                                        <option value="Dead">Dead</option>
+                                    {% endif %}
+                                </select>
+                            </form>
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>
+                            <form id="flagForm{{ thislead[0].id}}" action="{{ path('lead_ajaxflag', { 'id': thislead[0].id})}}" method="post">
+                                <input type="checkbox" name="flag" value="flag" {% if thislead[0].flag == '1' %}checked{% endif %}> Flag
+                            </form>
+                        </td>
+
+                    </tr>   
+                </table>
+            </div>
+            <div class="panel-body">
+                <table class="table gi-4p table-striped table-condensed">
+
+
+                    <thead class="gi-5p">
+                        <tr>
+                            <th class="col-md-2">Date</th>
+                            <th class="col-md-6">Note</th>
+
+                            <th class="col-md-2">Work status</th>
+                            <th class="col-md-1">Coordinator</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        {% for calls in callhistory %}
+                            <tr>
+
+                                <td class="col-md-2">
+                                    {{ calls.calldate|date('d-m-Y H:i:s') }}
+                                </td>
+                                <td class="col-md-6">
+                                    {{ calls.note }}
+                                </td>
+
+                                <td class="col-md-2">{{ calls.status}}</td>
+                                <td class="col-md-1">
+                                    {{calls.assign}}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %} 
+                        <tr>
+                            <td class="col-md-2"><span id="loadnote{{ thislead[0].id}}"></span></td>
+                            <td class="col-md-6">
+                                <form name="newnote" id="newNote{{ thislead[0].id}}" action="{{ path('lead_ajaxpostform', { 'id': thislead[0].id})}}" method="POST" class="form-inline">
+                                    <input type="hidden" name="leadid" value="{{ thislead[0].id }}">
+                                    <input type="hidden" name="notestatus" value="Called">
+                                    <input type="text" class="input-sm form-control input-inline" name="note" placeholder="Save the note here">
+                                    <input class="btn btn-xs btn-success input-inline" type="submit" value="Reached"/>
+                                </form>
+                            </td>
+                            <td class="col-md-2">
+                                <form id="notReached{{ thislead[0].id}}" action="{{ path('lead_ajaxpostform', { 'id': thislead[0].id})}}" method="POST">
+                                    <input type="hidden" name="leadid" value="{{ thislead[0].id }}">
+                                    <input type="hidden" name="notestatus" value="Could not reach">
+                                    <input class="btn btn-xs btn-success" type="submit" value="Could not reach"/>
+                                </form>
+                            </td>
+                            <td class="col-md-1"></td>
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-3">
+        <div id="alarform{{ thislead[0].id }}">
+            <div class="panel panel-default">
+                <div class="panel-heading">Set up alarm</div>
+                <div class="panel-body">
+
+
+                    <form id="alarm{{thislead[0].id}}" action="{{ path('lead_ajaxalarmsetup', { 'id': thislead[0].id})}}" class="" method="POST">
+                        <input type="hidden" name="id" value="{{ thislead[0].id }}">
+                        <input type="hidden" id="cname{{ thislead[0].id }}" name="cname{{ thislead[0].id }}" value="{{ thislead[0].customerName }}">
+                        <div class="form-group">
+                            <label for="remindernote{{ thislead[0].id }}">Reminder note</label>
+                            <input type="text" name="remindernote{{ thislead[0].id }}" id="remindernote{{ thislead[0].id }}" class="input-sm form-control" placeholder="Reminder note">
+                        </div>
+                        <div class="form-group">
+                            <label for="reminderdate{{ thislead[0].id }}">Reminder date</label>
+                            <input type="text" id="reminderdate{{ thislead[0].id }}" name="reminderdate{{ thislead[0].id }}" class="form-control datepicker input-sm" data-provide="datepicker" data-date-format="dd-mm-yyyy" placeholder="reminder date">
+                        </div>
+                        <label for="remindertime{{ thislead[0].id }}">Reminder time</label>
+                        <div class="input-group clockpicker">
+                            <input type="text" name="remindertime{{ thislead[0].id }}" class="form-control" id="remindertime{{ thislead[0].id }}" value="09:30">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-xs btn-danger" value="Remind">Alarm</button>
+                        <div id="alarmload{{thislead[0].id}}"></div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div id="storedalarm{{thislead[0].id}}"></div>
+
+
+    </div>
+</div>
+
+

@@ -1,0 +1,204 @@
+{% extends "AppBundle:Mainemail:emailbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+
+{%endblock%}
+
+{% block renderaccount %}
+    {{ render(controller('AppBundle:Mainemail:renderaccountnav', {'id': id})) }}
+{% endblock %}
+
+
+{%block content %}  
+    <div class="container">
+
+        <div id="dialog-form" title="Create new folder">
+
+            <form>
+                <fieldset>
+                    <label for="foldername">Folder name</label>
+                    <input type="text" name="foldername" id="foldername" value="" class="text ui-widget-content ui-corner-all">
+
+                    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Folder settings</h3>
+                </div>
+                <div class="panel-body">
+
+                    <table class="table table-striped gi-1x">
+                        <thead>
+                            <tr>
+                                <th>Folder name</th>
+                                <th>Created</th>
+                                <th>Emails</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Inbox</td>
+                                <td>{{ inboxCreatedAt|date('d-m-Y H:i:s') }}</td>
+                                <td>{{inboxcount}}</td>
+                                <td>
+                                </td>
+                            </tr>
+                            {% for key, sett in myfolders %}
+                                <tr>
+                                    <td>{{ sett.foldername }}</td>
+                                    <td>{{ sett.createdAt|date('d-m-Y H:i:s') }}</td>
+                                    <td>{{myfolderscount[sett.id]}}</td>
+                                    <td>
+                                        {% if myfolderscount[sett.id] != true and sett.foldername != 'Archive' and sett.foldername != 'Junk' and sett.username == name %} 
+                                        <a href="{{ path('mainemail_folderdelete', { 'settid': id, 'id': sett.id, }) }}"><span class="glyphicon glyphicon-remove-circle gi-9p"></span></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Message rules</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <table class="table table-striped gi-1x">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Rule name</th>
+                                            <th>Created At</th>
+                                            <th>Type</th>
+                                            <th>Move to</th>
+                                            <th>Filter text</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for sett in mymessagerules %}
+                                            <tr>
+                                                <td>{{ sett.username }}</td>
+                                                <td>{{ sett.rulename }}</td>
+                                                <td>{{ sett.createdAt|date('d-m-Y H:i:s') }}</td>
+                                                <td>{{ sett.type }}</td>
+                                                <td>{{ sett.folder }}</td>
+                                                <td>{{ sett.filtertext }}</td>
+                                                <td><a href="{{ path('mainemail_ruledelete', { 'id': sett.id, 'settid' : id }) }}"><span class="glyphicon glyphicon-remove-circle gi-9p"></span></a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Create new rule</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-lg-offset-2 col-lg-8">
+                                    {{ form_start(form) }}
+                                    {{ form_widget(form) }}
+                                    {{ form_end(form) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+                {%endblock%}   
+
+
+
+                    {% block javascripts %}
+                        <script>
+
+
+                            $(document).ready(function () {
+                                var dialog, form;
+
+                                //myfolderSettings
+                                $(function () {
+                                    var selectedfolder = $('#myfolderSettings');
+                                    $(selectedfolder).attr("style", "color: white;");
+                                });
+
+                                //dialog box for new folder
+                                dialog = $("#dialog-form").dialog({
+                                    autoOpen: false,
+                                    height: 200,
+                                    width: 350,
+                                    modal: true,
+                                    buttons: {
+                                        "Create a folder": function () {
+                                            var newname = $('#foldername').val();
+                                            addFolder(newname);
+                                        },
+                                        Cancel: function () {
+                                            dialog.dialog("close");
+                                        }
+                                    },
+                                    close: function () {
+                                        form[ 0 ].reset();
+                                        allFields.removeClass("ui-state-error");
+                                    }
+                                });
+
+                                form = dialog.find("form").on("submit", function (event) {
+                                    event.preventDefault();
+                                    dialog.dialog("close");
+                                });
+
+                                $("#new-folder").on("click", function () {
+                                    dialog.dialog("open");
+                                });
+
+                                function addFolder(newname) {
+                                    var settid = {{id}};
+                                            console.log(newname);
+                                    var myUrl = "{{ path('mainemail_createfolder', { 'settid':'PLACEHOLDER1', 'foldername':'PLACEHOLDER2'})}}";
+
+                                    $.ajax({
+                                        url: myUrl.replace("PLACEHOLDER1", settid).replace("PLACEHOLDER2", newname),
+                                        dataType: "json",
+                                        success: function (response) {
+                                            console.log(response);
+                                            window.location.reload();
+                                        },
+                                        complete: function () {
+                                            //console.log('Request is complete');
+                                        },
+                                        error: function () {
+                                            console.log('Oops...there was an error!');
+                                        }
+                                    });
+                                }
+                            });
+                        </script>
+
+
+
+                    {% endblock %}

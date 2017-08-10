@@ -1,0 +1,112 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Campaign
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\CampaignRepository")
+ */
+class Campaign {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Elist", mappedBy="campaign", cascade={"persist", "remove"})
+     */
+    protected $elists;
+
+    public function __construct() {
+        $this->elists = new ArrayCollection();
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="listname", type="string", length=255)
+     */
+    private $listname;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="date")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date1", type="date", nullable=true)
+     */
+    private $date1;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date2", type="date", nullable=true)
+     */
+    private $date2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="active", type="string", length=255)
+     */
+    private $active;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="shift", type="integer")
+     */
+    private $shift;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="leadnum", type="integer", nullable=true)
+     */
+    private $leadnum;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="lastsent", type="date", nullable=true)
+     */
+    private $lastsent;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template", type="string", length=255)
+     */
+    private $template;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user", type="string", length=255)
+     */
+    private $user;
+
+    
+}

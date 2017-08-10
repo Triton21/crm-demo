@@ -1,0 +1,923 @@
+confirm_main:
+        path: /confirm/{id}/{logid}
+        defaults: { _controller: AppBundle:Confirm:confirm, id:0, logid:0 }
+
+confirm_sent:
+        path: /confirmsent/{page}
+        defaults: { _controller: AppBundle:Confirm:sent, page:1 }
+        
+confirm_sent_search:
+        path: /confirmsent-search/{page}/{searchTerm}
+        defaults: { _controller: AppBundle:Confirm:confirmsentSearch, page:1, searchTerm:searchTerm }
+        
+confirm_dlist:
+        path: /doctorlist
+        defaults: { _controller: AppBundle:Confirm:doctorlist }
+
+confirm_doctoredit:
+        path: /doctoredit/{id}
+        defaults: { _controller: AppBundle:Confirm:doctoredit, id:id }
+
+confirm_setdocactive:
+        path: /setdocactive/{id}
+        defaults: { _controller: AppBundle:Confirm:setdocactive, id:id }
+
+confirm_doctordelete:
+        path: /doctordelete/{id}
+        defaults: { _controller: AppBundle:Confirm:doctordelete, id:id }
+
+confirm_template:
+        path: /confirmtempplate
+        defaults: { _controller: AppBundle:Confirm:template }
+
+confirm_templateedit:
+        path: /confirmtempplateedit/{id}
+        defaults: { _controller: AppBundle:Confirm:cTemplateEdit, id:id }
+
+confirm_ajaxtemplate:
+        path: /ajaxtempplate/{id}
+        defaults: { _controller: AppBundle:Confirm:ajaxtemplate, id:id}
+
+confirm_ajaxattach:
+        path: /ajaxattach/{id}
+        defaults: { _controller: AppBundle:Confirm:ajaxattach, id:id}
+
+lead_ajaxattach:
+        path: /leadajaxattach/{id}
+        defaults: { _controller: AppBundle:Default:leadajaxattach, id:id}
+
+confirm_ajaxtemplatebody:
+        path: /ajaxtemplatebody/{id}
+        defaults: { _controller: AppBundle:Confirm:ajaxtemplatebody, id:id}
+        
+confirm_sms:
+        path: /textmessage/{page}
+        defaults: { _controller: AppBundle:Confirm:textmessage, page:1 }
+        
+confirm_received_sms:
+        path: /text-message-received/{page}
+        defaults: { _controller: AppBundle:Confirm:textMessageReceived, page:1 }
+        
+confirm_received_sms_search:
+        path: /text-message-received-search/{page}/{searchTerm}
+        defaults: { _controller: AppBundle:Confirm:textMessageReceivedSearch, page:1, searchTerm:searchTerm }
+        
+confirm_sent_sms_search:
+        path: /text-message-sent-search/{page}/{searchTerm}
+        defaults: { _controller: AppBundle:Confirm:textMessageSentSearch, page:1, searchTerm:searchTerm }
+        
+confirm_receive_sms:
+        path: /receivetextmessage
+        defaults: { _controller: AppBundle:Confirm:receiveTextMessage }
+        
+confirm_texttemplate:
+        path: /texttemplate
+        defaults: { _controller: AppBundle:Confirm:texttemplate }
+        
+confirm_texttemplate_delete:
+        path: /texttemplatedelete/{id}
+        defaults: { _controller: AppBundle:Confirm:texttemplatedelete, id:id }
+
+confirm_texttemplate_edit:
+        path: /texttemplate-edit/{id}
+        defaults: { _controller: AppBundle:Confirm:texttemplateedit, id:id }
+
+confirm_templatedelete:
+    path:   /ctemplatedelete/{id}
+    defaults: { _controller: AppBundle:Confirm:ctemplatedelete, id:id }
+
+confirm_seetemplate:
+    path:   /seetemplate/{id}
+    defaults: { _controller: AppBundle:Confirm:seetemplate, id:id }
+
+confirm_seesent:
+    path:   /seesent/{id}
+    defaults: { _controller: AppBundle:Confirm:seesent, id:id }
+
+confirm_removeattach:
+    path:   /ctemplateremoveattach/{id}/{attid}
+    defaults: { _controller: AppBundle:Confirm:removeattachment, id:id, attid:attid }
+    
+confirm_temp:
+    path:   /confirmtemp/{counter}
+    defaults: { _controller: AppBundle:Confirm:confirmtemp, counter:0 }
+
+lead_removeattach:
+    path:   /etemplateremoveattach/{id}/{attid}
+    defaults: { _controller: AppBundle:Confirm:etemplateremoveattach, id:id, attid:attid }
+
+confirm_templateduplicate:
+    path:   /ctemplateduplicate/{id}
+    defaults: { _controller: AppBundle:Confirm:ctemplateduplicate, id:id }
+
+confirmmanager_upload:
+    path:   /uploadattachmentconfirm
+    defaults: { _controller: "AppBundle:Confirm:upload" }
+
+lead_alarmlist:
+    path:   /leadalarmlist
+    defaults: { _controller: "AppBundle:Default:leadalarmlist" }
+
+confirmupload_delete:
+    path:   /uploaddeleteconfirm/{id}
+    defaults: { _controller: AppBundle:Confirm:uploaddelete, id:id }
+           
+email_manager:
+        path: /email
+        defaults: { _controller: AppBundle:Email:email }
+        
+email_online:
+        path: /emailonline
+        defaults: { _controller: AppBundle:Email:emailonline }
+
+email_settings:
+        path: /emailsettings
+        defaults: { _controller: AppBundle:Email:settings }
+        
+settings_delete:
+    path:     /deletesettings/{id}
+    defaults: { _controller: AppBundle:Email:deletesettings, id:id }
+    
+emailmanager_activatesettings:
+    path:     /activatesettings/{id}
+    defaults: { _controller: AppBundle:Email:activatesettings, id:id }
+    
+emailmanager_activateincoming:
+    path:     /activateincoming/{id}
+    defaults: { _controller: AppBundle:Email:activateincoming, id:id }
+    
+emailmanager_settings:
+    path:   /settings
+    defaults: { _controller: "AppBundle:Email:settings" }
+    
+emailmanager_maintenance:
+    path:   /emailmaintenance
+    defaults: { _controller: "AppBundle:Email:maintenance" }
+    
+emailmanager_cleaninbox:
+    path:   /emailcleaninbox
+    defaults: { _controller: "AppBundle:Email:emailcleaninbox" }
+
+lead_template:
+    path:   /leadtemplate
+    defaults: { _controller: "AppBundle:Confirm:etemplate" }
+
+emailmanager_html:
+    path:   /emailtemplatehtml
+    defaults: { _controller: "AppBundle:Email:ehtml" }
+
+emailmanager_upload:
+    path:   /uploadattachment
+    defaults: { _controller: "AppBundle:Email:upload" }
+
+emailupload_delete:
+    path:   /uploaddelete/{id}/{redirect}
+    defaults: { _controller: AppBundle:Email:uploaddelete, id:id , redirect:home}
+
+etemplate_delete:
+    path:   /etemplatedelete/{id}
+    defaults: { _controller: AppBundle:Email:etemplatedelete, id:id }
+
+etemplate_edit:
+    path:   /etemplateedit/{id}
+    defaults: { _controller: AppBundle:Email:etemplateedit, id:id }
+
+etemplate_duplicate:
+    path:   /etemplateduplicate/{id}
+    defaults: { _controller: AppBundle:Email:etemplateduplicate, id:id }
+
+lead_template_delete:
+    path:   /leadtemplatedelete/{id}
+    defaults: { _controller: AppBundle:Confirm:etemplatedelete, id:id }
+
+lead_template_edit:
+    path:   /leadtemplateedit/{id}
+    defaults: { _controller: AppBundle:Confirm:etemplateedit, id:id }
+
+lead_template_duplicate:
+    path:   /leadtemplateduplicate/{id}
+    defaults: { _controller: AppBundle:Confirm:etemplateduplicate, id:id }
+
+lead_seetemplate:
+    path:   /seeleadtemplate/{id}
+    defaults: { _controller: AppBundle:Confirm:seeleadtemplate, id:id }
+    
+marketing:
+    path:   /marketing
+    defaults: { _controller: "AppBundle:Marketing:index" }
+
+marketing_campaign:
+    path:   /newsletter
+    defaults: { _controller: "AppBundle:Marketing:newsletter" }
+    
+marketing_statistic:
+    path:   /leadstatistic
+    defaults: { _controller: "AppBundle:Marketing:leadstatistic" }
+    
+marketing_campaignedit:
+    path:   /newsletteredit/{id}/{page}
+    defaults: { _controller: "AppBundle:Marketing:newsletteredit",  id:id, page:1 }
+
+marketing_createCampaignFromFile:
+    path:   /createcampaignfromfile/{id}
+    defaults: { _controller: "AppBundle:Marketing:createCampaignFromFile",  id:id }
+
+marketing_campaignsend:
+    path:   /newslettersend/{id}
+    defaults: { _controller: "AppBundle:Marketing:newslettersend",  id:id }
+    
+marketing_taskmonitor:
+    path:   /taskmonitor
+    defaults: { _controller: "AppBundle:Marketing:taskmonitor"}
+
+marketing_taskstart:
+    path:   /taskstart/{id}
+    defaults: { _controller: "AppBundle:Marketing:taskstart",  id:id}
+
+marketing_taskstop:
+    path:   /taskstop/{id}
+    defaults: { _controller: "AppBundle:Marketing:taskstop",  id:id}
+
+marketing_taskdelete:
+    path:   /taskdelete/{id}
+    defaults: { _controller: "AppBundle:Marketing:taskdelete",  id:id}
+
+marketing_campaigndelete:
+    path:   /newsletterdelete/{id}
+    defaults: { _controller: "AppBundle:Marketing:newsletterdelete",  id:id }
+
+marketing_elistdelete:
+    path:   /emaildelete/{id}/{campaignId}
+    defaults: { _controller: "AppBundle:Marketing:elistdelete",  id:id, campaignId:campaignId }
+
+marketing_elistsingledelete:
+    path:   /emailsingledelete/{id}
+    defaults: { _controller: "AppBundle:Marketing:elistsingledelete",  id:id}
+
+marketing_ajaxelist:
+    path:  /ajaxelist
+    defaults: { _controller: "AppBundle:Marketing:ajaxform" }
+    requirements:
+        _method:  GET|POST
+        
+marketing_ajaxupdate:
+    path:  /ajaxupdate
+    defaults: { _controller: "AppBundle:Marketing:ajaxupdate" }
+    options:
+        expose: true
+    requirements:
+        _method:  GET|POST
+        
+marketing_template:
+    path:   /newslettertemplate
+    defaults: { _controller: "AppBundle:Marketing:newslettertemplate" }
+    
+marketing_displaytemplate:
+    path:   /newsletterdisplaytemplate/{id}
+    defaults: { _controller: "AppBundle:Marketing:displaytemplate", id:id }
+    
+marketing_displayemail:
+    path:   /newsletterdisplayemail/{id}
+    defaults: { _controller: "AppBundle:Marketing:displayemail", id:id }
+    
+marketing_duplicate:
+    path:   /newsletterduplicate/{id}
+    defaults: { _controller: "AppBundle:Marketing:newsletterDuplicate",  id:id  }
+
+marketing_delete:
+    path:   /newslettertemplatedelete/{id}
+    defaults: { _controller: AppBundle:Marketing:newslettertemplatedelete, id:id }
+
+marketing_edit:
+    path:   /marketingedit/{id}
+    defaults: { _controller: AppBundle:Marketing:newsletteretemplatedit, id:id }
+
+marketing_sendmail:
+        path:     /newslettersendmail/{id}/{nextcons}/{tempid}/{settid}/{attid}
+        defaults: { _controller: AppBundle:Marketing:newslettersendmail, id:id, nextcons:1-1-1970, tempid:tempid, settid:settid, attid:attid }
+
+#Lead routes 
+lead_manager:
+        path: /lead
+        defaults: { _controller: AppBundle:Default:leadmain }
+        
+lead_loginmodal:
+        path: /leadlogin
+        defaults: { _controller: AppBundle:Default:leadloginmodal }
+        
+lead_ajaxcheckloginmodal:
+        path: /checkloginmodal
+        defaults: { _controller: AppBundle:Default:ajaxcheckloginmodal }
+        
+lead_logoutregister:
+        path: /logoutregister
+        defaults: { _controller: AppBundle:Default:logoutregister }
+ 
+lead_autotimeout:
+        path: /autotimeout
+        defaults: { _controller: AppBundle:Default:autotimeout }
+ 
+lead_loginregister:
+        path: /
+        defaults: { _controller: AppBundle:Default:loginregister }
+ 
+lead_managermain:
+        path: /leadmain
+        defaults: { _controller: AppBundle:Default:leadmain }
+        
+lead_notreachedlastweek:
+        path: /notreachedlastweek
+        defaults: { _controller: AppBundle:Default:leadnotreachLastWeek }
+        
+lead_notreachedthisweek:
+        path: /leadnotreachedthisweek
+        defaults: { _controller: AppBundle:Default:leadnotreachedthisweek }
+        
+lead_notreachedtwoweeks:
+        path: /notreachedtwoweeks
+        defaults: { _controller: AppBundle:Default:leadnotreachedtwoweeks }
+        
+lead_notreachedthreeweeks:
+        path: /notreachedthreeweeks
+        defaults: { _controller: AppBundle:Default:leadnotreachedthreeweeks }
+        
+lead_notreachedfourweeks:
+        path: /notreachedfourweeks
+        defaults: { _controller: AppBundle:Default:leadnotreachedfourweeks }
+        
+lead_recommended:
+        path: /leadrecommended
+        defaults: { _controller: AppBundle:Default:leadrecommended }
+        
+lead_autocomplete:
+        path: /autocomplete
+        defaults: { _controller: AppBundle:Log:autocomplete }
+ 
+lead_checkalarm:
+        path: /checkalarm
+        defaults: { _controller: AppBundle:Default:checkalarm }
+        
+lead_ajaxtodo:
+        path: /leadajaxtodo/{id}
+        defaults: { _controller: AppBundle:Default:ajaxtodo, id:id }
+        
+lead_ajaxleadprogress:
+        path: /ajaxleadprogress/{id}
+        defaults: { _controller: AppBundle:Default:ajaxLeadProgress, id:id }
+        
+lead_ajaxprogform:
+        path: /leadajaxprogform/{id}
+        defaults: { _controller: AppBundle:Default:ajaxprogform, id:id }
+        
+lead_ajaxupdatecontacted:
+        path: /ajaxupdatecontacted/{id}
+        defaults: { _controller: AppBundle:Default:ajaxupdatecontacted, id:id }
+        
+lead_ajaxalarmsetup:
+        path: /ajaxalarmsetup/{id}
+        defaults: { _controller: AppBundle:Default:ajaxalarmsetup, id:id }
+        
+lead_ajaxalarmsetupnew:
+        path: /ajaxalarmsetupnew/{id}/{note}/{alarmdate}/{alarmtime}/{cname}
+        defaults: { _controller: AppBundle:Default:ajaxalarmsetupnew, id:id, note:missing, alarmdate:alarmdate, alarmtime:alarmtime, cname:cname }
+        
+lead_ajaxgetalarm:
+        path: /ajaxgetalarm/{id}
+        defaults: { _controller: AppBundle:Default:ajaxgetalarm, id:id }  
+        
+lead_ajaxalarmoff:
+        path: /ajaxalarmoff/{id}
+        defaults: { _controller: AppBundle:Default:ajaxalarmoff, id:id }
+        
+lead_ajaxupdateprobability:
+        path: /ajaxupdateprobability/{id}
+        defaults: { _controller: AppBundle:Default:ajaxupdateprobability, id:id }
+        
+lead_ajaxupdatevalues:
+        path: /ajaxupdatevalues{id}
+        defaults: { _controller: AppBundle:Default:ajaxupdatevalues, id:id }
+        
+lead_ajaxpostform:
+        path: /leadajaxpostform{id}
+        defaults: { _controller: AppBundle:Default:ajaxPostForm, id:id }
+
+lead_check:
+        path: /checklead
+        defaults: { _controller: AppBundle:Email:checkmail }
+        
+lead_all:
+        path: /alllead/{page}/{itemperpage}
+        defaults: { _controller: AppBundle:Default:alllead, , page:1, itemperpage:25 }
+        
+lead_my:
+        path: /mylead
+        defaults: { _controller: AppBundle:Default:mylead }
+        
+lead_test:
+        path: /leadtest
+        defaults: { _controller: AppBundle:Default:leadtest }
+        
+lead_todo:
+        path: /todolead/{page}/{itemperpage}/{sort1}/{sort2}/{myfilter}
+        defaults: { _controller: AppBundle:Default:todo, page:1, itemperpage:25, sort1:'0', sort2:'0', myfilter:all }
+        
+lead_todotest:
+        path: /todo-lead/{page}/{itemperpage}/{sort1}/{sort2}/{myfilter}
+        defaults: { _controller: AppBundle:Default:todotest, page:1, itemperpage:25, sort1:'0', sort2:'0', myfilter:all }
+        
+#lead_new:
+#        path: /newlead
+#        defaults: { _controller: AppBundle:Default:new }
+        
+lead_newajax:
+        path: /new-lead
+        defaults: { _controller: AppBundle:Default:newajax }
+        
+lead_ajaxemail:
+        path: /ajaxemail/{id}
+        defaults: { _controller: AppBundle:Default:ajaxemail, id:id }
+        
+lead_ajaxtextmessage:
+        path: /ajaxtextmessage/{id}
+        defaults: { _controller: AppBundle:Default:ajaxtextmessage, id:id }
+        
+lead_ajaxgetTextTemplate:
+        path: /ajaxgetTextTemplate/{id}/{userId}
+        defaults: { _controller: AppBundle:Default:ajaxgetTextTemplate, id:id, userId:userId }
+        
+lead_ajaxSendText:
+        path: /ajaxSendText/{id}
+        defaults: { _controller: AppBundle:Default:ajaxSendText, id:id }
+        
+lead_ajaxtextHistory:
+        path: /ajaxtextHistory/{id}/{page}
+        defaults: { _controller: AppBundle:Default:ajaxtextHistory, id:id, page:1 }
+        
+lead_ajaxgettemplate:
+        path: /ajaxgettemplate/{id}
+        defaults: { _controller: AppBundle:Default:ajaxgettemplate, id:id }
+        
+lead_sendmailajax:
+        path: /sendmailajax/{id}
+        defaults: { _controller: AppBundle:Default:sendmailajax, id:id }
+        
+lead_mywon:
+        path: /mywon
+        defaults: { _controller: AppBundle:Default:mywon }
+        
+lead_allwon:
+        path: /allwon/{page}
+        defaults: { _controller: AppBundle:Default:allwon, page:1 }
+        
+lead_flag:
+        path: /flag
+        defaults: { _controller: AppBundle:Default:flag }
+        
+lead_reminder:
+        path: /reminder
+        defaults: { _controller: AppBundle:Default:reminder }
+        
+lead_search:
+        path: /search
+        defaults: { _controller: AppBundle:Default:search }
+        
+lead_progress:
+        path:     /progress/{id}
+        defaults: { _controller: AppBundle:Default:leadprogress, id:id }
+        
+lead_progresstest:
+        path:     /lead-details/{id}
+        defaults: { _controller: AppBundle:Default:leadprogresstest, id:id }
+        
+lead_snoozealarm:
+        path:     /snoozealarm/{id}
+        defaults: { _controller: AppBundle:Default:snoozealarm, id:id }
+    
+lead_turnoffalarm:
+        path:     /turnoffalarm/{id}
+        defaults: { _controller: AppBundle:Default:turnoffalarm, id:id }
+        
+lead_visitturnoffalarm:
+        path:     /visitturnoffalarm/{id}
+        defaults: { _controller: AppBundle:Default:visitturnoffalarm, id:id }
+
+lead_leadeditajaxform:
+        path:     /leadeditajaxform/{id}
+        defaults: { _controller: AppBundle:Default:leadeditajaxform, id:id }
+    
+lead_ajaxflag:
+        path:     /ajaxflag/{id}
+        defaults: { _controller: AppBundle:Default:ajaxflag, id:id }
+
+lead_ajaxupdatecontactdetails:
+        path:     /ajaxupdatecontactdetails/{id}
+        defaults: { _controller: AppBundle:Default:ajaxupdatecontactdetails, id:id }
+
+lead_stat:
+        path:     /stat
+        defaults: { _controller: AppBundle:Default:stat }
+    
+lead_help:
+        path:     /help
+        defaults: { _controller: AppBundle:Default:help }
+    
+lead_edit:
+        path:     /edit/{id}/{alert}
+        defaults: { _controller: AppBundle:Default:leadedit, id:id, alert:0 }
+    
+lead_test:
+        path:     /test/{id}
+        defaults: { _controller: AppBundle:Default:test, id:id }
+        
+lead_send:
+        path:     /send/{id}
+        defaults: { _controller: AppBundle:Default:leadsend, id:id }
+
+lead_sendmail:
+        path:     /sendmail/{id}/{nextcons}/{tempid}/{settid}/{attid}
+        defaults: { _controller: AppBundle:Default:leadsendmail, id:id, nextcons:1-1-1970, tempid:tempid, settid:settid, attid:attid }
+        
+lead_pending:
+        path: /pending
+        defaults: { _controller: AppBundle:Default:pending }
+
+#log routes from here
+
+log_ajaxalarmsetup:
+        path: /logajaxalarmsetup/{id}
+        defaults: { _controller: AppBundle:Log:logajaxalarmsetup, id:id }
+
+log_main:
+        path:     /log/{page}/{itemperpage}/{namefilter}
+        defaults: { _controller: AppBundle:Log:log, page:1, itemperpage:50, namefilter:all }
+
+log_alarmlist:
+    path:   /logalarmlist
+    defaults: { _controller: "AppBundle:Log:logalarmlist" }
+    
+log_ajaxalarmoff:
+        path: /logajaxalarmoff/{id}
+        defaults: { _controller: AppBundle:Log:logajaxalarmoff, id:id }
+        
+log_ajaxgetalarm:
+        path: /logajaxgetalarm/{id}
+        defaults: { _controller: AppBundle:Log:logajaxgetalarm, id:id }
+
+log_visitturnoffalarm:
+        path:     /logvisitturnoffalarm/{id}
+        defaults: { _controller: AppBundle:Log:logvisitturnoffalarm, id:id }
+
+log_progress:
+        path:     /logprogress/{id}
+        defaults: { _controller: AppBundle:Log:logprogress, id:id }
+        
+log_myunsolved:
+        path:     /myunsolved
+        defaults: { _controller: AppBundle:Log:logmyunsolved }
+        
+log_todolist:
+        path:     /logtodolist/{page}/{namefilter}
+        defaults: { _controller: AppBundle:Log:logtodolist, page:1, namefilter:all }
+        
+log_logunsolved:
+        path:     /logunsolved
+        defaults: { _controller: AppBundle:Log:logunsolved }
+        
+log_message:
+        path:     /logmessage/{page}
+        defaults: { _controller: AppBundle:Log:logmessage, page:1  }
+        
+log_sentmessage:
+        path:     /logsentmessage
+        defaults: { _controller: AppBundle:Log:logsentmessage }
+        
+log_createmessage:
+        path:     /logcreatemessage
+        defaults: { _controller: AppBundle:Log:logcreatemessage }
+        
+log_contactadmin:
+        path:     /logcontactadmin
+        defaults: { _controller: AppBundle:Log:logcontactadmin }
+        
+log_ajaxmessage:
+        path:     /ajaxmessage/{page}
+        defaults: { _controller: AppBundle:Log:ajaxmessage, page:1 }
+        
+log_ajaxLogcommunication:
+        path:     /ajaxLogcommunication/{customerName}
+        defaults: { _controller: AppBundle:Log:ajaxLogcommunication, customerName:customerName }
+        
+log_ajaxreply:
+        path:     /ajaxreply/{id}/{page}
+        defaults: { _controller: AppBundle:Log:ajaxreply, id:id, page:1 }
+        
+log_ajaxreplyform:
+        path:     /ajaxreplyform/{id}/{page}
+        defaults: { _controller: AppBundle:Log:ajaxreplyform, id:id, page:1}
+        
+log_ajaxsentmessage:
+        path:     /ajaxsentmessage/{page}
+        defaults: { _controller: AppBundle:Log:ajaxsentmessage, page:1 }
+        
+log_ajaxreadmessage:
+        path:     /ajaxreadmessage/{id}
+        defaults: { _controller: AppBundle:Log:ajaxreadmessage, id:id }
+        
+log_ajaxchangeread:
+        path:     /ajaxchangeread/{id}
+        defaults: { _controller: AppBundle:Log:ajaxchangeread, id:id }
+        
+log_alert:
+        path:     /logalert
+        defaults: { _controller: AppBundle:Log:logalert }
+        
+log_flagged:
+        path:     /logflagged
+        defaults: { _controller: AppBundle:Log:logflagged }
+        
+log_reminder:
+        path:     /logreminder
+        defaults: { _controller: AppBundle:Log:logreminder }
+    
+log_edit:
+        path:     /logedit/{id}
+        defaults: { _controller: AppBundle:Log:logedit, id:id }
+    
+log_save:
+        path:     /logsave/{id}
+        defaults: { _controller: AppBundle:Log:logsave, id:id }
+
+# CRON jobs route
+cron_main:
+        path:     /cron-main
+        defaults: { _controller: AppBundle:CronTask:test }
+
+cron_test2:
+        path:     /cron-test2
+        defaults: { _controller: AppBundle:CronTask:test2 }
+        
+template_new:
+        path:     /templatenew
+        defaults: { _controller: AppBundle:Template:newform }
+        
+template_search:
+        path:     /templatesearch
+        defaults: { _controller: AppBundle:Template:searchform }
+        
+# Template controller routes        
+templatelog_search:
+        path:     /templatelogsearch
+        defaults: { _controller: AppBundle:Templatelog:searchform }
+
+# Admin routes
+admin_main:
+        path:     /admin-main
+        defaults: { _controller: AppBundle:Admin:admin }
+        
+admin_monitor:
+        path:     /adminmonitor/{referencedate}/{pager}
+        defaults: { _controller: AppBundle:Admin:adminmonitor, referencedate:0, pager:0}
+        
+admin_worklog:
+        path:     /adminworklog/{username}/{todayString}/{pager}
+        defaults: { _controller: AppBundle:Admin:adminworklog, username:all, todayString:nan, pager:nan }
+
+admin_changepassword:
+        path:     /adminchangepassword/{id}
+        defaults: { _controller: AppBundle:Admin:adminchangepassword, id:id }
+
+#Review routes
+review_main:
+        path:   /review/{success}/{id}/{logid}
+        defaults: { _controller: AppBundle:Review:review, success:0, id:0, logid:0}
+
+review_template:
+        path: /reviewtemplate
+        defaults: { _controller: AppBundle:Review:reviewtemplate }
+
+review_templateedit:
+        path: /reviewtempplateedit/{id}
+        defaults: { _controller: AppBundle:Review:rTemplateEdit, id:id }
+
+review_seetemplate:
+    path:   /reviewseetemplate/{id}
+    defaults: { _controller: AppBundle:Review:reviewseetemplate, id:id }
+
+review_templateduplicate:
+    path:   /rtemplateduplicate/{id}
+    defaults: { _controller: AppBundle:Review:rtemplateduplicate, id:id }
+
+review_templatedelete:
+    path:   /rtemplatedelete/{id}
+    defaults: { _controller: AppBundle:Review:rtemplatedelete, id:id }
+
+review_ajaxtemplatesubject:
+        path: /ajaxrtempplatesubject/{id}
+        defaults: { _controller: AppBundle:Review:ajaxrtempplatesubject, id:id}
+
+review_ajaxattach:
+        path: /reviewajaxattach/{id}
+        defaults: { _controller: AppBundle:Review:ajaxattach, id:id}
+
+review_ajaxtemplatebody:
+        path: /reviewajaxtemplatebody/{id}
+        defaults: { _controller: AppBundle:Review:reviewajaxtemplatebody, id:id}
+
+review_sent:
+        path: /reviewsent/{page}
+        defaults: { _controller: AppBundle:Review:reviewsent, page:1 }
+        
+review_seesent:
+    path:   /reviewseesent/{id}
+    defaults: { _controller: AppBundle:Review:reviewseesent, id:id }
+
+review_consfeedback:
+        path:   /consfeedback/{docid}/{success}/{id}/{logid}
+        defaults: { _controller: AppBundle:Review:consfeedback, docid:docid, success:0, id:0, logid:0}
+        
+#Mail manager routes
+mainemail_index:
+        path:   /mainemail
+        defaults: { _controller: AppBundle:Mainemail:index }
+        
+mainemail_renderaccountnav:
+        path:   /renderaccountnav/{id}
+        defaults: { _controller: AppBundle:Mainemail:renderaccountnav, id:x }
+        
+mainemail_settings:
+        path:   /mainemailsettings
+        defaults: { _controller: AppBundle:Mainemail:settings }
+
+mainemailmanager_activatesettings:
+    path:     /mainactivatesettings/{id}
+    defaults: { _controller: AppBundle:Mainemail:activatesettings, id:id }
+    
+mainemailmanager_activateincoming:
+    path:     /mainactivateincoming/{id}
+    defaults: { _controller: AppBundle:Mainemail:activateincoming, id:id }
+    
+main_downloadinbox:
+    path:     /downloadinbox/{id}
+    defaults: { _controller: AppBundle:Mainemail:downloadinbox, id:id }
+    
+mainemailmanager_sidenav:
+    path:     /accountnavigation
+    defaults: { _controller: AppBundle:Mainemail:accountnavigation }
+
+mainsettings_delete:
+    path:     /maindeletesettings/{id}
+    defaults: { _controller: AppBundle:Mainemail:maindeletesettings, id:id }
+    
+mainemail_inbox:
+    path:     /maininbox/{id}/{page}/{focusId}/{folder}/{success}/{searchemailid}
+    defaults: { _controller: AppBundle:Mainemail:maininbox, id:id, page:1, focusId:x, folder:Inbox, success:0, searchemailid:non  }
+    
+mainemail_mystar:
+    path:     /mainmystar/{id}/{page}/{focusId}/{folder}/{success}/{searchemailid}
+    defaults: { _controller: AppBundle:Mainemail:mainmystar, id:id, page:1, focusId:x, folder:Starred, success:0, searchemailid:non }
+
+mainemail_sent:
+    path:     /mainsent/{id}/{page}/{searchemailid}/{success}
+    defaults: { _controller: AppBundle:Mainemail:mainsent, id:id, page:1, searchemailid:non, success:0 }
+
+mainemail_conversation:
+    path:     /mainconversation/{id}/{email}/{page}
+    defaults: { _controller: AppBundle:Mainemail:mainconversation, id:id, email:email, page:1 }
+    
+mainemail_ajaxconversation:
+    path:     /ajaxmainconversation/{page}/{leadid}
+    defaults: { _controller: AppBundle:Mainemail:ajaxmainconversation, page:1, leadid:leadid }
+
+mainemail_createnew:
+    path:     /maincreatenew/{id}/{success}
+    defaults: { _controller: AppBundle:Mainemail:maincreatenew, id:id, success:0 }
+    
+mainemail_ajaxseen:
+    path:     /mainajaxseen/{id}
+    defaults: { _controller: AppBundle:Mainemail:ajaxseen, id:id }
+    
+mainemail_ajaxunseen:
+    path:     /mainajaxunseen/{id}
+    defaults: { _controller: AppBundle:Mainemail:ajaxunseen, id:id }
+    
+mainemail_renderemail:
+    path:     /renderemail/{id}/{showimage}
+    defaults: { _controller: AppBundle:Mainemail:renderemail, id:id, showimage:non }
+    
+mainemail_openemail:
+    path:     /openemail/{id}
+    defaults: { _controller: AppBundle:Mainemail:openemail, id:id }
+    
+mainemail_rendersent:
+    path:     /rendersent/{id}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:rendersent, id:id, settid:settid }
+
+mainemail_ajaxemailform:
+    path:     /mainajaxemailform/{id}/{type}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:ajaxemailform, id:id, type:none, settid:settid  }
+
+mainemail_ajaxsentforwardform:
+    path:     /mainajaxsentforwardform/{id}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:ajaxsentforwardform, id:id, settid:settid  }
+    
+mainemail_ajaxcreatenewform:
+    path:     /ajaxcreatenewform/{settid}
+    defaults: { _controller: AppBundle:Mainemail:ajaxcreatenewform, settid:settid }
+    
+mainemail_sendemail:
+    path:     /mainsendemail/{type}
+    defaults: { _controller: AppBundle:Mainemail:mainsendemail, type:type }
+    
+mainemail_ajaxformupload2:
+    path:     /ajaxformupload2/{id}
+    defaults: { _controller: AppBundle:Mainemail:ajaxformupload2, id:id }
+    
+mainemail_ajaxformupload:
+    path:     /ajaxformupload/{settid}/{emailid}
+    defaults: { _controller: AppBundle:Mainemail:ajaxformupload, settid:settid, emailid:emailid }
+    
+mainemail_ajaxshowattached:
+    path:     /mainajaxshowattached/{id}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:mainajaxshowattached, id:id, settid:settid }
+
+mainemail_createmptyreply:
+    path:     /maincreateemptyreply/{settid}/{id}
+    defaults: { _controller: AppBundle:Mainemail:maincreateemptyreply, settid:settid, id:non }
+
+mainemail_createmptyforward:
+    path:     /maincreateemptyforward/{settid}/{id}
+    defaults: { _controller: AppBundle:Mainemail:maincreateemptyforward, settid:settid, id:non }
+    
+mainemail_ajaxforwardattachmentcount:
+    path:     /ajaxforwardattachmentcount/{id}
+    defaults: { _controller: AppBundle:Mainemail:ajaxforwardattachmentcount, id:id }
+    
+mainemail_ajaxforwardattachmentdisplay:
+    path:     /ajaxforwardattachmentdisplay/{newid}/{oldid}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:ajaxforwardattachmentdisplay, newid:newid, oldid:oldid, settid:settid }
+    
+mainemail_ajaxsentforwardattachmentdisplay:
+    path:     /ajaxsentforwardattachmentdisplay/{newid}/{oldid}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:ajaxsentforwardattachmentdisplay, newid:newid, oldid:oldid, settid:settid }
+    
+mainemail_removeattachment:
+    path:     /ajaxremoveattachment/{attid}
+    defaults: { _controller: AppBundle:Mainemail:ajaxremoveattachment, attid:attid }
+    
+mainemail_createfolder:
+    path:     /maincreatefolder/{settid}/{foldername}
+    defaults: { _controller: AppBundle:Mainemail:maincreatefolder, settid:settid, foldername:foldername }
+
+mainemail_foldersettings:
+    path:     /foldersettings/{id}
+    defaults: { _controller: AppBundle:Mainemail:foldersettings, id:id }
+
+mainemail_ruledelete:
+    path:     /mainruledelete/{id}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:mainruledelete, id:id, settid:settid }
+
+mainemail_folderdelete:
+    path:     /mainfolderdelete/{id}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:mainfolderdelete, id:id, settid:settid }
+    
+mainemail_emailajaxaction:
+    path:     /mainemailajaxaction/{settid}/{action}
+    defaults: { _controller: AppBundle:Mainemail:mainemailajaxaction, settid:settid, action:action }
+
+mainemail_advancedsearch:
+    path:     /mainadvancedsearch/{page}
+    defaults: { _controller: AppBundle:Mainemail:mainadvancedsearch, page: 1 }
+    
+mainemail_advancedsearch_paginated:
+    path:     /mainadvancedsearch/{page}
+    defaults: { _controller: AppBundle:Mainemail:mainadvancedsearch }
+        
+mainemail_advancedsearch_paginated:
+    pattern:  /mainadvancedsearch/{page}
+    defaults: { _controller: AppBundle:Mainemail:mainadvancedsearch }
+    requirements:
+        _method:  GET
+    
+mainemail_signature:
+    path:     /mainsignature
+    defaults: { _controller: AppBundle:Mainemail:signature }
+    
+mainemail_signatureedit:
+    path:     /mainsignatureedit/{id}
+    defaults: { _controller: AppBundle:Mainemail:signatureedit, id:id }
+
+mainemail_signaturedelete:
+    path:     /mainsignaturedelete/{id}
+    defaults: { _controller: AppBundle:Mainemail:signaturedelete, id:id }
+    
+mainemail_contactfromlead:
+    path:     /maincontactfromlead
+    defaults: { _controller: AppBundle:Mainemail:maincontactfromlead }
+    
+mainemail_mainautocomplete:
+    path:     /mainautocomplete
+    defaults: { _controller: AppBundle:Mainemail:mainautocomplete }
+    
+mainemail_star:
+    path:     /mainstar/{id}/{settid}
+    defaults: { _controller: AppBundle:Mainemail:mainstar, id:id, settid:settid }

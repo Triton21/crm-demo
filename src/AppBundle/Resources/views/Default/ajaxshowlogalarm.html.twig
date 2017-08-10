@@ -1,0 +1,6 @@
+    <div class="panel-body" data="{{thisalarm.id}}">
+        <span style="font-weight: bold;">Patient: </span><p>{{thisalarm.cName}}</p>
+        <span style="font-weight: bold;">Note: </span><p>{{thisalarm.note}}</p>
+        <span style="font-weight: bold;">Date: </span><p>{{thisalarm.alarmAt|date('d-m-Y H:i:s')}}</p>
+        <a href="{{ path('log_visitturnoffalarm', { 'id': thisalarm.id})}}" class="btn btn-info">Show phone log</a>
+    </div>

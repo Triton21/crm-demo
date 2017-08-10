@@ -1,0 +1,35 @@
+{% extends "AppBundle:Default:lead.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block welcome%}Welcome {{name}}<span>&nbsp;&nbsp;</span><span class="badgegreen">{{countlead.1}}</span><span>&nbsp;&nbsp;</span><span class="badgered">{{countlead.4}}</span>{%endblock%}
+
+{% block content %} 
+
+
+
+
+
+    <!-- ALL leads -->
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Help</h3>
+                </div>
+                <div class="panel-body">
+                    {{id}}
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

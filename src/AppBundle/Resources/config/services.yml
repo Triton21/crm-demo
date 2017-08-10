@@ -1,0 +1,24 @@
+services:
+#    redirect.after.login:
+#        class: AppBundle\Redirection\AfterLoginRedirection
+#        arguments: [@router]
+#
+#    redirect.after.logout:
+#        class: AppBundle\Redirection\AfterLogoutRedirection
+#        arguments: [@router, @security.context]
+        
+    MarketingCommandService:
+        class: AppBundle\Command\MarketingCommand
+        calls:
+            - [setContainer, ["@service_container"] ]
+            
+    app.form.registration:
+        class: AppBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+    
+    appbundle_maininboxsearch:
+      class: AppBundle\Form\MaininboxSearchType
+      tags:
+         -  { name: form.type }
+    

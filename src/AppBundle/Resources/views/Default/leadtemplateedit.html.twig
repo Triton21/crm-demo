@@ -1,0 +1,110 @@
+{% extends "AppBundle:Default:confirmbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block welcome%}Welcome {{name}}{%endblock%}
+
+
+
+{%block content %}  
+    <div class="container">
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Edit template </h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                     <span style="font-weight: bold;">Note:</span> You can use %firstname% and %consdate% as a placeholder in the text. %firstname% will be replaced with the real Firstname. If you insert %consdate% in the text than you can easily choose the next available consultation date during the email createtion.  
+                    </p>
+                    
+                    <p>
+                        {{ form_start(form) }}</p>
+                    <p>
+                        {{ form_label(form.tempname) }}
+                        {{ form_errors(form.tempname) }}
+                        {{ form_widget(form.tempname) }}
+                    </p>
+                    <p>
+                        {{ form_label(form.subject) }}
+                        {{ form_errors(form.subject) }}
+                        {{ form_widget(form.subject) }}
+                    </p><p>
+                        
+                        {{ form_errors(form.body) }}
+                        {{ form_widget(form.body , { 'attr': { 
+                            'style' : 'height:250px', 
+                            'rows' : '30', 
+                            'cols' : '1' }} ) }}
+                    </p>
+                    <div class="col-lg-12"><span style="font-weight: bold;">Attachments</span></div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="col-lg-12">
+                        <div class="col-sm-5">
+                            {% if oldattname1 != false %}
+                                <span class="gi-7p glyphicon glyphicon-paperclip"></span>&nbsp;&nbsp;&nbsp;<a href="{{ asset('images/products/' ~ oldattname1) }}" target="_blank">{{oldattname1}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lead_removeattach', { 'id': id, 'attid': 1, }) }}" class="btn-xs btn btn-danger">Remove</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ form_errors(form.attach1) }}
+                            {{ form_widget(form.attach1) }}
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-lg-12">
+                        <div class="col-sm-5">
+                            {% if oldattname2 != false %}
+                                <span class="gi-7p glyphicon glyphicon-paperclip"></span>&nbsp;&nbsp;&nbsp;<a href="{{ asset('images/products/' ~ oldattname2) }}" target="_blank">{{oldattname2}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lead_removeattach', { 'id': id, 'attid': 2, }) }}" class="btn-xs btn btn-danger">Remove</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ form_errors(form.attach2) }}
+                            {{ form_widget(form.attach2) }}
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-lg-12">
+                        <div class="col-sm-5">
+                            {% if oldattname3 != false %}
+                                <span class="gi-7p glyphicon glyphicon-paperclip"></span>&nbsp;&nbsp;&nbsp;<a href="{{ asset('images/products/' ~ oldattname3) }}" target="_blank">{{oldattname3}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lead_removeattach', { 'id': id, 'attid': 3, }) }}" class="btn-xs btn btn-danger">Remove</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ form_errors(form.attach3) }}
+                            {{ form_widget(form.attach3) }}
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                     <p>
+                        {{ form_end(form) }}</p>
+                    
+                    
+
+
+                </div>
+            </div>
+        </div>              
+
+
+
+
+
+
+    </div>
+
+{%endblock%}   
+
+
+
+{% block emailform %}
+{% endblock %}
+
+
+
+
+{% block javascripts %}{% endblock %}

@@ -1,0 +1,271 @@
+    <div class="container">  
+
+
+                    {% for all in thislead %}
+
+                        <div class="panel panel-default">
+                            <table class="table table-striped gi-4p">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>Main status</th>
+                                        <th>Source</th>
+                                        <th>Flag</th>
+                                        <th></th>
+                                        <th>{% if thislead.0.flag == '1' %}<span class="gi-8p glyphicon glyphicon-flag" style="color:red">&nbsp;</span>{%endif%}</th>
+
+
+
+                                    </tr>
+                                </thead>
+
+                                <tr class="table table-striped gi-5p">
+                                    
+                                    <td>{{ all.status }}</td>
+                                    <td>{{ all.source }}</td>
+                                    {% if all.assign == name %}
+                                        <form action="{{ path('lead_progress', { 'id': all.id})}}" method="POST">
+                                        <td><input type="checkbox" name="flag" value="flag" {% if thislead.0.flag == '1' %}checked{%endif%}></td>
+                                        <td> 
+                                            
+                                                <input type="hidden" name="statusid" value="{{ all.id}}">
+                                                <select class="input-sm form-control" name="status" id="add">
+                                                    <option value="x"></option>
+                                                    {% if all.status != 'new' %}
+                                                        <option value="new">New</option>
+                                                    {% endif %}
+                                                    <option value="Won">Booked for cons</option>
+                                                    {% if all.status != 'In progress' %}
+                                                        <option value="In progress">In progress</option>
+                                                    {% endif %}
+                                                    {% if all.status != 'Pending' %}
+                                                        <option value="Pending">Pending</option>
+                                                    {% endif %}
+                                                    {% if all.status != 'Not eligible' %}
+                                                        <option value="Not eligible">Not eligible</option>
+                                                    {% endif %}
+                                                    <!--     <option value="Called - could not reach">Called - could not reach</option> -->
+                                                    {% if all.called5 == true %}
+                                                        <option value="Dead">Dead</option>
+                                                    {% endif %}
+                                                </select></td>
+                                        <td><input class="btn btn-xs btn-success" type="submit" value="Update"/></form></td>
+                                        {% else %}
+                                            {% if all.status != name %}
+                                            <td>
+                                                <form action="{{ path('lead_all') }}" method="POST">
+                                                    <input type="hidden" name="assign" value="{{ all.id }}">
+                                                    <input class="btn btn-success btn-xs" type="submit" value="Get"/>
+                                                </form>
+                                            </td>
+                                            <td></td>
+                                        {% else %}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        {% endif %}
+                                    {% endif %}
+
+
+                                </tr>
+                            </table>
+
+
+                            <!-- NOTE TABLE -->
+                            <table class="note gi-4p"> 
+                                {% if all.status == 'In progress' or all.status == 'Won' or all.status == 'Not eligible' or all.status == 'Pending' or all.status == 'Dead' or all.status == 'new'%}
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1">Call history</th>
+                                            <th class="col-md-2">Date</th>
+                                            <th class="col-md-4">Note</th>
+                                              
+                                            <th class="col-md-1">Work status</th>
+                                            <th class="col-md-4">Coordinator</th>
+                                            
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                {% endif %}
+                                {% if all.status == 'In progress' or all.status == 'Won' or all.status == 'Not eligible' or all.status == 'Pending' or all.status == 'Dead' or all.status == 'new'%}
+                                    <tbody>
+
+                                        {% for calls in callhistory %}
+                                            {% if all.id == calls.leadid %}
+                                                <tr>
+                                                    <td></td>
+
+                                                    <td>
+                                                        {{ calls.calldate|date('d-m-Y H:i:s') }}
+                                                    </td>
+                                                    <td>
+                                                        {{ calls.note }}
+                                                    </td>
+                                                    
+                                                    <td>{{ calls.status}}</td>
+                                                    <td class="col-md-1">
+                                                        {{calls.assign}}
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+
+
+                                            <!-- Form for IN PROGRESS -->
+                                            {% if all.assign == name and all.status == 'In progress' %}<td>
+                                                    <form action="{{ path('lead_progress', { 'id': all.id})}}" method="POST" class="col-xs-8 form-inline">
+                                                        <input type="hidden" name="leadid" value="{{ all.id }}">
+                                                        <input type="hidden" name="notestatus" value="Called">
+                                                        <input type="text" class="input-sm form-control input-inline" name="note" placeholder="Save the note here">
+                                                        <input class="btn btn-xs btn-success input-inline" type="submit" value="Note"/>
+                                                    </form></td>
+                                                <td>
+                                                    <form action="{{ path('lead_progress', { 'id': all.id})}}" method="POST">
+                                                        <input type="hidden" name="leadid" value="{{ all.id }}">
+                                                        <input type="hidden" name="notestatus" value="Could not reach">
+                                                        <input class="btn btn-xs btn-success" type="submit" value="Could not reach"/>
+                                                    </form>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            {% endif %}
+                                            
+                                             <!-- Form for PENDING -->
+                                            {% if all.assign == name and all.status == 'Pending' %}<td>
+                                                    <form action="{{ path('lead_progress', { 'id': all.id})}}" method="POST" class="form-inline">
+                                                        <input type="hidden" name="leadid" value="{{ all.id }}">
+                                                        <input type="hidden" name="notestatus" value="Pending">
+                                                        <input type="text" class="input-sm form-control input-inline" name="note" placeholder="Reason for pending">
+                                                        <input class="btn btn-xs btn-success" type="submit" value="Note"/>
+                                                    </form>
+                                                </td><td>
+                                                    
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            {% endif %}
+                                            
+                                            <!-- Form for Not eligible -->
+                                            {% if all.assign == name and all.status == 'Not eligible' %}<td>
+                                                    <form action="{{ path('lead_progress', { 'id': all.id})}}" method="POST" class="form-inline">
+                                                        <input type="hidden" name="leadid" value="{{ all.id }}">
+                                                        <input type="hidden" name="notestatus" value="Not eligible">
+                                                        <input type="text" class="input-sm form-control input-inline" name="note" placeholder="Reason for not eligible">
+                                                        <input class="btn btn-xs btn-success" type="submit" value="Note"/>
+                                                    </form>
+                                                </td><td>
+                                                    
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            {% endif %}
+
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                            <br>
+
+
+
+                                <!-- PICKDATE -->
+                                {% if all.status == 'Won' %}
+                                    <table class="note gi-4p">      
+                                        <thead>
+                                            <tr><br></tr>
+                                            <tr>
+                                                <th class="col-md-1">Consultation date</th>
+                                                
+                                                <th class="col-md-2">Register consultation date</th>
+                                                
+                                            </tr>  
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                {% if consdatecheck == true %}
+                                                <td style="width:33%; text-align: center;">{{all.consdate|date('d-m-Y')}}</td>
+                                                {% else %}
+                                                    <td></td>
+                                                    {% endif %}
+                                                <td style="width:33%">
+                                                    <form action="{{ path('lead_progress', { 'id': all.id})}}" method="POST">
+                                                        <input type="hidden" name="leadid" value="{{ all.id }}">
+                                                        <input type="text" name="consdate" id="datepicker" data-provide="datepicker" data-date-format="dd-mm-yyyy" placeholder="Consultation date" data-date-format="dd-mm-yyyy" >
+                                                        <input class="btn btn-xs btn-success" type="submit" value="Save"/>
+                                                    </form></td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                {% endif %}  
+
+
+                            </div>
+                        {% else %}
+                            <tbody>
+                            </tbody>
+
+                            </table>
+                        
+                    {% endif %}
+
+                    <!-- REMINDER -->
+                    <table class="note gi-4p table"> 
+                                {% if all.status == 'In progress' or all.status == 'Won' or all.status == 'Not eligible' or all.status == 'Pending'%}
+                                    <tbody>
+                                        <tr>
+                                            {% if all.reminder == true %}<td class="col-md-1" style="font-weight: bold;">Reminder is active</td>{%else%}<td class="col-md-1">Reminder is off &nbsp;<span class="gi-7p glyphicon glyphicon-time" style="color:grey"></span></td>{%endif%}
+                                            <form action="{{ path('lead_progress', { 'id': all.id})}}" method="POST">
+                                                        <input type="hidden" name="id" value="{{ all.id }}">
+                                                        <td class="col-md-1"><input type="text" name="remindernote" class="input-sm form-control input-inline" placeholder="Reminder note"></td>
+                                                        <td class="col-md-1"><input type="text" name="reminderdate" class="form-control input-inline datepicker input-sm" data-provide="datepicker" data-date-format="dd-mm-yyyy" placeholder="reminder date"></td>
+                                                        <td class="col-md-1"><input class="btn btn-xs btn-success" type="submit" value="Remind"/></td>
+                                            </form>
+                                            <td class="col-md-1">
+                                                {% if all.reminder == true %}
+                                                <form action="{{ path('lead_progress', { 'id': all.id})}}" method="POST">
+                                                        <input type="hidden" name="deletereminderid" value="{{ all.id }}">
+                                                        <input class="btn btn-xs btn-danger" type="submit" value="Delete reminder"/>
+                                            </form>
+                                                {% endif %}
+                                                </td>
+                                            <td></td>
+                                            </tr>
+                                            <tr>
+                                                {% if all.reminder == true %}
+                                            <td class="col-md-1"><span class="gi-6p glyphicon glyphicon-time" style="color:red">&nbsp;</span>Reminder</td>
+                                                        <td class="col-md-1">{{all.remindernote}}</td>
+                                                        <td class="col-md-1">{{all.reminder|date('d-m-Y')}}</td>
+                                                        <td class="col-md-1"></td>
+                                            <td></td>
+                                                {% endif %}
+                                            </tr>
+                                        
+                                        
+                                    </tbody>
+                                    </table>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                {% endif %}
+
+
+
+
+                {% endfor %}
+
+
+
+            </div>
+        

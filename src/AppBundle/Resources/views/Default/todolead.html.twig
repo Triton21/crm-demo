@@ -1,0 +1,281 @@
+{% extends "AppBundle:Default:lead.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+    {% for all in todoleads %}
+        <style type="text/css">
+            .morecontent{{all.id}} span {
+                display: none;
+            }
+            .morelink{{all.id}} {
+                color: #6c8ecf;
+                display: block;
+            }
+            .showlink{{all.id}} {
+                color: grey;
+                display: block;
+            }
+            #loader{{all.id}} {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        </style>
+    {% endfor %}
+{%endblock%}
+
+
+{% block content %} 
+
+    <!-- TODO leads -->
+
+
+    <div class="col-lg-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">
+
+                    <table>
+                        <tr>
+                            <td>
+                                In progress leads&nbsp;&nbsp;&nbsp;&nbsp; </td>   
+                            <td>
+                                Page: &nbsp;{%if pagedown == false%} <span class="gi-7p glyphicon glyphicon-chevron-left"></span>{% else%}<a href="{{ path('lead_todo', { 'page': pagedown, 'itemperpage': itemperpage, 'sort1':sort1, 'sort2':sort2, 'myfilter':myfilter})}}" ><span class="gi-7p glyphicon glyphicon-chevron-left"></span></a>{% endif %}
+                                {% for all in pagesarray %}{% if page == all %}<span><button type="button" class="btn btn-sm disabled">{{all}}</button></span>
+                                    {%else%}<a href="{{ path('lead_todo', { 'page': all, 'itemperpage': itemperpage, 'sort1':sort1, 'sort2':sort2, 'myfilter':myfilter})}}" ><button type="button" class="btn btn-default btn-sm">{{all}}</button></a>{%endif%}
+                                    {% endfor %}
+                                    {%if pageup == false%} <span class="gi-7p glyphicon glyphicon-chevron-right"></span>{% else%}<a href="{{ path('lead_todo', { 'page': pageup, 'itemperpage': itemperpage, 'sort1':sort1, 'sort2':sort2, 'myfilter':myfilter})}}" ><span class="gi-7p glyphicon glyphicon-chevron-right"></span></a>&nbsp;&nbsp;{% endif %}
+                            </td>
+
+                            <td>
+                                <select name="newitem" class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
+                                    <option value="{{ path('lead_todo', { 'itemperpage': '5','page': '1', 'sort1':sort1, 'sort2':sort2, 'myfilter':myfilter})}}" {% if itemperpage == '5'%} selected="selected"{%endif%}>5</option>
+                                    <option value="{{ path('lead_todo', { 'itemperpage': '10','page': '1', 'sort1':sort1, 'sort2':sort2, 'myfilter':myfilter})}}" {% if itemperpage == '10'%} selected="selected"{%endif%}>10</option>
+                                    <option value="{{ path('lead_todo', { 'itemperpage': '25','page': '1', 'sort1':sort1, 'sort2':sort2, 'myfilter':myfilter})}}" {% if itemperpage == '25'%} selected="selected"{%endif%}>25</option>
+                                    <option value="{{ path('lead_todo', { 'itemperpage': '50','page': '1', 'sort1':sort1, 'sort2':sort2, 'myfilter':myfilter})}}" {% if itemperpage == '50'%} selected="selected"{%endif%}>50</option>
+                                </select>
+                            </td>
+                            <td>&nbsp;/page&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;Sort by:&nbsp; </td>
+                            <td>    {%if sort1 == '0' or sort1 == '2' %}   <a href="{{ path('lead_todo', { 'itemperpage': itemperpage, 'sort1': '1', 'sort2': '0', 'myfilter':myfilter})}}">{%if sort1 != '0'%}<span style="font-weight: bold;">Last contacted </span>{% else%}Last contacted {%endif%}<span class="gi-6p glyphicon glyphicon-arrow-down"></span></a> 
+                                {% else%}  <a href="{{ path('lead_todo', { 'itemperpage': itemperpage, 'sort1': '2', 'sort2': '0', 'myfilter':myfilter})}}">{%if sort1 != '0'%}<span style="font-weight: bold;">Last contacted </span>{% else%}Last contacted {%endif%}<span class="gi-6p glyphicon glyphicon-arrow-up"></span></a> {% endif %}
+                                    </td>
+                                    <td>&nbsp;
+                                        {%if sort2 == '0' or sort2 == '2' %}   <a href="{{ path('lead_todo', { 'itemperpage': itemperpage, 'sort2':1, 'sort1':'0', 'myfilter':myfilter})}}">{%if sort2 != '0'%}<span style="font-weight: bold;">Created </span>{% else%}Created {%endif%}<span class="gi-6p glyphicon glyphicon-arrow-down"></span></a> 
+                                        {% else%}  <a href="{{ path('lead_todo', { 'itemperpage': itemperpage, 'sort2':'2', 'sort1':'0', 'myfilter':myfilter })}}">{%if sort2 != '0' %}<span style="font-weight: bold;">Created </span>{% else%}Created {%endif%}<span class="gi-6p glyphicon glyphicon-arrow-up"></span></a> {% endif %}
+                                    </td>
+                                    <td></td>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter by contacted:&nbsp;</td>
+                                    <td></td>
+                                    <td>
+                                        <select name="forma" class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
+                                            {% for item in filterarray %}
+                                                <option value="{{ path('lead_todo', { 'itemperpage': itemperpage, 'sort1':sort1, 'sort2':sort2, 'myfilter':item})}}" {% if myfilter == item%} selected="selected"{%endif%}>{{item}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td></td>
+
+
+
+
+                                </tr>
+                            </table>
+                        </h3>
+                    </div>
+
+
+                    <div class="panel-body">
+
+
+                        {% for all in todoleads %}
+
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <table class="table table-striped gi-4p">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Message</th>
+                                                <th>Last contact</th>
+                                                <th>Created</th>
+                                                <th>Coordinator</th>
+                                                <th>Status</th>
+                                                <th>Flag</th>
+                                                    {% if all.assign != name %}
+                                                    <th style="text-align: center;">Assign</th>
+                                                    {% else %}
+                                                    <th></th>
+                                                    {%endif%}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="table table-striped gi-5p">
+                                                <td style="width:8%"><a href="{{ path('lead_progress', { 'id': all.id})}}">{{ all.customerName }}</a></td>
+                                                <td style="width:3%"><span class="badge">{{all.contacted}}</span></td>
+                                                <td style="width:2%; text-align: right;">{% if all.reminder == true %}<span class="gi-8p glyphicon glyphicon-time" style="color:red"></span>{%endif%}</td>
+                                                <td style="width:8%">{{ all.customerTel }}</td>
+                                                <td style="width:16%">{{ all.customerEmail }}</td>
+                                                <td style="width:33%">
+                                                    <span class="more{{all.id}}">{{ all.message }}</span>
+                                                </td> 
+                                                <td style="width:7%">{{ lastcontact[all.id] }}</td>
+                                                <td style="width:7%">{{ all.createdAt|date('d-m-Y H:i:s') }}</td>
+                                                <td style="width:5%">{{ all.assign }}</td>
+                                                <td style="width:6%">{{ all.status }}</td>
+                                                <td style="width:6%">{% if all.flag == '1' %}<span class="gi-8p glyphicon glyphicon-flag" style="color:red"></span>{%endif%}</td>
+                                                    {% if all.assign == name %}
+                                                    <td style="width:8%; text-align: center;"><a href="{{ path('lead_progress', { 'id': all.id})}}">Edit</a></td>
+                                                {% else %}
+                                                    <td style="width:8%; text-align: center;">
+                                                        <form action="{{ path('lead_todo') }}" method="POST">
+                                                            <input type="hidden" name="assign" value="{{ all.id }}">
+                                                            <input class="btn btn-xs btn-success" type="submit" value="Get"/>
+                                                        </form>
+                                                    </td>
+                                                {% endif %}
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div id="callmain{{all.id}}">
+                                        <div id="removeLink{{all.id}}"><span class="show{{all.id}} gi-3p" style="color:grey;">&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down" style="color:grey"></span></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                    {% endfor %}
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+        {% endblock %}
+
+            {% block javascripts %}
+
+                {% for all in todoleads %}
+                    <script>
+                        $(document).ready(function () {
+                            // Configure/customize these variables.
+                            var showChar = 250; // How many characters are shown by default
+                            var ellipsestext = " ...";
+                            var moretext = "more >";
+                            var lesstext = "less";
+                            var callmain = document.getElementById("callmain{{all.id}}");
+                            var addHideLink = '<span class="hideCallhis{{all.id}} gi-3p" style="color:grey;">&nbsp;&nbsp;&nbsp;&nbsp;Hide&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-up" style="color:grey"></span>';
+                            var addshowLink = '<span class="show{{all.id}} gi-3p" style="color:grey;">&nbsp;&nbsp;&nbsp;&nbsp;Call history&nbsp;&nbsp;&nbsp;&nbsp;<span class="gi-5p glyphicon glyphicon-chevron-down" style="color:grey"></span>';
+                            var loading = '<div class="ispinner gray large animating myload" id="loader{{all.id}}">\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                    <div class="ispinner-blade"></div>\
+                                </div>   ';
+                            //var myEl = document.getElementById("callh{{all.id}}");
+                            $('.more{{all.id}}').each(function () {
+                                var content = $(this).html();
+                                if (content.length > showChar) {
+
+                                    var c = content.substr(0, showChar);
+                                    var h = content.substr(showChar, content.length - showChar);
+                                    var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent{{all.id}}"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink{{all.id}}">' + moretext + '</a></span>';
+                                    $(this).html(html);
+                                }
+
+                            });
+                            $(".morelink{{all.id}}").click(function () {
+                                if ($(this).hasClass("less")) {
+                                    $(this).removeClass("less");
+                                    $(this).html(moretext);
+                                } else {
+                                    $(this).addClass("less");
+                                    $(this).html(lesstext);
+                                }
+                                $(this).parent().prev().toggle();
+                                $(this).prev().toggle();
+                                return false;
+                            });
+                            $(document).on('click', ".show{{all.id}}", function () {
+                                removeDown();
+                                loadAnimation();
+                                aButtonPressed();
+                            });
+
+                            function loadAnimation() {
+                                var myNewDiv = document.createElement('div');
+                                myNewDiv.id = 'displayhere{{all.id}}';
+                                callmain{{all.id}}.appendChild(myNewDiv);
+                                myNewDiv.innerHTML = loading;
+                                return;
+                            }
+
+                            function removeDown() {
+                                $("#callmain{{all.id}}").empty();
+                                return;
+                            }
+                            $(document).on('click', ".hideCallhis{{all.id}}", function () {
+                                hideAll();
+                            });
+
+                            function hideAll() {
+                                $("#callmain{{all.id}}").empty();
+                                var myDiv = document.createElement('div');
+                                myDiv.innerHTML = addshowLink;
+                                myDiv.id = 'removeLink{{all.id}}';
+                                callmain{{all.id}}.appendChild(myDiv);
+                                var myNewDiv = document.createElement('div');
+                                myNewDiv.id = 'displayhere{{all.id}}';
+                                callmain{{all.id}}.appendChild(myNewDiv);
+                                return;
+                            }
+
+
+
+
+                            function aButtonPressed() {
+                                $.ajax({
+                                    url: "{{ path('lead_ajaxtodo', { 'id': all.id})}}",
+                                    dataType: "json",
+                                    success: function (response) {
+                                        $("#callmain{{all.id}}").empty();
+                                        var myDiv = document.createElement('div');
+                                        myDiv.id = 'displayhere{{all.id}}';
+                                        callmain{{all.id}}.appendChild(myDiv);
+                                        template = response;
+                                        myDiv.innerHTML = template;
+                                        var myNewDiv = document.createElement('div');
+                                        myNewDiv.innerHTML = addHideLink;
+                                        myNewDiv.id = 'removeLink{{all.id}}';
+                                        callmain{{all.id}}.appendChild(myNewDiv);
+                                        console.log(callmain{{all.id}});
+                                    },
+                                    complete: function () {
+                                        console.log('Request is complete');
+                                    },
+                                    error: function () {
+                                        console.log('Oops...there was an error!');
+                                    }
+                                });
+
+                            }
+                        });
+                    </script>
+                {% endfor %}
+            {% endblock %}

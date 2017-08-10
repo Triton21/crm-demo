@@ -1,0 +1,57 @@
+{% extends "AppBundle:Mainemail:emailbase.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+
+{%block stylesheets %}
+
+{%endblock%}
+
+
+{%block content %}  
+        <div class="row">
+            {% for all in settlist %}
+        <div class="col-lg-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{all.settname}}</h3>
+                </div>
+                <div class="panel-body">
+                    <span class="gi-5p"> Last download: <span style="font-weight: bold;"> {{ all.lastdownload|date('d-m-Y H:i:s') }}</span></span>
+                    <table class="table table-striped gi-1x">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Total</th>
+                                <th>New</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if settMain != false %}
+                                {% for key, value in settMain[all.settname] %}
+                                <tr>
+                                    <td>{{key}}</td>
+                                    <td>{{value[0]}}</td>
+                                    <td><span style="font-weight: bold;">{{value[1]}}</span></td>
+                                </tr>
+                                {% endfor %}
+                            {% endif %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+
+
+
+
+
+
+
+
+{%endblock%}   
+
+
+
+{% block javascripts %}{% endblock %}

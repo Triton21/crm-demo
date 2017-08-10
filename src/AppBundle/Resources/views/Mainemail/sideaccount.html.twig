@@ -1,0 +1,70 @@
+
+<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+    <ul class="nav navbar-nav" style="border-top: 0px; width:100%;">
+        <li>
+            <a href="{{ path('mainemail_inbox', { 'id': mysidesettings.id})}}">
+                {{ mysidesettings.settname }}&nbsp;&nbsp;<span class="hidden-xs showopacity badgered">{{unseen}}</span><span class="pull-right glyphicon glyphicon-envelope"></span></a>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav" style="border-top: 0px; width:100%; text-indent: 20px;" >
+        <li style="border-top: 0px; border-bottom: 0px;">
+            <a href="{{ path('mainemail_createnew', { 'id': mysidesettings.id })}}" id="createnewmessageHref">
+                <span class="pull-right" id="myfolderCreateMessage">Create message</span></a>
+        </li>
+        <li style="border-top: 0px; border-bottom: 0px; margin-top:-6px;">
+            <a href="{{ path('mainemail_inbox', { 'id': mysidesettings.id})}}"><span class="pull-right" id="myfolderInbox">
+                    Inbox</span>
+                    {% if unseeninbox != 0 %}
+                    <span class="pull-right hidden-xs showopacity badgered" style="text-indent: 0px;">{{unseeninbox}}</span>
+                {% endif %}</a>
+        </li>
+        <li style="border-top: 0px; border-bottom: 0px; margin-top:-6px;" >
+            <a href="{{ path('mainemail_sent', { 'id': mysidesettings.id })}}"><span class="pull-right" id="myfolderSent">Sent</span></a>
+        </li>
+        
+        <li style="border-top: 0px; border-bottom: 0px; margin-top: 0px;" >
+        <div class="collapse navbar-collapse pull-right" id="bs-sidebar-navbar-collapse-1">
+            <ul class="nav navbar-nav" style="border-top: 0px; width:100%;" >
+                <li class="dropdown" style="border-top: 0px; border-bottom: 0px;">
+                    <a id="inProgressHrefDD" href="#" class="dropdown-toggle" data-toggle="dropdown" >Folders <span class="caret"></span></a>
+                    <ul id="inProgressDD" class="dropdown-menu forAnimate" role="menu">
+                        {% for key, value in unseenarray %}
+                            <li style="border-top: 0px; border-bottom: 0px; margin-top:-6px;" >
+                                <a href="{{ path('mainemail_inbox', { 'id': id, 'folder': key})}}">
+                                    <span class="pull-right" id="myfolder{{key}}">{{key}}</span>
+                                    {% if value != 0 %}
+                                        <span class="pull-right hidden-xs showopacity badgered" style="text-indent: 0px;">{{value}}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        <div style="min-height:30px;"></div>
+                    </ul>
+                </li>    
+            </ul> 
+        </div>
+        </li>
+
+
+
+
+
+        <li style="border-top: 0px; border-bottom: 0px; margin-top:-6px;">
+            <a href="{{ path('mainemail_mystar', { 'id': mysidesettings.id})}}" id="starred">
+                <span class="pull-right glyphicon glyphicon-star"></span><span class="pull-right">My starred</span></a>
+        </li>
+        <li style="border-top: 0px; border-bottom: 0px; margin-top:-6px;">
+            <a href="#" id="new-folder"><span class="pull-right glyphicon glyphicon-plus"></span><span class="pull-right">New folder</span></a>
+        </li>
+        <li style="border-top: 0px; border-bottom: 0px; margin-top:-6px;">
+            <a href="{{ path('mainemail_foldersettings', { 'id': mysidesettings.id})}}" id=""><span class="pull-right glyphicon glyphicon-cog"></span><span class="pull-right" id="myfolderSettings">Settings</span></a>
+        </li>
+        <li style="border-top: 0px; border-bottom: 0px; margin-top:-6px;">
+            <a href="{{ path('main_downloadinbox', { 'id': mysidesettings.id }) }}" id=""><span class="pull-right glyphicon glyphicon-download"></span><span class="pull-right">Download</span></a>
+        </li>
+
+    </ul>
+</div>  
+<br>
+

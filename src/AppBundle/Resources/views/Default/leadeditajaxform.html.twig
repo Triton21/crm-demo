@@ -1,0 +1,76 @@
+<div class="container">
+    <br>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Edit contact details</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="editform{{id}}" action="{{ path('lead_leadeditajaxform', { 'id': id})}}" method="post" {{ form_enctype(form) }}>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            {{ form_label(form.customerName) }}
+                        </div>
+                        <div class="col-sm-8">
+                            {{ form_errors(form.customerName) }}
+                            {{ form_widget(form.customerName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            {{ form_label(form.firstname) }}
+                        </div>
+                        <div class="col-sm-8">
+                            {{ form_errors(form.firstname) }}
+                            {{ form_widget(form.firstname) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            {{ form_label(form.surname) }}
+                        </div>
+                        <div class="col-sm-8">
+                            {{ form_errors(form.surname) }}
+                            {{ form_widget(form.surname) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            {{ form_label(form.customerEmail) }}
+                        </div>
+                        <div class="col-sm-8">
+                            {{ form_errors(form.customerEmail) }}
+                            {{ form_widget(form.customerEmail) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            {{ form_label(form.customerTel) }}
+                        </div>
+                        <div class="col-sm-8">
+                            {{ form_errors(form.customerTel) }}
+                            {{ form_widget(form.customerTel) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            {{ form_label(form.dob) }}
+                        </div>
+                        <div class="col-sm-8">
+                            {{ form_errors(form.dob) }}
+                            {{ form_widget(form.dob) }}
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="centered{{id}}">
+                        <button class="btn btn-success btn-sm" type="submit">Save</button>
+                    </div>
+                    <div id="editload{{id}}" class="centered{{id}}"></div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

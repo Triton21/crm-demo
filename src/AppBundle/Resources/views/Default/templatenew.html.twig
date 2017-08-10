@@ -1,0 +1,66 @@
+{% block panel %}
+            
+
+            <div class="col-lg-12">
+
+                <!-- TOP CREATE NEW LEAD FORM -->
+                <div>
+                    <div class="panel panel-default gi-4p">
+                        <div class="panel-body">
+                            {% block newform %}
+                            {{ form_start(form) }}
+                            {% block field_row %}
+                                <div class="col-xs-2">
+                                    {{ form_label(form.customerName) }}
+                                    {{ form_errors(form.customerName) }}
+                                    {{ form_widget(form.customerName) }}
+                                </div>
+                                <div class="col-xs-2">
+                                    {{ form_label(form.customerEmail) }}
+                                    {{ form_errors(form.customerEmail) }}
+                                    {{ form_widget(form.customerEmail) }}
+                                </div>
+                                <div class="col-xs-2">
+                                    {{ form_label(form.customerTel) }}
+                                    {{ form_errors(form.customerTel) }}
+                                    {{ form_widget(form.customerTel) }}
+                                </div>
+                                <div class="col-xs-3">
+                                    {{ form_label(form.message) }}
+                                    {{ form_errors(form.message) }}
+                                    {{ form_widget(form.message) }}
+                                </div>
+                                <div class="col-xs-2">
+                                    {{ form_label(form.source) }}
+                                    {{ form_errors(form.source) }}
+                                    {{ form_widget(form.source) }}
+
+                                </div>
+                                <div class="col-xs-1">
+                                    <div class="row">&nbsp;</div>
+                                    <div class="row">
+                                        {{ form_widget(form.save) }}
+                                    </div>
+                                </div> 
+                            {% endblock field_row %}
+                            {{ form_end(form) }}
+                            {% endblock %}
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+{% endblock %}

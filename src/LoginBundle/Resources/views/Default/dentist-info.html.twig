@@ -1,0 +1,89 @@
+{% extends '::loginlayout.html.twig' %}
+{%block stylesheets %}
+    <style>
+        .myContainer {
+            background-color: white;
+            margin-top:  -20px;
+
+
+        }
+        .myNavbar {
+            -webkit-box-shadow:0px 2px 3px #cccccc;
+            -moz-box-shadow:0px 2px 3px #cccccc;
+            box-shadow:0px 2px 3px #cccccc;
+        }
+        .myHeader {
+            margin-top: 25px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 0px;
+            border-bottom: solid 2px #d8d8d8;
+            font-size: 30px;
+            color: #52bbf2;
+        }
+    </style>
+{%endblock%} 
+
+
+{% block body %}
+
+    <div class='container myContainer'>
+        <div class='col-md-12' style='min-height: 500px;'>
+            <div class='myHeader'>
+                <p><span>For Dental Professionals</span></p> 
+            </div>
+
+            <div class='col-md-7 col-sm-12'>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sollicitudin metus ac urna accumsan, 
+                    egestas vehicula erat luctus. In non nibh sem. Proin sed enim semper, ultrices ante ut,
+                    pretium turpis. Suspendisse quis vehicula est, eu laoreet enim. 
+                    Curabitur dui ex, vestibulum sed magna quis, pellentesque tempor diam. 
+                    Pellentesque at purus elit. Nulla hendrerit rhoncus eros quis fermentum. 
+                    Nullam porttitor nibh nec ipsum accumsan, eu feugiat ante accumsan. 
+                    Ut euismod elementum mi, quis porta arcu laoreet at. Suspendisse ut eros et nisi rutrum maximus ut vel dolor. 
+                    Quisque vel dictum ligula. Duis semper imperdiet rutrum.
+                </p><br>
+                
+                <p>
+                    Morbi porta sed odio id tristique. Nunc imperdiet ligula ut placerat efficitur. 
+                    Pellentesque vel dolor mi. Integer sit amet nunc tempus, malesuada neque ut, aliquam diam. 
+                    Nunc in nisl sit amet ante egestas rhoncus. Donec eu tempor felis. 
+                    Sed convallis, nulla quis cursus faucibus, arcu risus varius sapien, eget suscipit neque purus sit amet est. 
+                    Mauris finibus augue nec condimentum sollicitudin. Morbi dictum elementum nibh, 
+                    in euismod nunc pharetra ac. Sed sollicitudin eros sed tincidunt iaculis. 
+                    Proin tincidunt erat a pretium rhoncus. Sed vitae mi nisl. Maecenas tincidunt vulputate diam non vulputate. 
+                    Sed viverra quis mi eget rutrum.
+                </p>
+                
+                
+                
+                
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+{%endblock%} 
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $("#bs-example-navbar-collapse-1>ul>li.active").removeClass("active");
+            $('#info').addClass('active');
+        });
+    </script>
+
+{% endblock %}  

@@ -1,0 +1,253 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Textmessage
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\TextmessageRepository")
+ */
+class Textmessage
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fromNumber", type="string", length=255, nullable=true)
+     */
+    private $fromNumber;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="toNumber", type="string", length=255, nullable=true)
+     */
+    private $toNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="string", length=500, nullable=true)
+     */
+    private $body;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime")
+     */
+    private $createdAt;
+
+      
+    /**
+     * @var smallint
+     *
+     * @ORM\Column(name="messageType", type="smallint", nullable=true)
+     */
+    private $messageType;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="leadId", type="integer", nullable=true)
+     */
+    private $leadId;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="clientName", type="string", length=255, nullable=true)
+     */
+    private $clientName;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fromNumber
+     *
+     * @param string $fromNumber
+     *
+     * @return Textmessage
+     */
+    public function setFromNumber($fromNumber)
+    {
+        $this->fromNumber = $fromNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get fromNumber
+     *
+     * @return string
+     */
+    public function getFromNumber()
+    {
+        return $this->fromNumber;
+    }
+
+    /**
+     * Set body
+     *
+     * @param string $body
+     *
+     * @return Textmessage
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Textmessage
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+
+    /**
+     * Set messageType
+     *
+     * @param integer $messageType
+     *
+     * @return Textmessage
+     */
+    public function setMessageType($messageType)
+    {
+        $this->messageType = $messageType;
+    
+        return $this;
+    }
+
+    /**
+     * Get messageType
+     *
+     * @return integer
+     */
+    public function getMessageType()
+    {
+        return $this->messageType;
+    }
+
+    /**
+     * Set toNumber
+     *
+     * @param string $toNumber
+     *
+     * @return Textmessage
+     */
+    public function setToNumber($toNumber)
+    {
+        $this->toNumber = $toNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get toNumber
+     *
+     * @return string
+     */
+    public function getToNumber()
+    {
+        return $this->toNumber;
+    }
+
+    /**
+     * Set leadId
+     *
+     * @param integer $leadId
+     *
+     * @return Textmessage
+     */
+    public function setLeadId($leadId)
+    {
+        $this->leadId = $leadId;
+    
+        return $this;
+    }
+
+    /**
+     * Get leadId
+     *
+     * @return integer
+     */
+    public function getLeadId()
+    {
+        return $this->leadId;
+    }
+
+    /**
+     * Set clientName
+     *
+     * @param string $clientName
+     *
+     * @return Textmessage
+     */
+    public function setClientName($clientName)
+    {
+        $this->clientName = $clientName;
+    
+        return $this;
+    }
+
+    /**
+     * Get clientName
+     *
+     * @return string
+     */
+    public function getClientName()
+    {
+        return $this->clientName;
+    }
+}

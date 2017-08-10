@@ -1,0 +1,12 @@
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        Alarm is on! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="submit" id="turnoff{{id}}" class="btn btn-xs btn-danger">Turn off</button>
+    </div>
+    <div class="panel-body" id="turnoffload{{id}}">
+        <span style="font-weight: bold;">User: </span><p>{{thisalarm.user}}</p>
+        <span style="font-weight: bold;">Note: </span><p>{{thisalarm.note}}</p>
+        <span style="font-weight: bold;">Date: </span><p>{{thisalarm.alarmAt|date('d-m-Y H:i:s')}}</p>
+        <p></p>
+    </div>
+</div>
