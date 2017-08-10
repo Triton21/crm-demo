@@ -81,21 +81,22 @@
                 background-color: white;
             }
 
-            .orangeBackground {
+            .contactBackground {
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
                 background-color: white;
-                padding:15px;
-            }
-
-            .orangeBackground {
-                background-color: white;
-                padding:15px;
+                padding-top:15px;
             }
 
             .myFooter {
+{#                position: absolute;#}
+                bottom: 0px;
+                width: 100%;
                 border-top: 1px solid;
                 border-color: black;
                 background-color: gray;
-                padding:5px 5px 20px 5px;
+                padding:15px 5px 20px 5px;
                 text-align: center;
                 color: white;
             }
@@ -153,7 +154,7 @@
                     <div style="min-height:20em;"></div>
 
                     <div class='myTitle'>
-                        Easy to use CRM and Lead management system that eliminates manual work.
+                        Easy to use CRM And Lead Management system that eliminates manual work.
                     </div>
                     <div class='mySignature'>
                         Application created by Peter Csatai (2015)
@@ -167,76 +168,76 @@
                 </div>
             </section>  
             <section>
-                <div class='myDescription' style="min-height:50em;">
-                    <div style="min-height:3em;" class='whiteBackground'></div>
-                    <div class='myTitleBlack whiteBackground'>
-                        Keep your sales communication all in one place.
-                        <br>
-                    </div>
-                    <div style="min-height:2em;" class='whiteBackground'></div>
-                    <div style="min-height:4em;"></div>
-                    <div class="container" style="text-align: center;">
-                        <div class='col-lg-12'>
-                            <div class='col-sm-4' style='text-align: center;'>
-                                <div class='myPanel'>
-                                    <span class='glyphicon glyphicon-align-justify myIcon'></span>
-                                </div>
-                                <article>Website contact form integration</article>
-
+                {#                <div class='myDescription' style="min-height:50em;">#}
+                <div style="min-height:3em;" class='whiteBackground'></div>
+                <div class='myTitleBlack whiteBackground'>
+                    Keep your sales communication all in one place.
+                    <br>
+                </div>
+                <div style="min-height:2em;" class='whiteBackground'></div>
+                <div style="min-height:4em;"></div>
+                <div class="container" style="text-align: center;">
+                    <div class='col-lg-12'>
+                        <div class='col-sm-4' style='text-align: center;'>
+                            <div class='myPanel'>
+                                <span class='glyphicon glyphicon-align-justify myIcon'></span>
                             </div>
-                            <div class='col-sm-4'>
-                                <div class='myPanel'>
-                                    <span class='glyphicon glyphicon-envelope myIcon'></span>
-                                </div>
-                                <article>Email integration</article>
+                            <article>Website contact form integration</article>
 
+                        </div>
+                        <div class='col-sm-4'>
+                            <div class='myPanel'>
+                                <span class='glyphicon glyphicon-envelope myIcon'></span>
                             </div>
-                            <div class='col-sm-4'>
-                                <div class='myPanel'>
-                                    <span class='glyphicon glyphicon-phone myIcon'></span>
-                                </div>
-                                <article>
-                                    Text message manager
-                                </article>
+                            <article>Email integration</article>
+
+                        </div>
+                        <div class='col-sm-4'>
+                            <div class='myPanel'>
+                                <span class='glyphicon glyphicon-phone myIcon'></span>
                             </div>
-                        </div>
-                    </div>
-                    <div style="min-height:6em;"></div>
-                    <div style="min-height:12em; border-top:1px solid; border-top-color:black;" class='orangeBackground'>
-                        <div class='myTitleSmallBlack whiteBackground' style="padding-bottom:10px;">Register for trial access</div>
-                        {{ form_start(form) }}
-                        <div class='form-group'>
-                            {{ form_errors(form.name) }}
-                            {{ form_widget(form.name) }} 
-                        </div>
-                        <div class='form-group'>
-                            {{ form_errors(form.email) }}
-                            {{ form_widget(form.email) }} 
-                        </div>
-                        <div class='form-group'>
-                            {{ form_errors(form.phone) }}
-                            {{ form_widget(form.phone) }} 
-                        </div>
-
-                        <div style='text-align: center; margin-left: -50px;'>
-                            {{ form_end(form) }}
-
-
+                            <article>
+                                Text message manager
+                            </article>
                         </div>
                     </div>
+                </div>
+                <div style="min-height:6em;"></div>
+                <div style="min-height:12em; border-top:1px solid; border-top-color:black;" class='contactBackground'>
+                    <div class='myTitleSmallBlack whiteBackground' style="padding-bottom:10px;">Register for trial access</div>
+                    {{ form_start(form) }}
+                    <div class='form-group'>
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }} 
+                    </div>
+                    <div class='form-group'>
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email) }} 
+                    </div>
+                    <div class='form-group'>
+                        {{ form_errors(form.phone) }}
+                        {{ form_widget(form.phone) }} 
+                    </div>
+
+                    <div style='text-align: center; margin-left: -50px;'>
+                        {{ form_end(form) }}
+                    </div>
+
                     <div class='myFooter'>
-                        <span style="color:#dcdcdc;">@2017 All rights reserved Peter Csatai </span>| Contact | 
-                        <span style="padding-top:-3px;">
+                        <span style="color:#dcdcdc;">CRM And Lead Management @2017 All rights reserved Peter Csatai </span><span style="color:white;">| Contact |</span> 
+                        <span style="padding-top:-3px; padding-left: 10px;">
                             <a href="https://www.linkedin.com/in/peter-csatai-5a88aa81">
                                 <img border="0" alt="Peter Csatai" src="{{ asset('bundles/login/images/linkedin-small.png') }}">
                             </a>
                         </span>
-                        <span style="padding-top:-3px;">
+                        {#<span style="padding-top:-3px;">
                             <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
                             <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/peter-csatai-5a88aa81" data-format="hover" data-related="false" data-text="Peter Csatai"></script>
-                        </span>
+                        </span>#}
                     </div>
+
                 </div>
+                {#  </div>#}
             </section>  
 
 
@@ -252,7 +253,6 @@
                 $('#main').onepage_scroll();
             })
             $(document).on('click', "#pagerDown", function () {
-                console.log('here');
                 $("#main").moveDown();
             });
 
