@@ -96,3 +96,11 @@ referralform:
     path:   /referral-form
     defaults: { _controller: LoginBundle:Pages:referralform }
     
+send_contact_ajax:
+    path:   /send-contact-ajax
+    defaults: { _controller: LoginBundle:Security:sendContactAjax }
+    
+send_register_ajax:
+    path:   /send-register-ajax
+    defaults: { _controller: LoginBundle:Security:sendRegisterAjax }
+    

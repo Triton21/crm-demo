@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace LoginBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Demo
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\DemoRepository")
+ * @ORM\Entity(repositoryClass="LoginBundle\Entity\DemoRepository")
  */
 class Demo
 {
@@ -45,9 +45,16 @@ class Demo
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetimetz")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sent", type="integer", nullable = true)
+     */
+    private $sent;
 
 
     /**

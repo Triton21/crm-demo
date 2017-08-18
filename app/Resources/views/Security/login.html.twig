@@ -1,14 +1,6 @@
 {% extends '::layout.html.twig' %}
 {%block stylesheets %}
     <style type="text/css">
-       body
-        {
-            background: url('{{asset('bundles/app/images/background6.jpg')}}') fixed;
-            background-size: cover;
-            padding: 0;
-            margin: 0;
-        }
-
         .wrap
         {
             width: 100%;
@@ -69,6 +61,11 @@
         }
 
         form.login input[type="submit"]:hover
+        {
+            transition: background-color 0.5s ease;
+        }
+        
+        .submitButton:hover
         {
             transition: background-color 0.5s ease;
         }
@@ -220,7 +217,7 @@
 
                         <input type="password" placeholder="Password" id="password" name="_password" required="required" />
 
-                        <input type="submit" value="Sign In" class="btn btn-success btn-sm myFont" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
+                        <input type="submit" value="Sign In" class="btn btn-success btn-sm myFont submitButton" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
                         <div class="remember-forgot">
                             <div class="row">
                                 <div class="col-md-12 forgot-pass-content">

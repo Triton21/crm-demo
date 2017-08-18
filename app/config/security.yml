@@ -45,8 +45,11 @@ security:
         
     access_control:
         - { path: ^/receivetextmessage, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/contact-form, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/send-contact-ajax, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/send-register-ajax, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: ROLE_ADMIN }
         - { path: ^/register/confirmed, role: ROLE_ADMIN }
         - { path: ^/resetting, role: ROLE_ADMIN }
