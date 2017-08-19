@@ -152,7 +152,6 @@ class RegisterController extends Controller {
         $message = \Swift_Message::newInstance($subject)
                 ->setFrom(array($euser => $fromname))
                 ->setTo(array($newEmail => $newFirstname))
-                //->setBcc(array('sent@dentistabroad.co.uk' => 'Sent'))
                 ->setBody($body, 'text/html')
         ;
         $mailer->getTransport()->start();
@@ -166,7 +165,6 @@ class RegisterController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('LoginBundle:User')
                 ->findOneBy(array('token' => $token));
-        //var_dump($user);
         if ($user) {
             $isActive = $user->getIsActive();
             if ($isActive != false) {

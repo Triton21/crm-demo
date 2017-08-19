@@ -7,7 +7,7 @@ security:
         ROLE_CUSTOMER: [ROLE_CUSTOMER]
         ROLE_USER: [ROLE_USER, ROLE_CUSTOMER]
         ROLE_ADMIN: [ROLE_USER, ROLE_ADMIN]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_MAKE_ADMINS]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
 
     providers:
         database_users:

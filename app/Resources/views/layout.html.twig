@@ -95,6 +95,32 @@
                 margin-left: auto;
                 margin-right: auto;
             }
+            .topBar {
+                padding-top:10px;
+                padding-bottom:10px;
+            }
+            .topLink {
+                margin-right:10px;
+                color:white;
+                text-decoration: none;
+            }
+            a.topLink:link {
+                color:white;
+                text-decoration: none;
+            }
+             a.topLink:visited {
+                color:white;
+                text-decoration: none;
+            }
+            a.topLink:hover {
+                color:#cdcdcd;
+                text-decoration: none;
+            }
+            a.topLink:active {
+                color:white;
+                text-decoration: none;
+            }
+
         </style>
         {%block stylesheets %}
         {%endblock%}
@@ -104,6 +130,9 @@
         <div id="main">
             <section>
                 <div class="container" id="indexwhite" style ="text-align: center;">
+                    <div class="row topBar">
+                        <a href="#" class="showContactDialog topLink pull-right">Contact</a>
+                    </div>
                     <div style="min-height:10em;" class="mainVertical"></div>
                     <div class='myFont centerTitle'>CRM <span class='myFont redTitle'>AND</span> LEAD MANAGMENT
                     </div>
@@ -166,7 +195,8 @@
                 </div>
             </div>
             <section>
-                <div style="min-height:3em;" class='whiteBackground'></div>
+                <div style="min-height:3em;" class='whiteBackground row'>
+                </div>
                 <div class='myTitleBlack whiteBackground'>
                     Keep your sales communication all in one place.
                     <br>
@@ -208,10 +238,6 @@
                         <div class="row mobileCol">
                             <article>Text message manager</article>
                         </div>
-
-
-
-
                     </div>
                 </div>
                 <div style="min-height:6em;"></div>
@@ -243,11 +269,11 @@
                     </div>
                     <div style="padding-bottom: 10px; margin-top: -10px; text-align: center;">
                         <button id="registerFormSentButton" style="color:white; padding-top: -10px; display:none;" class="btn btn-success submitButton">
-                            <span class="myFont">MESSAGE SENT </span><span class="gi-5p glyphicon glyphicon-ok" style="color:white"></span>
+                            <span class="myFont">REQUEST SENT </span><span class="gi-5p glyphicon glyphicon-ok" style="color:white"></span>
                         </button>
                     </div>
                     <div class='myFooter'>
-                        <span style="color:#dcdcdc;">CRM And Lead Management @2017 All rights reserved Peter Csatai </span><span>| <a href="#" id="showContactDialog" style="color:white;">Contact</a> |</span> 
+                        <span style="color:#dcdcdc;">CRM And Lead Management @2017 All rights reserved Peter Csatai </span><span>| <a href="#" class="showContactDialog" style="color:white;">Contact</a> |</span> 
                         <span style="padding-top:-3px; padding-left: 10px;">
                             <a href="https://www.linkedin.com/in/peter-csatai-5a88aa81">
                                 <img border="0" alt="Peter Csatai" src="{{ asset('bundles/login/images/linkedin-small.png') }}">
@@ -292,7 +318,7 @@
 
             // CONTACT FORM AJAX SENDING START
 
-            $(document).on('click', "#showContactDialog", function () {
+            $(document).on('click', ".showContactDialog", function () {
                 $("#dialog").dialog();
             });
 
@@ -343,7 +369,6 @@
                 $('#registerFormSentButton').hide();
                 $('#registerFormButton').html('<span class="myFont">SEND</span>');
                 $('#registerFormButton').show();
-                //$("#dialog").dialog("destroy");
             });
 
             $(document).on('submit', "#registerForm", function (e) {
@@ -359,7 +384,6 @@
                     {
                         console.log(data);
                         if (data === 'success') {
-                            //$('#contactFormButton').html('<span class="myFont">MESSAGE SENT </span><span class="gi-5p glyphicon glyphicon-ok" style="color:white"></span>');
                             $('#registerFormButton').removeAttr("disabled");
                             $('#registerFormButton').hide();
                             $('#registerFormSentButton').show();
