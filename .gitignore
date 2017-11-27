@@ -6,6 +6,7 @@
 app/cache/*
 /app/config/parameters.yml
 /app/config/twilioParameters.yml
+/app/config/emailParameters.yml
 
 
 /app/logs/*
