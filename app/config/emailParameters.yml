@@ -1,8 +1,8 @@
 parameters:
-    sender-name: Peter Triton 
+    sender-name: ............
     smtp: smtp.gmail.com
     ssl: ssl
     imap-Server: imap.gmail.com
     imap-Port: 993/imap/ssl
-    email: tritonmailer@gmail.com
-    password: HELsinki01
+    email: .........
+    password: ........
