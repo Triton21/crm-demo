@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-//use AppBundle\Entity\User;
 use LoginBundle\Entity\User;
 use AppBundle\Entity\Userlog;
 use AppBundle\Entity\Callhistory;
@@ -18,7 +17,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AdminController extends Controller {
-
+    
+    
+    /**
+     * 
+     * Render the main admin page
+     */
     public function adminAction() {
 
         $login = $this->getUser();
@@ -33,6 +37,13 @@ class AdminController extends Controller {
         return $this->render('AppBundle:Admin:adminmain.html.twig', array('alluser' => $alluser, 'name' => $name,));
     }
     
+    /**
+     * 
+     * @param Request $request
+     * @param type $referencedate
+     * @param type $pager
+     * @return type
+     */
     public function adminmonitorAction(Request $request, $referencedate, $pager) {
 
         $login = $this->getUser();

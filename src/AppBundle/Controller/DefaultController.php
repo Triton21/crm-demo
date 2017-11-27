@@ -459,9 +459,6 @@ class DefaultController extends Controller {
             $note = $request->get("remindernote" . $id);
             $cName = $request->get("cname" . $id);
 
-            //$message = $aTime;
-
-
             $alarm = new Alarm();
             $alarm->setCreatedAt(new \DateTime());
             $alarm->setUser($name);
@@ -754,118 +751,11 @@ class DefaultController extends Controller {
 
         return $this->render('AppBundle:Default:leadtest.html.twig', array('countlead' => $countlead, 'myleads' => $todoleads, 'name' => $name,));
     }
-
-    public function todoAction(Request $request, $page, $itemperpage, $sort1, $sort2, $myfilter) {
-
-        $login = $this->getUser();
-        $name = $login->getUsername();
-        $countlead = $this->countlead();
-        // find todo leads and call history with array
-        $em = $this->getDoctrine()->getManager();
-
-        $pageslenghtarray = $em->getRepository('AppBundle:Lead')
-                ->countStatusByFilter('In progress', $myfilter);
-        $pageslenght = $pageslenghtarray[0][1];
-        $limit = $itemperpage;
-
-        if ($sort1 === '1') {
-            $offset = ($page * $limit) - $limit;
-            $todoleads = $em->getRepository('AppBundle:Lead')
-                    ->findLeadsByStatusSortCreatedDesc('In progress', $offset, $limit, $myfilter);
-        }
-        if ($sort1 === '2') {
-            $offset = ($page * $limit) - $limit;
-            $todoleads = $em->getRepository('AppBundle:Lead')
-                    ->findLeadsByStatusSortCreatedAsc('In progress', $offset, $limit, $myfilter);
-        }
-
-        if ($sort2 === '1') {
-            $offset = ($page * $limit) - $limit;
-            $todoleads = $em->getRepository('AppBundle:Lead')
-                    ->findLeadsByStatusByCreatedCreatedDesc('In progress', $offset, $limit, $myfilter);
-        }
-        if ($sort2 === '2') {
-            $offset = ($page * $limit) - $limit;
-            $todoleads = $em->getRepository('AppBundle:Lead')
-                    ->findLeadsByStatusByCreatedCreatedAsc('In progress', $offset, $limit, $myfilter);
-        }
-        if ($sort1 === '0' and $sort2 === '0') {
-            $offset = ($page * $limit) - $limit;
-            $todoleads = $em->getRepository('AppBundle:Lead')
-                    ->findLeadsByStatuByFilterDesc('In progress', $offset, $limit, $myfilter);
-        }
-
-        //assign get this lead button form
-
-        if ($request->getMethod() == "POST") {
-            $getid = $request->get("assign");
-            if ($getid) {
-                $createpost = $this->createnoteform($request);
-                return $this->redirect($this->generateUrl('lead_progress', array('id' => $getid)));
-            }
-        }
-
-        $callhistoryraw = $em->getRepository('AppBundle:Lead')
-                ->findDistinctContacted('In progress');
-        $filterarrayraw = array();
-        foreach ($callhistoryraw as $callraw) {
-            if (strval($callraw['contacted']) != '') {
-                $filterarrayraw[] = strval($callraw['contacted']);
-            }
-        }
-        $filterarray = array_values($filterarrayraw);
-        sort($filterarray);
-        array_unshift($filterarray, "all");
-
-        //paginator and filter
-
-        $pages = ceil($pageslenght / $itemperpage);
-        $pagediff = $pages - $page;
-        if ($pagediff < 0) {
-            $pages = 1;
-        }
-        $pagesarray = array();
-        for ($i = 1; $i <= $pages; $i++) {
-            $pagesarray[] = $i;
-        }
-        if ($page <= '5') {
-            $pagesarray = array_slice($pagesarray, 0, 10);
-        }
-        if ($page > '5') {
-            $pagesarray = array_slice($pagesarray, $page - 5, 10);
-        }
-
-        //scrol down or up in pages
-        if ($pages == $page) {
-            $pageup = false;
-        } else {
-            $pageup = $page + 1;
-        }
-        if ($page == '1') {
-            $pagedown = false;
-        } else {
-            $pagedown = $page - 1;
-        }
-
-
-        // last contact array
-        $lastcontact = array();
-        foreach ($todoleads as $todol) {
-            $callid = $todol->getId();
-            $lastcont = $todol->getLastcontact();
-            if ($lastcont != null) {
-                $lastdatestring = $lastcont->format('d-m-Y H:i:s');
-                $lastcontact[$callid] = $lastdatestring;
-            } else {
-                $lastcontact[$callid] = 'N/A';
-            }
-        }
-
-
-        return $this->render('AppBundle:Default:todolead.html.twig', array('lastcontact' => $lastcontact, 'myfilter' => $myfilter, 'filterarray' => $filterarray, 'pagedown' => $pagedown, 'pageup' => $pageup, 'sort1' => $sort1, 'sort2' => $sort2, 'itemperpage' => $itemperpage, 'page' => $page, 'pagesarray' => $pagesarray, 'countlead' => $countlead, 'todoleads' => $todoleads, 'name' => $name,));
-    }
-
-    public function todotestAction(Request $request, $page, $itemperpage, $sort1, $sort2, $myfilter) {
+    
+    /*
+     * Main "IN Progress" lead list display
+     */
+    public function todoleadAction(Request $request, $page, $itemperpage, $sort1, $sort2, $myfilter) {
 
         $login = $this->getUser();
         $name = $login->getUsername();
@@ -1491,7 +1381,6 @@ class DefaultController extends Controller {
         $newleads = array_reverse($newleadarray);
 
         //assign get this lead button form
-
         if ($request->getMethod() == "POST") {
             $getid = $request->get("assign");
             $createpost = $this->createnoteform($request);
@@ -1510,7 +1399,6 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $newleadarray = $em->getRepository('AppBundle:Lead')
                 ->findleadsbystatus('new');
-
 
         $newleads = array_reverse($newleadarray);
 
@@ -1906,7 +1794,6 @@ class DefaultController extends Controller {
 
                 $em = $this->getDoctrine()->getManager();
                 $status = 'Called';
-                $addstatustolead = $this->addcallhistorytolead($noteLeadId);
                 $callhistory = new Callhistory();
                 $callhistory->setLeadid($noteLeadId);
                 $callhistory->setCalldate(new \DateTime());
@@ -1999,42 +1886,7 @@ class DefaultController extends Controller {
             return;
         }
     }
-
-    public function addcallhistorytolead($statusid) {
-        $login = $this->getUser();
-        $name = $login->getUsername();
-        $em = $this->getDoctrine()->getManager();
-        $leadstatus = $em->getRepository('AppBundle:Lead')->findOneBy(array('id' => $statusid));
-        $status = 'Called';
-        if ($status === 'Called') {
-            $called1status = $leadstatus->getCalled1();
-            if (!$called1status) {
-                $leadstatus->setCalled1(new \DateTime());
-            } else {
-                $called2status = $leadstatus->getCalled2();
-                if (!$called2status) {
-                    $leadstatus->setCalled2(new \DateTime());
-                } else {
-                    $called3status = $leadstatus->getCalled3();
-                    if (!$called3status) {
-                        $leadstatus->setCalled3(new \DateTime());
-                    } else {
-                        $called4status = $leadstatus->getCalled4();
-                        if (!$called4status) {
-                            $leadstatus->setCalled4(new \DateTime());
-                        } else {
-                            $called5status = $leadstatus->getCalled5();
-                            if (!$called5status) {
-                                $leadstatus->setCalled5(new \DateTime());
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        $em->flush();
-        return;
-    }
+    
 
     public function ajaxupdatecontactdetailsAction($id) {
         $em = $this->getDoctrine()->getManager();

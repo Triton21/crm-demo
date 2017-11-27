@@ -423,11 +423,7 @@ lead_todo:
         
 lead_todotest:
         path: /todo-lead/{page}/{itemperpage}/{sort1}/{sort2}/{myfilter}
-        defaults: { _controller: AppBundle:Default:todotest, page:1, itemperpage:25, sort1:'0', sort2:'0', myfilter:all }
-        
-#lead_new:
-#        path: /newlead
-#        defaults: { _controller: AppBundle:Default:new }
+        defaults: { _controller: AppBundle:Default:todolead, page:1, itemperpage:25, sort1:'0', sort2:'0', myfilter:all }
         
 lead_newajax:
         path: /new-lead
