@@ -19,7 +19,6 @@
             crossorigin="anonymous">
         </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="{{asset('bundles/app/js/jquery.onepage-scroll.min.js')}}"></script>
         <script
             src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
             integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
@@ -29,7 +28,7 @@
         <style type="text/css">
             body
             {
-                background: url('{{asset('bundles/app/images/background6.jpg')}}') fixed;
+                background: url('{{asset('bundles/app/images/background9.jpg')}}') fixed;
                 background-size: cover;
                 padding: 0;
                 margin: 0;
@@ -39,87 +38,6 @@
                 font-family: 'Drug'; 
                 src:    url({{asset('bundles/app/fonts/Drugs.otf')}}) format('opentype'); 
             }
-            @media screen and (min-width: 768px) {
-                .mobileCol {
-                    display:none;
-                }
-                .centerTitle {
-                    font-size: 4em;
-                    color: white;
-                }
-
-            }
-            @media screen and (max-width: 767px) {
-                .middleCol {
-                    display:none;
-                }
-                .mainVertical {
-                    display:none;
-                }
-                .centerTitle {
-                    font-size: 2em;
-                    color: white;
-                }
-
-            }
-            .ui-dialog .ui-dialog-content
-            {
-                position: relative;
-                border: 0;
-                padding: .4em 1em;
-                background: none;
-                overflow: hidden;
-                zoom: 1;
-                background-color: #cccccc;
-                font-family: 'Drug', 'Open Sans', sans-serif;
-            }
-
-            .ui-dialog .ui-dialog-titlebar
-            {
-                font-family: 'Drug', 'Open Sans', sans-serif;
-            }
-
-            .ui-widget-content
-            {
-                padding: 0px;
-                border:none;
-            }
-            .myFont {
-                font-family: 'Drug', 'Open Sans', sans-serif;
-            }
-            #contactFormButton {
-                min-width: 70px;
-            }
-            .myLoader {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .topBar {
-                padding-top:10px;
-                padding-bottom:10px;
-            }
-            .topLink {
-                margin-right:10px;
-                color:white;
-                text-decoration: none;
-            }
-            a.topLink:link {
-                color:white;
-                text-decoration: none;
-            }
-            a.topLink:visited {
-                color:white;
-                text-decoration: none;
-            }
-            a.topLink:hover {
-                color:#cdcdcd;
-                text-decoration: none;
-            }
-            a.topLink:active {
-                color:white;
-                text-decoration: none;
-            }
-
         </style>
         {%block stylesheets %}
         {%endblock%}
@@ -164,44 +82,12 @@
                 </div>
             </div>
         </div>
-        <div id="registerDialog" title="Register form" style="display:none;">
-            <div class="row">
-                {{ form_start(form, {'attr': {'id': 'registerForm'}}) }}
-                <div style="padding-top: 5px;">
-                    {{ form_errors(form.name) }}
-                    {{ form_widget(form.name) }} 
-                </div>
-                <div style="padding-top: 5px;">
-                    {{ form_errors(form.email) }}
-                    {{ form_widget(form.email) }} 
-                </div>
-                <div style="padding-top: 5px;">
-                    {{ form_errors(form.phone) }}
-                    {{ form_widget(form.phone) }} 
-                </div>
-                <div style="padding-bottom: 10px; padding-top: 5px; text-align: center;">
-                    <button id="registerFormButton" type="submit" style="color:white;" class="btn btn-success myLoader">
-                        <span class="myFont">SEND</span>
-                    </button>
-                </div>
 
-                <div style='text-align: center; margin-left: -50px;'>
-                    {{ form_end(form) }}
-                </div>
-                <div style="text-align: center;">
-                    <button id="registerFormSentButton" style="margin-top: -10px; margin-bottom: 10px; color:white;display:none;" class="btn btn-success submitButton">
-                        <span class="myFont">MESSAGE SENT </span><span class="gi-5p glyphicon glyphicon-ok" style="color:white"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="container" id="indexwhite" style ="text-align: center;">
+        <div class="container center" id="indexwhite">
             <div class="row topBar">
                 <a href="#" class="showContactDialog topLink pull-right"> Contact</a>
-                <a href="#" class="showRegisterDialog topLink pull-right">Register </a>
             </div>
-            <div style="min-height:5em;" class="mainVertical"></div>
+            <div style="min-height:10em;" class="mainVertical"></div>
             <div class='myFont centerTitle'>CRM <span class='myFont redTitle'>AND</span> LEAD MANAGMENT
             </div>
 
@@ -213,7 +99,7 @@
                 Easy to use CRM And Lead Management system that eliminates manual work.
             </div>
             <div class='mySignature'>
-                Application created by Peter Csatai (2015)
+                Application created by Peter Csatai (2015 - 2017)
             </div>
             <div style="min-height:12em;"></div>
         </div>
@@ -224,7 +110,7 @@
     </div>
     <script>
         $(document).ready(function () {
-            var loadingsmall = '<div class="ispinner ispinner--white ispinner--animating myLoader" id="loader">\
+        var loadingsmall = '<div class="ispinner ispinner--white ispinner--animating myLoader" id="loader">\
                                     <div class="ispinner-blade"></div>\
                                     <div class="ispinner-blade"></div>\
                                     <div class="ispinner-blade"></div>\
@@ -238,100 +124,50 @@
                                     <div class="ispinner-blade"></div>\
                                     <div class="ispinner-blade"></div>\
                                 </div>   ';
+        var loading = '<div class="ispinner ispinner--white ispinner--animating myLoader"><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div></div>';
+        // CONTACT FORM AJAX SENDING START
 
-            var loading = '<div class="ispinner ispinner--white ispinner--animating myLoader"><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div><div class="ispinner__blade"></div></div>';
-
-            $(function () {
-                $('#main').onepage_scroll();
-            });
-
-            $(document).on('click', "#pagerDown", function () {
-                $("#main").moveDown();
-            });
-
-
-            // CONTACT FORM AJAX SENDING START
-
-            $(document).on('click', ".showContactDialog", function () {
-                $("#dialog").dialog();
-            });
-            $(document).on('click', ".showRegisterDialog", function () {
-                $("#registerDialog").dialog();
-            });
-
-            //reset the contact form
-            $(document).on('click', "#contactFormSentButton", function () {
-                $("#loginbundle_contact_message").val('');
-                $("#loginbundle_contact_name").val('');
-                $("#loginbundle_contact_phone").val('');
-                $("#loginbundle_contact_email").val('');
-                $('#contactFormSentButton').hide();
-                $('#contactFormButton').html('<span class="myFont">SEND</span>');
-                $('#contactFormButton').show();
-                $("#dialog").dialog("destroy");
-            });
-
-            $(document).on('submit', "#contactForm", function (e) {
-                $('#contactFormButton').attr('disabled', 'disabled');
-                $('#contactFormButton').html(loading);
-
-                var frm = $('#contactForm');
-                $.ajax({
-                    type: frm.attr('method'),
-                    url: frm.attr('action'),
-                    data: frm.serialize(),
-                    success: function (data)
-                    {
-                        console.log(data);
-                        if (data === 'success') {
-                            //$('#contactFormButton').html('<span class="myFont">MESSAGE SENT </span><span class="gi-5p glyphicon glyphicon-ok" style="color:white"></span>');
-                            $('#contactFormButton').removeAttr("disabled");
-                            $('#contactFormButton').hide();
-                            $('#contactFormSentButton').show();
-                        }
-                    }
-                });
-                e.preventDefault();
-            });
-
-            // CONTACT FORM AJAX SENDING END
+        $(document).on('click', ".showContactDialog", function () {
+        $("#dialog").dialog();
+        });
+        $(document).on('click', ".showRegisterDialog", function () {
+        $("#registerDialog").dialog();
+        });
+        //reset the contact form
+        $(document).on('click', "#contactFormSentButton", function () {
+        $("#loginbundle_contact_message").val('');
+        $("#loginbundle_contact_name").val('');
+        $("#loginbundle_contact_phone").val('');
+        $("#loginbundle_contact_email").val('');
+        $('#contactFormSentButton').hide();
+        $('#contactFormButton').html('<span class="myFont">SEND</span>');
+        $('#contactFormButton').show();
+        $("#dialog").dialog("destroy");
+        });
+        $(document).on('submit', "#contactForm", function (e) {
+        $('#contactFormButton').attr('disabled', 'disabled');
+        $('#contactFormButton').html(loading);
+        var frm = $('#contactForm');
+        $.ajax({
+        type: frm.attr('method'),
+                url: frm.attr('action'),
+                data: frm.serialize(),
+                success: function (data)
+                {
+                console.log(data);
+                if (data === 'success') {
+                //$('#contactFormButton').html('<span class="myFont">MESSAGE SENT </span><span class="gi-5p glyphicon glyphicon-ok" style="color:white"></span>');
+                $('#contactFormButton').removeAttr("disabled");
+                $('#contactFormButton').hide();
+                $('#contactFormSentButton').show();
+                }
+                }
+        });
+        e.preventDefault();
+        });
+        // CONTACT FORM AJAX SENDING END
 
 
-            // REGISTER FORM AJAX SENDING START
-            $(document).on('click', "#registerFormSentButton", function () {
-                $("#loginbundle_demo_name").val('');
-                $("#loginbundle_demo_email").val('');
-                $("#loginbundle_demo_phone").val('');
-                $('#registerFormSentButton').hide();
-                $('#registerFormButton').html('<span class="myFont">SEND</span>');
-                $('#registerDialog').hide();
-            });
-
-            $(document).on('submit', "#registerForm", function (e) {
-                $('#registerFormButton').attr('disabled', 'disabled');
-                $('#registerFormButton').html(loading);
-
-                var frm = $('#registerForm');
-                $.ajax({
-                    type: frm.attr('method'),
-                    url: frm.attr('action'),
-                    data: frm.serialize(),
-                    success: function (data)
-                    {
-                        console.log(data);
-                        if (data === 'success') {
-                            $('#registerFormButton').removeAttr("disabled");
-                            $('#registerFormButton').hide();
-                            $('#registerFormSentButton').show();
-                        } else {
-                            console.log(data);
-                        }
-                    }
-                });
-                e.preventDefault();
-            });
-
-            // REGISTER FORM END
         });
     </script>
 

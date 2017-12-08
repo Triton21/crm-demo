@@ -1,9 +1,90 @@
+@media screen and (min-width: 768px) {
+    .mobileCol {
+        display:none;
+    }
+    .centerTitle {
+        font-size: 4em;
+        color: white;
+    }
+
+}
+@media screen and (max-width: 767px) {
+    .middleCol {
+        display:none;
+    }
+    .mainVertical {
+        display:none;
+    }
+    .centerTitle {
+        font-size: 2em;
+        color: white;
+    }
+
+}
+.ui-dialog .ui-dialog-content
+{
+    position: relative;
+    border: 0;
+    padding: .4em 1em;
+    background: none;
+    overflow: hidden;
+    zoom: 1;
+    background-color: #cccccc;
+    font-family: 'Drug', 'Open Sans', sans-serif;
+}
+
+.ui-dialog .ui-dialog-titlebar
+{
+    font-family: 'Drug', 'Open Sans', sans-serif;
+}
+
+.ui-widget-content
+{
+    padding: 0px;
+    border:none;
+}
 .myFont {
     font-family: 'Drug', 'Open Sans', sans-serif;
 }
-.centerTitle {
-    font-size: 4em;
-    color: white;
+#contactFormButton {
+    min-width: 70px;
+}
+.myLoader {
+    margin-left: auto;
+    margin-right: auto;
+}
+.topBar {
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.topLink {
+    margin-right:10px;
+    color:white;
+    text-decoration: none;
+}
+a.topLink:link {
+    color:white;
+    text-decoration: none;
+}
+a.topLink:visited {
+    color:white;
+    text-decoration: none;
+}
+a.topLink:hover {
+    color:#cdcdcd;
+    text-decoration: none;
+}
+a.topLink:active {
+    color:white;
+    text-decoration: none;
+}
+
+.center {
+    text-align: center;
+}
+
+.myFont {
+    font-family: 'Drug', 'Open Sans', sans-serif;
 }
 .redTitle {
     color: red;
