@@ -38,7 +38,7 @@ class AdminController extends Controller {
     }
     
     /**
-     * 
+     * Render 
      * @param Request $request
      * @param type $referencedate
      * @param type $pager

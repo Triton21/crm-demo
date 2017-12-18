@@ -51,20 +51,6 @@ class DefaultController extends Controller {
         return $this->redirectToRoute('logout');
     }
 
-    public function userLogRegisterAction($register) {
-        $login = $this->getUser();
-        $name = $login->getUsername();
-        $em = $this->getDoctrine()->getManager();
-
-        $userlog = new Userlog();
-        $userlog->setUsername($name);
-        $userlog->setRegister($register);
-        $userlog->setCreatedAt(new \DateTime());
-        $em->persist($userlog);
-        $em->flush();
-        return true;
-    }
-
     public function loginregisterAction(Request $request) {
         $login = $this->getUser();
         $name = $login->getUsername();
@@ -115,7 +101,9 @@ class DefaultController extends Controller {
         $login = $this->getUser();
         $name = $login->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead main opened');
+
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead main opened');
 
         $countlead = $this->countlead();
         $countlog = $this->countlog();
@@ -152,7 +140,9 @@ class DefaultController extends Controller {
         $login = $this->getUser();
         $name = $login->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead main opened');
+
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead main opened');
 
         $countlead = $this->countlead();
         $countlog = $this->countlog();
@@ -185,11 +175,18 @@ class DefaultController extends Controller {
                     'countlog' => $countlog, 'countthisweek' => $countthisweek, 'countlastweekTwo' => $countlastweekTwo, 'countlastweek' => $countlastweek, 'countlead' => $countlead, 'name' => $name,));
     }
 
+    /*
+     * 
+     * 
+     */
+
     public function leadrecommendedAction(Request $request) {
         $login = $this->getUser();
         $name = $login->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead recommended opened');
+
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead recommended opened');
 
         $countlead = $this->countlead();
         $countlog = $this->countlog();
@@ -214,11 +211,9 @@ class DefaultController extends Controller {
         $startdatethis = $myNotReachedDatesThis['0'];
         $finishdatethis = $myNotReachedDatesThis['1'];
 
-
         $countthisweekarray = $em->getRepository('AppBundle:Lead')
                 ->countNotReachedLastWeek($startdatethis, $finishdatethis);
         $countthisweek = $countthisweekarray['1'];
-
 
         $countlastweekarray = $em->getRepository('AppBundle:Lead')
                 ->countNotReachedLastWeek($startdate, $finishdate);
@@ -265,7 +260,9 @@ class DefaultController extends Controller {
         $login = $this->getUser();
         $name = $login->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead not reached last week opened');
+
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead not reached last week opened');
         $countlead = $this->countlead();
 
         $paneltitle = "Leed not reached last week";
@@ -285,7 +282,8 @@ class DefaultController extends Controller {
         $login = $this->getUser();
         $name = $login->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead not reached this week opened');
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead not reached this week opened');
         $countlead = $this->countlead();
 
         $paneltitle = "Leed not reached this week";
@@ -323,7 +321,10 @@ class DefaultController extends Controller {
         $login = $this->getUser();
         $name = $login->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead not reached 2 weeks ago opened');
+
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead not reached 2 weeks ago opened');
+
         $countlead = $this->countlead();
         $paneltitle = "Leed not reached two weeks ago";
 
@@ -342,7 +343,9 @@ class DefaultController extends Controller {
         $login = $this->getUser();
         $name = $login->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead not reached 3 weeks ago opened');
+
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead not reached 3 weeks ago opened');
         $countlead = $this->countlead();
         $paneltitle = "Leed not reached three weeks ago";
 
@@ -361,7 +364,9 @@ class DefaultController extends Controller {
         $login = $this->getUser();
         $name = $login->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead not reached 4 weeks ago opened');
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead not reached 4 weeks ago opened');
+
         $countlead = $this->countlead();
         $paneltitle = "Leed not reached four weeks ago";
 
@@ -480,8 +485,8 @@ class DefaultController extends Controller {
             $em->flush();
             $message = 'Coool :)';
 
-            $register = $cName . ' lead alarm set';
-            $this->userLogRegisterAction($register);
+            //Usermonitor service
+            $this->get('app.usermonitor')->register($cName . ' lead alarm set');
         }
 
         $response = new Response(json_encode($message));
@@ -519,9 +524,9 @@ class DefaultController extends Controller {
             $message = 'Coool :)';
 
             $register = $cname . ' lead alarm set';
-            $this->userLogRegisterAction($register);
+            //Usermonitor service
+            $this->get('app.usermonitor')->register($cName . ' lead alarm set');
         }
-
 
         $response = new Response(json_encode($message));
         return $response;
@@ -726,7 +731,8 @@ class DefaultController extends Controller {
         $login = $this->getUser();
         $name = $login->getUsername();
         $countlead = $this->countlead();
-        $this->userLogRegisterAction('Lead my lead opened');
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead my lead opened');
 
         // find todo leads and call history with array
         $em = $this->getDoctrine()->getManager();
@@ -751,10 +757,11 @@ class DefaultController extends Controller {
 
         return $this->render('AppBundle:Default:leadtest.html.twig', array('countlead' => $countlead, 'myleads' => $todoleads, 'name' => $name,));
     }
-    
+
     /*
      * Main "IN Progress" lead list display
      */
+
     public function todoleadAction(Request $request, $page, $itemperpage, $sort1, $sort2, $myfilter) {
 
         $login = $this->getUser();
@@ -762,7 +769,8 @@ class DefaultController extends Controller {
         $countlead = $this->countlead();
         // find todo leads and call history with array
         $em = $this->getDoctrine()->getManager();
-        $this->userLogRegisterAction('Lead in progress total opened');
+        //Usermonitor service
+        $this->get('app.usermonitor')->register('Lead in progress total opened');
 
         $pageslenghtarray = $em->getRepository('AppBundle:Lead')
                 ->countStatusByFilter('In progress', $myfilter);
@@ -880,8 +888,8 @@ class DefaultController extends Controller {
         }
 
         $customerName = $thislead[0]->getCustomerName();
-        $register = $customerName . ' lead opened';
-        $this->userLogRegisterAction($register);
+        //Usermonitor service
+        $this->get('app.usermonitor')->register($customerName . ' lead opened');
 
         $callhistory = $em->getRepository('AppBundle:Callhistory')
                 ->findmycallhistorybyid($id);
@@ -908,8 +916,8 @@ class DefaultController extends Controller {
                 //User register
                 $customerName = $thislead->getCustomerName();
                 $register = $customerName . ' probability has been set';
-                $this->userLogRegisterAction($register);
-
+                //Usermonitor service
+                $this->get('app.usermonitor')->register($register);
                 $message = 'Prob success';
             }
             if ($newNote) {
@@ -922,8 +930,8 @@ class DefaultController extends Controller {
                 $customerName = $thislead->getCustomerName();
                 $noteContent = $request->get("note");
                 $register = $customerName . ' Note: ' . $noteContent;
-                $this->userLogRegisterAction($register);
-
+                //Usermonitor service
+                $this->get('app.usermonitor')->register($register);
                 $message = $newNote;
             }
             if ($newStatus) {
@@ -935,7 +943,7 @@ class DefaultController extends Controller {
 
                 $customerName = $thislead->getCustomerName();
                 $register = $customerName . ' Status changed to: ' . $newStatus;
-                $this->userLogRegisterAction($register);
+                $this->get('app.usermonitor')->register($register);
 
                 $message = 'Success';
             }
@@ -1276,7 +1284,7 @@ class DefaultController extends Controller {
 
             //User register
             $register = $cName . ' lead email sent';
-            $this->userLogRegisterAction($register);
+            $this->get('app.usermonitor')->register($register);
 
             $html = 'Message sent!';
 
@@ -1360,7 +1368,7 @@ class DefaultController extends Controller {
         //User register
         $customerName = $thislead[0]->getCustomerName();
         $register = $customerName . ' lead opened';
-        $this->userLogRegisterAction($register);
+        $this->get('app.usermonitor')->register($register);
 
         $callhistory = $em->getRepository('AppBundle:Callhistory')
                 ->findmycallhistorybyid($id);
@@ -1886,7 +1894,6 @@ class DefaultController extends Controller {
             return;
         }
     }
-    
 
     public function ajaxupdatecontactdetailsAction($id) {
         $em = $this->getDoctrine()->getManager();
